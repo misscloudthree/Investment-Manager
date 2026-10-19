@@ -103,3 +103,12 @@ ETF 不使用公司五因子總分。先核對公開說明書、指數方法／�
 輸出 Candidate List、篩選理由、來源、研究優先度及不確定／缺漏；Research Priority 為 high／medium／low／unranked，說明依據。資訊不可比時給 unranked；它不是獲利概率。各資產類型分開，透明記錄所有調整與排除。
 
 篩選 Markdown 以 `docs/INVESTMENT_MEMO_TEMPLATE.md` 保留適用章節（不足處明示 screening／未深研），原 screener JSON 保留作工作表。若為候選生成結構化提案，唯一提案契約是 `schemas/thesis-proposal.schema.json`：research_stage=screening，status 只能 draft／needs_information；不把分數直接變成完整投資論點或核准門檻。單一候選完成深研後，由 company-research 產出 Memo + Thesis Proposal。
+
+
+## Task 2.1：研究優先度與現在投資是兩個問題
+
+候選比較增加三道分欄：Asset Quality、Entry Attractiveness、Portfolio Suitability；完整方法與決策判準由 company-research 的 Task 2.1 節維護，不另養一套。產品品質只能支持 Gate 1，不能因知名、低名目費率、過去績效或高配息就推論現在可投資。初篩未取得價格／NAV、底層估值、費後三情境與風險時，Gate 2 標 Insufficient Evidence；未有實際持倉、風險承受與資金需求時，Gate 3 必須 Not Assessed。
+
+在 Candidate List 加研究價值／需解答問題、證據覆蓋、重大缺口、替代方案與決定性資料取得方式。可以比較「值得研究什麼」，資訊不齊時不產生投資優劣排名。先交 company-research 補決策證據；初篩提案也須帶 Schema 2.0 的 investment_decision，但不得用篩選分數直接建議 Invest Now／Phased Entry／Wait for Conditions。
+
+針對 0050／00646／00713 等不同目標 ETF，先確認各自曝險與指數方法，再比較同目標替代；不同市場／因子不能僅靠 TER 或歷史漲幅混排。假設資金與期間不等於風險承受能力或已同意配置比例。

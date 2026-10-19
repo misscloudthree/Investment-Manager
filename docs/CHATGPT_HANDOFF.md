@@ -83,3 +83,24 @@ convert 不會自動寫 Memo、填 KPI、決定數值門檻、提升 ready_for_r
 ## 維護 manifest
 
 變更 canonical Skill 或任何必要依賴後，先審閱差異並遞增方法包 revision（X.Y.Z），再執行 `python src/research_handoff.py refresh-manifest --revision <新版本>` 與測試。此命令只刷新既有依賴清單的 hash／revision，不會自行發現新依賴；新增引用檔案仍須先更新清單並確認 Schema 閉包。不要為了讓不可信檔案「通過」而盲目刷新。提交所有必要檔案後才能 bundle，避免把前一個 HEAD 冒稱成當前修改。
+
+
+## Task 2.1 — 決策品質交接與驗收
+
+使用 manifest 的新版方法（2.1.0）及 Proposal Schema 2.0；載入新 `schemas/investment-decision.schema.json` 與 `src/investment_decision.py`，不要將 Task 2.0 bundle 與新版 Schema 混用。舊 commit 的 1.0 提案保持歷史版本；新工作表 convert 只補未評估決策，不轉成推薦。
+
+完整深研先依 company-research 的三閘門與七題反方，最後交付 Memo 第 14 節與 investment_decision。Asset Quality Pass 不代表 Entry Attractive，Not Assessed 不能當 Suitable。資料不夠時輸出 Insufficient Evidence、null 報酬與決定性補證清單；有資料才談「等待哪些市場條件」，不要以 Wait for Conditions 隱藏缺資料。
+
+Decision Status（五種研究建議）與 proposal_status（未核准工作流程）分開；即使 Invest Now 也不是批准或下單。Gate 3 缺持倉／風險／用款需求必須 Not Assessed，最終個人建議為 Insufficient Evidence。財務模型只可在有來源／理由的輸入下執行；缺 Python 就不能宣稱已驗算或提供精準數字。
+
+可把首次操作提示改為：「請研究現在投入假設 TWD 100 萬、持有五年的 0050／00646／00713。我尚未提供完整持倉、風險承受及用款資料。先比研究問題，再分開完成三道閘門；不要自動分配資金。最後附 Investment Decision、逐項可重算三情境及反方審查；資料不足明示 null／Insufficient Evidence 與官方補證方式，不編現在行情或合理買價。」
+
+離線驗收（只在完整 checkout 或可讀完整 bundle 的環境）：
+
+```sh
+python -m examples.etf_decision_acceptance --output-dir /tmp/task21-mock
+# 如無 Git checkout，可加 --bundle <已驗證新版 bundle.zip>
+python src/research_handoff.py validate /tmp/task21-mock/TWSE-0050.json
+```
+
+mock 程式只建立／驗證合成決策契約，不執行 Skill、ChatGPT 或市場研究。三檔皆應 Gate 1 Pass（僅合成資料）、Gate 2 Insufficient Evidence、Gate 3 Not Assessed，最終 Insufficient Evidence。完整真實接受測試仍須逐欄取官方來源、核算與人工評估假設；詳見 TASK21_DECISION_REVIEW.md。

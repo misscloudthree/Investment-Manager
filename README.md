@@ -44,3 +44,17 @@ python src/research_handoff.py validate /private/path/proposal.json --bundle /tm
 src/research_handoff.py 只做離線封裝／契約與來源一致性檢查，不取得金融資料、不進行自動研究、不產生批准。src/run.py 是既有離線 demo，不是真實組合風險模型。只有模擬測試通過不能聲稱 ChatGPT live 研究已驗收。
 
 下一階段先手動驗證一檔股票與 ETF 的真實研究，再在 Task 3 實作人工批准、受控持久化、每日監控與組合風險；GitHub Actions 和資料 adapter 依驗證需求逐步建置。不接券商、不自動交易。
+
+
+## Task 2.1：投資決策品質
+
+兩個 Skill 新增三道獨立閘門（產品品質／現在進場／個人組合適合度）、七題反方審查，以及 Memo 最末的 Investment Decision。新提案使用 Schema 2.0；歷史提案依原 commit 驗證。來源缺漏不能用產品故事補足或假裝適合個人。
+
+- [根因、相容性與驗收](docs/TASK21_DECISION_REVIEW.md)
+- [決策元件契約](schemas/investment-decision.schema.json)（由唯一 Proposal Schema 引用）
+
+```sh
+python -m examples.etf_decision_acceptance --output-dir /tmp/task21-mock
+```
+
+此命令須於新版方法已提交後執行，輸出三檔 mock Decision Proposals 與比較報告，不連市場或 ChatGPT、不配置資金。預期為 Insufficient Evidence；未提供的價格與預測維持 null。真實研究前依 ChatGPT Handoff 重載新版，別沿用舊包。

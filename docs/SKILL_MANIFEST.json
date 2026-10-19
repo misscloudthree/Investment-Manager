@@ -10,23 +10,23 @@
     },
     {
       "path": "README.md",
-      "sha256": "a5181e51f96e13bb7aaa1150902dd442754343a88c70014a3f95836d7292cb74"
+      "sha256": "38273097e61320cd3a884dbfa9f759f757bb62504cf77cd45db3ffcb01a26cc3"
     },
     {
       "path": "docs/CHATGPT_BOOTSTRAP.md",
-      "sha256": "a192dc16fd798ea1b65d09df3dc7e69f0eddeb961e5e0bd37606c4a6ebe85e4f"
+      "sha256": "6e552fe70006178e2c0780f1bcb307f2787b376beae542c8b2202182b098ee1e"
     },
     {
       "path": "docs/CHATGPT_HANDOFF.md",
-      "sha256": "069425643e162ee79051e1e80d65084457d30038fb1e2a009ab4e44e2aba1a5b"
+      "sha256": "63e48d389266c46f60910f42a8296126769186fd6f70d6e3df1ff0b343827fca"
     },
     {
       "path": "docs/INVESTMENT_MEMO_TEMPLATE.md",
-      "sha256": "ee624ac06427eeef68249167e7ee701ec4b07b12569baf9bc209f83ee996d349"
+      "sha256": "3ed0fe9572b4648142ecd052a748b48d04a94980000df87cae4a4163db702052"
     },
     {
       "path": "docs/PROJECT.md",
-      "sha256": "4f760c927733f614c82c898f68888d2224c17ef008685b361207b22cdc218558"
+      "sha256": "a6fe4176dde9f79a499ea2d2118b2b4a635762e603829c11efb87f4b49902134"
     },
     {
       "path": "docs/TASK2_AUDIT.md",
@@ -38,15 +38,15 @@
     },
     {
       "path": "docs/research-data-contract.md",
-      "sha256": "6b95c02d93a1be946c0556e8da6ae767fc1f87c0419918401b69156fc9747707"
+      "sha256": "7a7ecd274b69f38eca7fb54521a6520b4ff7e566bfe5ffc3a0e1e43d3ce9d15a"
     },
     {
       "path": "docs/skill-contracts.md",
-      "sha256": "f11be53de7de507f65a0fc91f458120f0285418fe79dc716712ee22c166b38a0"
+      "sha256": "96d5183cdb28d10dfb905ae72d829571bd19540dfef9ad701f4c66f7b74fc4a6"
     },
     {
       "path": "docs/skill-provenance.md",
-      "sha256": "e2b7df3cf2f993da3708cb894b44e2fdd585f986bff7f7b7d13833fced4da888"
+      "sha256": "ff039ae7e27e1d8a6bc67fcb00f3b8111e69eb23eb084de400bd64abb2bd5b90"
     },
     {
       "path": "docs/third-party-licenses/InvestSkill-MIT.txt",
@@ -86,11 +86,11 @@
     },
     {
       "path": "schemas/thesis-proposal.schema.json",
-      "sha256": "a888d57711ba081a90a645b8117bd3c15bae172a50b47ddf244d6b1c1e98ffeb"
+      "sha256": "36a155fe21191fc0cdb9af306dc49c6ff68fc6cb64332178752a8d540e7daed6"
     },
     {
       "path": "src/research_handoff.py",
-      "sha256": "bbf0deb92a26491cd3b333f0667c2418ddde678b4f8fc38c01e6431c496dbc4f"
+      "sha256": "676d15156a7e4f98f3e27bc37a352b4321f3c946aa71f609bd2de1f75b979430"
     },
     {
       "path": "docs/repository-audit.md",
@@ -103,14 +103,34 @@
     {
       "path": "tests/fixtures/company-research.stock.output.json",
       "sha256": "9a462dd8873c2e0c6d4ca3f12123191aa95c03acb6303f628385303f8c4a63f0"
+    },
+    {
+      "path": "schemas/investment-decision.schema.json",
+      "sha256": "99f0d6c612ac34658745699f920b9fab6f20855727089d9c9534c5fd1d91f7ec"
+    },
+    {
+      "path": "src/investment_decision.py",
+      "sha256": "ae5f7dba7da781bac04eec9462787fe37109fbf006dbd6c861ae9a09fd2edee2"
+    },
+    {
+      "path": "docs/TASK21_DECISION_REVIEW.md",
+      "sha256": "e1406c4211d9337137f6df77c42ba227af4c7f47ca5319ca9c9413d5a5bad168"
+    },
+    {
+      "path": "examples/etf_decision_acceptance.py",
+      "sha256": "3f4ddbe88f7a778494bb85a4645408a6db1ac9147e00d1ef606eae8ddea0ff7c"
+    },
+    {
+      "path": "tests/fixtures/task21-etf-context.mock.json",
+      "sha256": "dba2812541acd91552c99a882db30ce04576b7dc238091a0fa13388400d6c62f"
     }
   ],
   "skills": [
     {
       "name": "opportunity-screener",
       "canonical_path": ".agents/skills/opportunity-screener/SKILL.md",
-      "revision": "2.0.0",
-      "sha256": "bca8dae380386df666cd972fc65892c1bc921c9329f0d4e46c366a22c55ffcf4",
+      "revision": "2.1.0",
+      "sha256": "40ea34676c792e8e32d490361d73ce30d1f17538923aa5722686416e6dd1df75",
       "upstream_references": [
         "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/stock-screener/SKILL.md",
         "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/etf-analysis/SKILL.md",
@@ -134,7 +154,9 @@
       "input_schema": "schemas/opportunity-screener.input.schema.json",
       "expected_outputs": [
         "Investment Memo",
-        "Candidate List and Research Priority"
+        "Candidate List and Research Priority",
+        "Three separate decision gates",
+        "Investment Decision with adversarial review (research recommendation, never approval)"
       ],
       "intermediate_output_schema": "schemas/opportunity-screener.output.schema.json",
       "proposal_schema": "schemas/thesis-proposal.schema.json",
@@ -151,8 +173,8 @@
     {
       "name": "company-research",
       "canonical_path": ".agents/skills/company-research/SKILL.md",
-      "revision": "2.0.0",
-      "sha256": "2fc8d4c278ebd38659d210e47c6da56c3f599d2d8a1fb7da77a218796f7eb680",
+      "revision": "2.1.0",
+      "sha256": "d8872c4768f135cb15cfbc12e6d6611f98cac9a8f793687e7e40504d36326eeb",
       "upstream_references": [
         "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/etf-analysis/SKILL.md",
         "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/stock-eval/SKILL.md",
@@ -182,7 +204,9 @@
       "input_schema": "schemas/company-research.input.schema.json",
       "expected_outputs": [
         "Investment Memo",
-        "Thesis Proposal (unapproved)"
+        "Thesis Proposal (unapproved)",
+        "Three separate decision gates",
+        "Investment Decision with adversarial review (research recommendation, never approval)"
       ],
       "intermediate_output_schema": "schemas/company-research.output.schema.json",
       "proposal_schema": "schemas/thesis-proposal.schema.json",
@@ -196,5 +220,6 @@
         "data_access": "Authorized web/API or dated user documents; no adapters supplied"
       }
     }
-  ]
+  ],
+  "proposal_schema_version": "2.0"
 }

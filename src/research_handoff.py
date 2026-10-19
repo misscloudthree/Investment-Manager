@@ -23,6 +23,11 @@ MANIFEST = 'docs/SKILL_MANIFEST.json'
 METADATA = 'BUNDLE_METADATA.json'
 MAX_BUNDLE_BYTES = 10 * 1024 * 1024
 
+if __package__:
+    from .investment_decision import blank_decision, validate_decision
+else:
+    from investment_decision import blank_decision, validate_decision
+
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
@@ -274,6 +279,12 @@ def validate_proposal(proposal, sha, read, manifest):
     for criterion in proposal['invalidation_criteria']:
         if criterion['thesis_pillar_id'] not in pillars or not set(criterion['linked_kpi_ids']) <= kpis:
             raise ValueError('Dangling thesis/KPI invalidation reference')
+    decision = proposal['investment_decision']
+    for field in ['entry_reassessment_conditions','key_evidence_that_could_change_decision']:
+        unique_ids(decision[field], 'condition_id')
+        for condition in decision[field]:
+            if not set(condition['linked_kpi_ids']) <= kpis:
+                raise ValueError('Dangling decision-condition KPI reference')
     quality = proposal['data_quality']
     if quality['status'] == 'insufficient' and not quality['missing_fields']:
         raise ValueError('Insufficient data must identify missing fields')
@@ -308,6 +319,7 @@ def validate_proposal(proposal, sha, read, manifest):
             raise ValueError('Unconfigured KPI requires more information')
     if proposal['data_mode'] != 'mock' and any(k['threshold_basis'] == 'mock' for k in proposal['monitoring_kpis']):
         raise ValueError('Mock thresholds cannot enter real proposals')
+    validate_decision(proposal)
     return {'structural_validity': True, 'provenance_consistency': True,
             'investment_accuracy': 'not_validated', 'approval': 'not_granted'}
 
@@ -319,7 +331,7 @@ def proposal_from_research(research, sha, read, manifest, memo_path, *, data_mod
     for source in research['meta']['sources']:
         sources.append({**source, 'published_date': None, 'time_precision': 'timestamp'})
     pillars = copy.deepcopy(research['thesis_pillars'])
-    result = {'schema_version': '1.0', 'proposal_id': research['meta']['run_id'] + '-proposal',
+    result = {'schema_version': '2.0', 'proposal_id': research['meta']['run_id'] + '-proposal',
               'asset_id': research['instrument']['market'] + ':' + research['instrument']['ticker'],
               'asset_type': research['instrument']['asset_type'], 'proposal_status': 'needs_information',
               'research_stage': 'deep_research', 'research_timestamp': research['meta']['generated_at'],
@@ -344,7 +356,8 @@ def proposal_from_research(research, sha, read, manifest, memo_path, *, data_mod
               'research_commit_sha': sha, 'methodology_receipt': receipt(read, manifest, 'local_git'),
               'research_priority': {'level': 'unranked', 'rationale': 'Converted research draft; no ranking inferred',
                                     'missing_information': ['Human review and evidence-backed KPIs']},
-              'scenarios': [], 'memo_path': memo_path}
+              'scenarios': [], 'memo_path': memo_path,
+              'investment_decision': blank_decision('Legacy worksheet lacks decision-gate evidence; reassess instead of promoting a recommendation')}
     field = 'equity_analysis' if research['path'] == 'company' else 'etf_analysis'
     result[field] = copy.deepcopy(research['company_analysis' if research['path'] == 'company' else 'etf_analysis'])
     if research['path'] == 'company':

@@ -106,3 +106,66 @@ ETF 的 Bull／Base／Bear 以底層曝險、利率／匯率、追蹤／主動�
 2. 產生符合 `schemas/thesis-proposal.schema.json` 的 Thesis Proposal（research_stage=deep_research），附 skill_versions、research_commit_sha 與 methodology_receipt。只可 draft／needs_information／ready_for_review；ready 表示可交人審，不是核准。
 
 原 `schemas/company-research.output.schema.json` 是可選的分析工作表，保留相容性；不是另一套提案方法。可直接寫 canonical proposal，或用 `src/research_handoff.py convert` 保守轉換，之後人工補有證據的 KPI 與情境；轉換不會把草稿升為批准。Task 3 才做核准與持久化，本 Task 不修改任何已核准投資紀錄或持倉。
+
+
+## Task 2.1 — Investment Decision：每份深度研究的最後一道交付
+
+產品介紹不足以回答投資問題。先確認使用者的投入金額、3–5 年或其他明確期間、持倉、風險承受與資金需求；沒有提供的欄位記 missing，不能由年齡、標的名稱或假設資金反推。100 萬元只是分析情境，不等於持倉、風險預算或買入授權。
+
+### 三道獨立閘門
+
+1. **Asset Quality（Pass / Fail / Insufficient Evidence）**：產品／指數／主動策略、實際總費用、追蹤或同基準主動績效、規模／流動性及結構是否合格？逐項列證據。知名或低名目經理費不等於 Pass；ETF 底層投資風險不能被低費用掩蓋。
+2. **Entry Attractiveness（Attractive / Conditional / Unattractive / Insufficient Evidence）**：以有日期的成交價、NAV 與底層估值，推導持有期費後含息、同幣別三情境及下行風險。產品品質通過不代表現在價格值得；NAV 折溢價接近零也不代表底層便宜。比較現在、分批、等待的收益機會、現金拖累、交易成本與風險。提出哪些證據／市場條件會使結論翻轉。
+3. **Portfolio Suitability（Suitable / Unsuitable / Not Assessed）**：期間、風險承受、資金需求、完整實際持倉及 ETF 穿透重疊，是否支持這項曝險？有沒有更便宜／更適合同一目標的同類 ETF、其他曝險或現金替代？未提供持倉或風險資料必須 Not Assessed；不因資金為 100 萬或期間五年就假定適合。未實作組合引擎時不能冒稱已完成完整配置分析。
+
+閘門分開報告：可以產品 Pass、進場 Insufficient Evidence、組合 Not Assessed，同時存在；不要用總分或漂亮敘事抵銷缺口。Gate 3 未評估時，最終個人投資決策採 Insufficient Evidence，但仍可清楚說明 Gate 1/2 的條件性發現。
+
+### ETF 決策證據表（不只列名稱）
+
+- **價格 vs NAV**：有日期／幣別／時區的交易所成交價、正式 NAV 或盤中估計 NAV、折溢價；來源無法對齊時列 unaligned，不宣稱可套利或可據此進場。
+- **Verified Total Expense Comparison**：最近可得實際總費用、名目經理／保管費分開，對同目標替代基金用相同年度／口徑；沒有資料不能宣稱誰更便宜。不同市場曝險的便宜基金未必是替代品。
+- **歷史含息／追蹤／風險**：列相同期間、幣別、再投資及稅務口徑的基金 NAV／市場總報酬、基準、TD/TE、最大回撤與年化波動、樣本與頻率。使用日／月含息財富序列，`MDD=min(W_t/max_(s≤t)W_s−1)`、`σ=sample_stdev(periodic_return)×sqrt(periods_per_year)`；TE 對同頻超額報酬取 sample stdev。`src/investment_decision.py` 的純函式可驗算已取得的數列，不會替你取數或驗證調整是否正確。歷史風險不是未來最大損失上限。
+- **Underlying Earnings / Valuation**：股票型 ETF 用有日期、可比聚合方法的底層盈利、PE／盈利殖利率、產業權重與成長；不可把成分股 PE 算術平均當基金 PE，不以高配息率代替便宜。指數／換股／虧損成分與盈利口徑不一致時，標示限制並停止不可靠的預測。
+- **Expected Return / Break-even**：Bull/Base/Bear 必須連到輸入、假設理由、來源日期、期限及可重算公式。輸出條件情境而非保證的預期值／勝率；無合理概率依據不給精準成功率。缺必要輸入時回傳 null 與缺口，不編「年化 8%」。
+- **替代與期限**：比較同目標替代、機會成本、五年內用款需求與可能回撤。跨境 ETF 的 TWD 掛牌不消除底層匯率風險。分批會改變現金暴露與投入時點，不能直接沿用一次投入 CAGR 當分批 IRR；未定時點／現金收益就只作質性取捨，不編優越績效。
+
+### 股票型 ETF 的可重算情境（underlying_equity_v1）
+
+此常數參數分解僅為敏感性模型，適用於有可比正盈利聚合資料的股票型曝險，不能用於債券／槓反／商品 ETF，亦不是 ETF 公司自身 DCF。先用底層盈利與估值解釋假設，不能只看基金過去報酬外推。
+
+令 H 為年數、g 為未含股利再投資的底層每單位盈利年成長、PE_0／PE_T 為可比期初／期末倍數、d 為每年再投資的股利貢獻、c 為每年基金成本、fx 為底層幣別對投資人幣別年變動、p_entry／p_exit 為期初／末價格對 NAV 溢價，k 為合計一次性進出成本。比率皆用小數，股利／匯率／成長可為負，但大於 −1；倍數必須正。模型假設 g 已考慮發放股利後可持續再投資能力，不得把同一股利同時計入 g 與 d。
+
+```text
+W=(1+g)^H*(PE_T/PE_0)*(1+d)^H*(1-c)^H*(1+fx)^H*((1+p_exit)/(1+p_entry))*(1-k)
+Total Return=W−1
+CAGR=W^(1/H)−1
+Break-even PE_T=PE_0/[(1+g)^H*(1+d)^H*(1-c)^H*(1+fx)^H*((1+p_exit)/(1+p_entry))*(1-k)]
+```
+
+Break-even 只是名目本幣資本回收（W=1），不是投資人的必要報酬門檻；另說明通膨、風險與機會成本。d 須說明扣繳／稅前稅後口徑與再投資假設；c 只扣一次，不能對已費後指數／基金報酬再扣 TER，亦不能把 TD 與 TER 當獨立成本疊加。fx 不能對已轉 TWD 的報酬重複加計。p_entry 應與本次現價/NAV 相符；等待不同價格的情境另列為重評條件，不冒充現在投入的報酬。
+
+每個參數逐項給來源與理由；即使 fx=0、退出溢價=0 也要揭露為假設／證據而非靜默預設。用純函式 `equity_etf_return` 重算 TR、CAGR 和損益兩平倍數。換股、權重／股息變動、稅、避險、時間相依與尾部風險均是模型限制，需另外做倍數壓縮、獲利下修、匯率逆風等敏感性。展示適當四捨五入／區間，不把計算精度當預測精度。資料不支持此模型時選 documented_other 並附已驗算輸入／公式／工具紀錄；無合適方法則 Not Assessed，禁止硬套。
+
+### 反方研究審查（每次交付前逐題回答）
+
+1. 為什麼不應該投資？
+2. 現在進場最容易犯什麼錯？
+3. 同目標是否有更適合的替代？
+4. 是否把歷史績效當未來承諾？
+5. 哪個關鍵假設最可能翻轉結論？
+6. 證據是否足以支持推薦，而不是僅支持商品介紹？
+7. 若等待，需要什麼可觀察條件／來源，何時重評？
+
+每題記答案、來源、未解爭點；只回「已審查」不算。重大缺口或未解反證須降為 Insufficient Evidence，不能用長篇敘事補足。反方審查完成也可能結論「無法推薦」，不等於資料充分。
+
+### 最後輸出 Investment Decision
+
+Memo 最末第 14 節與 `investment_decision` JSON 必須一致：三閘門、Decision Status、信心與證據覆蓋、下一步、進場／重評條件、三情境費後含息報酬、下行風險、可改變決策的關鍵證據、完整反方審查。
+
+- **Invest Now**：三閘門通過、進場 Attractive、報酬／風險／替代證據完整、反方審查支持，仍只是研究建議。
+- **Phased Entry**：品質與組合適合、進場 Attractive／Conditional，清楚說明分批的風險／現金拖累／成本；不保證分批獲利或自動發出委託。
+- **Wait for Conditions**：已有足夠價格／報酬／風險證據，但目前條件不符；列可觀察的重新評估條件。缺資料不是市場太貴，必須改用 Insufficient Evidence。
+- **Avoid**：有證據的產品缺陷、用途／個人不適配或不吸引的風險報酬；不可把未知當壞產品。已證實的重大不合適可以在其他資料缺漏時保留 Avoid，說明判斷範圍。
+- **Insufficient Evidence**：目前價格、底層估值、三情境、風險或個人適合度不足／矛盾。具體列不能決策的原因、去哪裡補資料、何時重評；不是空白結論。
+
+Decision Status 與 proposal_status 是不同維度：Invest Now 仍可為未核准 draft；Insufficient Evidence 應為 needs_information／draft。不得更改已核准 thesis 或持倉。新提案使用 Schema 2.0；舊工作表轉換一律初始化為未評估決策，不能從舊「基金合格」自動升級成 Invest Now。

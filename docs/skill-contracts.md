@@ -82,3 +82,16 @@ JSON Schema 能檢查型別、必要欄位、取值範圍、null／分數與公�
 `methodology_receipt` 記錄 manifest digest、完整檔案 hash 清單、Mode A/B、origin 驗證、可用能力及計算狀態。它是資料／版本收據，不是 Skill 執行證明。實際 SHA 在研究時由固定 Git commit 或已確認 bundle metadata 取得，未知／浮動版本不可假填通過。
 
 `src/research_handoff.py validate` 在 Schema 之外檢查 source／KPI／支柱引用、來源時間、版本／依賴 hash、部分缺值與提案狀態一致性。它不驗證官方數值、財報口徑、freshness 實際合規、計算正確性或 LLM 是否遵循方法；舊工作表其餘語義檢查仍依上列人工清單。見 CHATGPT_HANDOFF 的可重現離線範例與 live acceptance 區分。
+
+
+## Task 2.1 Decision Proposal 2.0（明示版本變更）
+
+canonical 路徑仍為 thesis-proposal.schema.json，schema_version 由 1.0 升為 2.0，新增必要 investment_decision；investment-decision.schema.json 是引用的元件而非第二份 Proposal。歷史 1.0 請用原 Git commit 的契約驗證；本次沒有 Task 3 Database 實作或靜默遷移。舊工作表轉新提案一律 Insufficient Evidence，不從已有 verdict 推薦買入。
+
+元件欄位：investor_context、asset_quality、entry_attractiveness、portfolio_suitability、decision_status、confidence、evidence_coverage／checklist、market_metrics、pricing_alignment、recommended_next_action、entry_reassessment_conditions、return_scenarios、downside_risk、entry_options、comparable_alternatives、horizon_compatibility、key_evidence_that_could_change_decision、adversarial_review。閘門與分析方法只在 canonical Skill 定義。
+
+資料不足的三情境仍保留 bull/base/bear，status=Not Assessed，報酬／損益兩平為 null；不是用 0 表示沒有風險。evidence_coverage 由 checklist 計數，不是主觀勝率；個人資訊不足 Gate 3 Not Assessed，不能輸出 Invest Now／Phased Entry／Wait for Conditions。等待須有完整進場證據與可觀察條件，缺資料改 Insufficient Evidence；已證實的用途／品質缺陷則可有依據地 Avoid。
+
+underlying_equity_v1 的三情境 inputs 與逐參數 input_evidence、成本口徑、期限、公式及結果會被 Python 重算；其他資產 documented_other 須附來源／公式／數值輸入與外部驗算紀錄，工具僅檢查紀錄與 CAGR／TR 一致，不能自行證明其他模型的正確性。不得以此規避合適資產模型或捏造已執行工具。
+
+每個 condition_id 與 linked_kpi_ids 可由未來 Task 3 作重評關聯；decision_status 不等於批准狀態，不寫實際持倉。資料缺口與論點失效應分開存 assessment。反方逐題答案、來源、未解爭點與是否支持推薦都需保存，未解重要爭點不能產生正面投資建議。

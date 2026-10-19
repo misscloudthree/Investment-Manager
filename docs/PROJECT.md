@@ -112,3 +112,10 @@ canonical 方法仍在兩個 SKILL.md；ETF 留在隔離分支，決策理由見
 Task 2 成功：離線 bundle 可重現、缺依賴／版本漂移可拒絕、stock／ETF mock 提案與錯誤案例通過／被拒，使用者有第一檔 ChatGPT 手動測試步驟。這些不等於真實金融分析或 live ChatGPT acceptance；尚須實際工具、官方資料與人工驗證。
 
 接續順序調整：先以 ChatGPT 測試一檔股票及 ETF 的方法載入、來源品質與輸出，記錄真實驗證結果；依需求再做小型 Python 計算與資料 adapter，而非先建全自動研究平台。Task 3 才設計權限、批准版本與私有儲存，之後才接每日事件、去重、風險和排程。舊 `agent-implementation-prompt.md` 為歷史候選開發清單，不覆蓋本階段範圍。
+
+
+## Task 2.1 決策品質升級
+
+研究的成功標準增加「現在是否值得投入、為什麼、何時應改變決定」；三閘門、ETF 底層報酬情境與反方方法仍以 canonical company-research 為準，不能只交產品介紹。Proposal 2.0 增必要 investment_decision，Memo 最後呈現同一決策。缺證據可交 Insufficient Evidence，但必須列取得決定性資料的方法。
+
+TASK21_DECISION_REVIEW.md 記錄設計根因與執行責任的證據限制。Mock 100 萬／五年／0050、00646、00713 僅測契約與降級，不等於真實 ETF 評等。Task 3 還未實作，新增穩定 condition_id、既有 kpi_id／source_id 與未核准狀態供後續保存／監控，不更改既有核准紀錄。真正研究仍需官方資料、模型適用性與人工審查。

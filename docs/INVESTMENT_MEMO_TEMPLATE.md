@@ -1,6 +1,6 @@
 # Investment Memo — <名稱／asset_id>
 
-模板版本：1.0；此文件只規定呈現與索引，分析步驟以 manifest 指定的 SKILL.md 為準。每節保留，有資料不足或不適用時說明理由。公開／匿名文件才進 Git，私人資料另存指定受控位置。
+模板版本：2.0；此文件只規定呈現與索引，分析步驟以 manifest 指定的 SKILL.md 為準。每節保留，有資料不足或不適用時說明理由。公開／匿名文件才進 Git，私人資料另存指定受控位置。
 
 ## 1. Executive Summary
 
@@ -65,3 +65,25 @@ ETF 情境評估底層曝險、利率／匯率、費用、追蹤與流動性等�
 ## 13. Skill Version / Git Commit SHA
 
 manifest hash、canonical Skill 路徑／revision／SHA-256、完整 research_commit_sha、Mode A/B、收件清單及 hash 檢查方式、origin 驗證限制。列出實際讀過的文件與能力；不以收件代表執行。附同名 Thesis Proposal JSON 與驗證結果（結構／來源一致性／投資準確性分列），無批准紀錄。
+
+
+## 14. Investment Decision
+
+請按 company-research 的三閘門與反方審查完成本節；與 proposal.investment_decision 一致。這是研究建議，非人工批准或交易指令。
+
+| 欄位 | 判斷／證據／缺口 |
+|---|---|
+| Asset Quality Status | 產品／指數、已驗證總費用、追蹤、規模／流動性與結構 |
+| Entry Attractiveness Status | 現價／NAV、底層估值、費後含息報酬及風險；不要以基金合格代替進場合理 |
+| Portfolio Suitability Status | 期間／風險／用款／穿透重疊；未提供個人資料必須 Not Assessed |
+| Decision Status | Invest Now / Phased Entry / Wait for Conditions / Avoid / Insufficient Evidence |
+| Confidence and Evidence Coverage | 已核對／必要項目與比例、來源限制；不是勝率 |
+| Recommended Next Action | 具體補證、重評或條件性研究建議；不下單 |
+| Entry / Reassessment Conditions | 穩定 condition_id、可觀察條件、來源、關聯 kpi_id、未來人工重評動作 |
+| Bull / Base / Bear Return Scenarios | H 年、逐項輸入假設／來源、公式、累積／年化總報酬與 break-even；不足處 null |
+| Downside Risk | 歷史回撤／波動與前瞻情境分開；未建模風險與最大損失限制 |
+| Key Evidence That Could Change the Decision | 哪個估值／成長／成本／匯率／個人資訊會翻轉決策，如何取得 |
+
+比較 Now／Phased／Wait：立即市場曝險、時點集中、現金拖累、成本、錯失上漲與等待條件；沒有分批現金流時不編 IRR。列同目標替代與實際總費用資料／日期，沒有資料就不宣稱更便宜。
+
+最後逐題附反方答案與來源：為何不投資、現在進場最可能的錯、其他選擇、歷史是否被當承諾、翻轉假設、證據是否支持推薦、等待後何時重評。標示未解爭點及對決策的降級影響。

@@ -13,9 +13,7 @@ from pathlib import Path
 from jsonschema.exceptions import ValidationError
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('handoff', ROOT / 'src/research_handoff.py')
-h = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(h)
+from src import research_handoff as h
 
 
 class ResearchHandoffTests(unittest.TestCase):
@@ -51,7 +49,7 @@ class ResearchHandoffTests(unittest.TestCase):
 
     def complete_mock(self, asset_type='stock'):
         value = self.draft(asset_type)
-        value['proposal_status'] = 'ready_for_review'
+        value['proposal_status'] = 'draft'
         value['data_quality'] = {'status': 'sufficient', 'confidence': 'medium',
                                  'missing_fields': [], 'conflicts': [],
                                  'limitations': ['SYNTHETIC schema test, not real research']}
@@ -247,6 +245,8 @@ class ResearchHandoffTests(unittest.TestCase):
         value['proposal_status'] = 'draft'
         h.validate_proposal(value, sha, read, manifest)
         value['proposal_status'] = 'ready_for_review'
+        value['investment_decision']['decision_status'] = 'Avoid'
+        value['investment_decision']['asset_quality'].update(status='Fail', source_ids=['mock-source'], rationale='SYNTHETIC structural defect')
         with self.assertRaisesRegex(ValueError, 'Verify source revision'):
             h.validate_proposal(value, sha, read, manifest)
 
@@ -255,10 +255,10 @@ class ResearchHandoffTests(unittest.TestCase):
         h.build_bundle(self.repo, second)
         self.assertEqual(self.bundle.read_bytes(), second.read_bytes())
 
-    def test_memo_template_has_all_thirteen_sections(self):
+    def test_memo_template_retains_original_sections_and_adds_decision(self):
         import re
         text = (ROOT / 'docs/INVESTMENT_MEMO_TEMPLATE.md').read_text()
-        self.assertEqual(re.findall(r'^## (\d+)\.', text, re.MULTILINE), [str(i) for i in range(1, 14)])
+        self.assertEqual(re.findall(r'^## (\d+)\.', text, re.MULTILINE), [str(i) for i in range(1, 15)])
         self.assertIn('canonical', (ROOT / 'docs/CHATGPT_HANDOFF.md').read_text())
 
     def test_bundle_missing_dependency(self):

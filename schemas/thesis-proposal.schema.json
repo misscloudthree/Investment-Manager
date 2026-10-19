@@ -4,7 +4,7 @@
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": "1.0"
+      "const": "2.0"
     },
     "proposal_id": {
       "type": "string",
@@ -487,6 +487,9 @@
     "memo_path": {
       "type": "string",
       "minLength": 1
+    },
+    "investment_decision": {
+      "$ref": "investment-decision.schema.json"
     }
   },
   "required": [
@@ -514,7 +517,8 @@
     "methodology_receipt",
     "research_priority",
     "scenarios",
-    "memo_path"
+    "memo_path",
+    "investment_decision"
   ],
   "additionalProperties": false,
   "$defs": {
@@ -995,6 +999,29 @@
                   "insufficient",
                   "conflicting"
                 ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "proposal_status": {
+            "enum": [
+              "draft",
+              "needs_information"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "investment_decision": {
+            "properties": {
+              "decision_status": {
+                "const": "Insufficient Evidence"
               }
             }
           }
