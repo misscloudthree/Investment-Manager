@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-manager.local/schemas/research-campaign.input.schema.json",
+  "type": "object",
+  "properties": {
+    "profiles": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "stock_basic_v1",
+          "stock_five_factor_v1",
+          "etf_vehicle_v1"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "max_quote_age_days": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "min_turnover_twd": {
+      "type": "number",
+      "minimum": 0
+    },
+    "minimum_peers": {
+      "type": "integer",
+      "minimum": 5
+    },
+    "shortlist_per_group": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "deep_research_limit": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "profiles",
+    "as_of",
+    "max_quote_age_days",
+    "min_turnover_twd",
+    "minimum_peers",
+    "shortlist_per_group",
+    "deep_research_limit"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,20 @@
+# Task 2.2 實作審查與驗收紀錄
+
+## 根因與修正
+
+原先的 Agent 01 目標為主動發掘，但 Task 2 實作只提供單次互動方法與提案驗證；沒有可執行主檔／完整母體、分批處理帳目、比較引擎或深研工作單。要求十年品質資料在每檔初篩前齊備，也使大範圍執行不切實際。這是架構／執行缺口；無法憑現有測試認定 ChatGPT 已遵守或違反特定實測流程。
+
+本次保留 Task 2.1 決策方法，增加兩層初篩證據預算、凍結資料與政策、每檔狀態／續跑、同組排名、候選深研交接與版本化草稿收件。PROJECT 明訂完整產出鏈與 coverage，避免日後又退化成少量熱門標的介紹。沒有一次宣稱自動執行所有 Skills。
+
+## 驗收邊界
+
+- 合成驗收使用 100 檔虛構股票＋20 檔虛構 ETF，共六組；含停止交易、缺行情、過期行情、負 PE 與不支援 ETF 類型。17 檔一批、120 檔全數分類；預期 116 evaluated、1 excluded、3 needs_data，115 可排名，5 個待深研 packets，至少一組因預算延後。精確執行結果由生成的 ACCEPTANCE.json／REPORT.md 記錄。
+- 單元／整合測試驗中斷接續、明確失敗重試、同組計分、錯誤日期／單位／小樣本降級、來源留存與 hash、mock／cutoff／版本／核准邊界及追加草稿。不是財報真實性、策略回測或 live ChatGPT 接受測試。
+- 官方取數：本環境 2026-10-19 嘗試 TWSE 三個 bulk 端點、TWSE／TPEx OpenAPI 及 TPEx 日行情，皆遭網路代理 `Tunnel connection failed: 403 Forbidden`。未取得官方成功回應，不聲稱實際上市公司數、真實排名、ETF 費用或研究結論。
+- 已保存最小環境網路草稿允許 `openapi.twse.com.tw`、`www.tpex.org.tw`；草稿 requires_publish，需在環境設定檢視／儲存並發布後才生效。這不等於已取得網路。沒有停用 TLS、繞代理或用鏡像代替官方驗收。
+
+## 與 Task 3 相容與下一步
+
+新增 market snapshot／campaign 1.0，個別 deep-research Proposal 保持 2.0、decision component 保持 1.0；穩定 asset_id、condition_id、kpi_id、source_id 與 research_commit_sha。campaign 的 queue／drafts 不能冒充核准 thesis／PortfolioSnapshot，Task 3 仍需獨立權限、批准與私有儲存設計。
+
+下一步先解官方網路並核對 TWSE 欄位／完整母體，再補 TPEx、MOPS、投信／指數 ETF 資料。完成真實候選深研及跨候選總結驗收後，再建 decision-recorder／Thesis Database，然後 thesis-monitor／風險與排程。不先擴充四個佔位 Skill 來假裝執行層已齊備。

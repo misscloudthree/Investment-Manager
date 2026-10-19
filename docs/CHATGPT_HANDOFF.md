@@ -87,7 +87,7 @@ convert 不會自動寫 Memo、填 KPI、決定數值門檻、提升 ready_for_r
 
 ## Task 2.1 — 決策品質交接與驗收
 
-使用 manifest 的新版方法（2.1.0）及 Proposal Schema 2.0；載入新 `schemas/investment-decision.schema.json` 與 `src/investment_decision.py`，不要將 Task 2.0 bundle 與新版 Schema 混用。舊 commit 的 1.0 提案保持歷史版本；新工作表 convert 只補未評估決策，不轉成推薦。
+使用 manifest 的目前方法（Task 2.2 為 2.2.0，含 Task 2.1 決策規範）及 Proposal Schema 2.0；載入新 `schemas/investment-decision.schema.json` 與 `src/investment_decision.py`，不要將 Task 2.0 bundle 與新版 Schema 混用。舊 commit 的 1.0 提案保持歷史版本；新工作表 convert 只補未評估決策，不轉成推薦。
 
 完整深研先依 company-research 的三閘門與七題反方，最後交付 Memo 第 14 節與 investment_decision。Asset Quality Pass 不代表 Entry Attractive，Not Assessed 不能當 Suitable。資料不夠時輸出 Insufficient Evidence、null 報酬與決定性補證清單；有資料才談「等待哪些市場條件」，不要以 Wait for Conditions 隱藏缺資料。
 
@@ -104,3 +104,14 @@ python src/research_handoff.py validate /tmp/task21-mock/TWSE-0050.json
 ```
 
 mock 程式只建立／驗證合成決策契約，不執行 Skill、ChatGPT 或市場研究。三檔皆應 Gate 1 Pass（僅合成資料）、Gate 2 Insufficient Evidence、Gate 3 Not Assessed，最終 Insufficient Evidence。完整真實接受測試仍須逐欄取官方來源、核算與人工評估假設；詳見 TASK21_DECISION_REVIEW.md。
+
+
+## Task 2.2 — 廣泛發掘的交接與使用提示
+
+使用者不給代碼的探索請先跑 campaign；完整指令與輸出契約見 [BATCH_RESEARCH.md](BATCH_RESEARCH.md)。Mode A／B 是讀方法的方式，不是執行服務。Python／網路工具不足時交代缺口，由 Codex／受信任本機取數與分批處理，再把同版本 bundle 與整份 run 輸出交給 ChatGPT。公開 GitHub 不放 run 私人資料。
+
+提示範例：「以五年持有為研究目標，從已驗證的台灣市場母體主動找候選。先說明能取得的交易所／商品範圍，不要求我先給代碼。使用固定版本 Task 2.2 方法：保存母體、分批續跑到全數分類、交 coverage／ledger／組內比較／預算延後，再深研候選並給有證據的條件性結論。我未提供完整持倉／風險資料，不自行分配資金。不能執行批次或取官方資料時列阻礙，不用幾檔熱門標的代替。」
+
+接收 REPORT.md／campaign.json／ledger.csv／queue packets／CHATGPT_RESEARCH_BRIEF.md 後，核對 cutoff、data_mode、method commit 與 processing_complete。按 canonical company-research 逐檔補證，交每檔 Memo＋Proposal；用 batch_research submit 保留版本與驗證結果。最後綜合研究結果及未完成範圍，不把 ranking 或 packet 當結論。
+
+新增 batch／snapshot schema 1.0 與 Proposal 2.0 各有用途，沒有新核准狀態。建 bundle 前刷新 manifest 2.2.0；bundle 包含執行工具與可攜 mock 範例，但不會在上傳時自動執行。人工資料／API 的實際能力及真實數值仍需逐次驗證。

@@ -45,3 +45,12 @@
 - 「有證據所以等待」與「沒有證據所以不能決策」分開：前者必須有價格、風險、報酬與重評條件；後者列出決定性資料及官方取得方法，不猜合理買價。
 
 新 Schema 2.0 與 Python 一致性驗證只能檢查欄位／引用、閘門與數值算式；不能證明來源真實、假設合理或 ChatGPT 實際遵守方法。反方審查與人工原文／計算核對仍是必要驗收。
+
+
+## Task 2.2 批次資料補充
+
+新增 normalized snapshot／campaign 契約 1.0，見 `schemas/market-snapshot.schema.json`、`schemas/research-campaign.input.schema.json`、`schemas/research-campaign.output.schema.json` 與 `BATCH_RESEARCH.md`。這些是 ResearchRun／初篩資料，不能替代 Proposal 2.0 或 Task 3 核准資料庫。snapshot、截止、政策與版本凍結；一個母體每檔都有 ledger，缺漏／失敗不刪除。完整與 sample 範圍必須明示，最新主檔不能作歷史成分。
+
+metric.as_of 是比較日的已知狀態日，財報期放 period；沒有公告證據不得把期末當可得日期。參與排名的各資料須同組最新行情日、正確單位且口徑／窗口可比；窗口由來源／匯入者驗證，程式檢查日期與單位不等於已驗證所有經濟口徑。未知原始發布時間 null，不製造午夜 timestamp。官方 raw 與 SHA 保存於 run；檔案不得越界或缺失。資料／政策有變更另開 campaign。
+
+initial TWSE adapter 僅主檔／單日行情／PE/PB，不能完成品質、五因子或 ETF 進場分析。部分基本資料可以進入有限 profile 研究排序，必須使用 profile 名稱與缺口；不得把 basic 分數寫進舊五因子 composite，不能把 vehicle 優先度宣稱基金品質／底層便宜。實測官方連線仍受本環境 403 限制。

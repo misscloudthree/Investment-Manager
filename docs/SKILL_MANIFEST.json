@@ -123,6 +123,42 @@
     {
       "path": "tests/fixtures/task21-etf-context.mock.json",
       "sha256": "dba2812541acd91552c99a882db30ce04576b7dc238091a0fa13388400d6c62f"
+    },
+    {
+      "path": "src/market_snapshot.py",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "src/batch_research.py",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "schemas/market-snapshot.schema.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "schemas/research-campaign.input.schema.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "schemas/research-campaign.output.schema.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "examples/batch_research_acceptance.py",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "docs/BATCH_RESEARCH.md",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "docs/TASK22_REVIEW.md",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "config/batch-policy.example.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
     }
   ],
   "skills": [
@@ -156,7 +192,8 @@
         "Investment Memo",
         "Candidate List and Research Priority",
         "Three separate decision gates",
-        "Investment Decision with adversarial review (research recommendation, never approval)"
+        "Investment Decision with adversarial review (research recommendation, never approval)",
+        "Frozen-universe ledger, peer comparison, coverage and pending deep-research queue; not a completed research recommendation"
       ],
       "intermediate_output_schema": "schemas/opportunity-screener.output.schema.json",
       "proposal_schema": "schemas/thesis-proposal.schema.json",
@@ -166,9 +203,12 @@
       },
       "execution_dependencies": {
         "natural_language": "Read canonical methodology",
-        "python": "For deterministic calculations/hash/schema checks only when available",
-        "data_access": "Authorized web/API or dated user documents; no adapters supplied"
-      }
+        "python": "Deterministic contracts/calculations and manually triggered resumable batch CLI when execution is available",
+        "data_access": "TWSE common-company bulk adapter (live validation pending); normalized imports for other scopes. No autonomous ChatGPT tool/API deployed"
+      },
+      "batch_input_schema": "schemas/market-snapshot.schema.json",
+      "batch_policy_schema": "schemas/research-campaign.input.schema.json",
+      "batch_output_schema": "schemas/research-campaign.output.schema.json"
     },
     {
       "name": "company-research",
@@ -216,10 +256,11 @@
       },
       "execution_dependencies": {
         "natural_language": "Read canonical methodology",
-        "python": "For deterministic calculations/hash/schema checks only when available",
-        "data_access": "Authorized web/API or dated user documents; no adapters supplied"
+        "python": "Deterministic contracts/calculations and manually triggered resumable batch CLI when execution is available",
+        "data_access": "TWSE common-company bulk adapter (live validation pending); normalized imports for other scopes. No autonomous ChatGPT tool/API deployed"
       }
     }
   ],
-  "proposal_schema_version": "2.0"
+  "proposal_schema_version": "2.0",
+  "batch_contract_version": "1.0"
 }

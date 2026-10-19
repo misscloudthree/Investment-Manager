@@ -2,6 +2,8 @@
 
 模板版本：2.0；此文件只規定呈現與索引，分析步驟以 manifest 指定的 SKILL.md 為準。每節保留，有資料不足或不適用時說明理由。公開／匿名文件才進 Git，私人資料另存指定受控位置。
 
+批次候選另記 campaign_id、snapshot_id、母體／完整或樣本、初篩 profile、組內研究名次、同業原始值／中位數及選入原因；未處理／未深研／預算延後範圍須揭露。packet 不是深研結論。
+
 ## 1. Executive Summary
 
 研究問題、資產類型、研究截止日／時間（Asia/Taipei）、結論與 Research Priority、信心及最重要缺口。明示 draft／needs_information／ready_for_review，均不是批准或交易指令。篩選階段列 Candidate List 與研究理由，不冒充完成深度研究。

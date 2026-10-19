@@ -95,3 +95,8 @@ canonical 路徑仍為 thesis-proposal.schema.json，schema_version 由 1.0 升�
 underlying_equity_v1 的三情境 inputs 與逐參數 input_evidence、成本口徑、期限、公式及結果會被 Python 重算；其他資產 documented_other 須附來源／公式／數值輸入與外部驗算紀錄，工具僅檢查紀錄與 CAGR／TR 一致，不能自行證明其他模型的正確性。不得以此規避合適資產模型或捏造已執行工具。
 
 每個 condition_id 與 linked_kpi_ids 可由未來 Task 3 作重評關聯；decision_status 不等於批准狀態，不寫實際持倉。資料缺口與論點失效應分開存 assessment。反方逐題答案、來源、未解爭點與是否支持推薦都需保存，未解重要爭點不能產生正面投資建議。
+
+
+## Task 2.2 多標的批次契約
+
+批次 initial screening 另外使用 snapshot／campaign 1.0，詳見 `BATCH_RESEARCH.md`。舊 opportunity-screener.output 的正式五因子 composite 仍只代表完整方法，不接收 basic／ETF vehicle 分數。深研輸出保持 Thesis Proposal 2.0；campaign queue 不是 proposal，processing_complete／research_artifacts_complete 不是研究正確或批准。全母體數量守恆、同組比較、pending 不出完整榜、未支援類型保留缺口、資料／方法凍結、收件追加草稿是必要語義驗收。

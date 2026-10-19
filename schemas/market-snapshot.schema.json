@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-manager.local/schemas/market-snapshot.schema.json",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "data_mode": {
+      "enum": [
+        "mock",
+        "public_sources",
+        "user_documents"
+      ]
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "minItems": 1
+    },
+    "instruments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^(TWSE|TPEx):[0-9A-Z]+$"
+          },
+          "ticker": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "market": {
+            "enum": [
+              "TWSE",
+              "TPEx"
+            ]
+          },
+          "asset_type": {
+            "enum": [
+              "stock",
+              "etf",
+              "other"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 1
+          },
+          "comparison_group": {
+            "type": "string"
+          },
+          "master_source_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "trading_status": {
+            "enum": [
+              "unknown",
+              "active",
+              "suspended",
+              "delisted"
+            ]
+          },
+          "etf_structure": {
+            "enum": [
+              "passive_unleveraged",
+              "active",
+              "bond",
+              "leveraged_inverse",
+              "derivative",
+              "unknown"
+            ]
+          },
+          "metrics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "unit": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "as_of": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "source_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "period": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "formula": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "window": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "value",
+                "unit",
+                "as_of",
+                "source_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "fundamental_model": {
+            "enum": [
+              "non_financial",
+              "financial",
+              "unknown"
+            ]
+          }
+        },
+        "required": [
+          "asset_id",
+          "ticker",
+          "name",
+          "market",
+          "asset_type",
+          "currency",
+          "comparison_group",
+          "master_source_id",
+          "trading_status",
+          "metrics",
+          "limitations"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "data_mode",
+    "captured_at",
+    "scope",
+    "sources",
+    "instruments",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "scope": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coverage": {
+          "enum": [
+            "full",
+            "sample"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "official_master",
+            "user_declared",
+            "mock"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "label",
+        "coverage",
+        "origin",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data_as_of": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "raw_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "source_id",
+        "provider",
+        "locator",
+        "retrieved_at",
+        "published_at",
+        "data_as_of"
+      ],
+      "additionalProperties": false,
+      "dependentRequired": {
+        "raw_file": [
+          "raw_sha256"
+        ],
+        "raw_sha256": [
+          "raw_file"
+        ]
+      }
+    }
+  }
+}

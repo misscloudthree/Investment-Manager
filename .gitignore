@@ -13,3 +13,7 @@ venv/
 /data/private/
 /docs/reports/private/
 /docs/decisions/private/
+
+# Local research snapshots and campaigns (may include sensitive research)
+/data/campaigns/
+/data/snapshots/
