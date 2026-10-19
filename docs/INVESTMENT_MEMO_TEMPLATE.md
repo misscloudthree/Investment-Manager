@@ -1,8 +1,14 @@
 # Investment Memo — <名稱／asset_id>
 
-模板版本：2.0；此文件只規定呈現與索引，分析步驟以 manifest 指定的 SKILL.md 為準。每節保留，有資料不足或不適用時說明理由。公開／匿名文件才進 Git，私人資料另存指定受控位置。
+模板版本：2.1；此文件只規定呈現與索引，分析步驟以 manifest 指定的 SKILL.md 為準。本模板用於已要求／已展開的深研，每節保留；一般探索先按 canonical Skill 交 Decision Snapshot，再詢問是否展開。明確要求深研者直接交短摘要＋本模板，不再確認。資料不足或不適用時說明理由。公開／匿名文件才進 Git，私人資料另存指定受控位置。
+
+批次候選另記 campaign_id、snapshot_id、母體／完整或樣本、初篩 profile、組內研究名次、同業原始值／中位數及選入原因；未處理／未深研／預算延後範圍須揭露。packet 不是深研結論。
 
 ## 1. Executive Summary
+
+開頭放精簡 Decision Snapshot：商品、決策／研究優先度、2–3 核心原因（含反方）與下一步、合理進場價、期限總報酬、1–3 風險／翻轉因素、催化劑窗口、替代與取捨。估值／報酬無可靠資料時明寫「未能可靠估計／尚無可信估計」並列缺口，數值不亂填；方法見 canonical Skill。
+
+沿用 research_context 列已知條件／假設／仍需確認，包含商品範圍、持有期、進場窗口、累積報酬目標／期限、定性風險／未知最大虧損、對話來源與記錄時間，不重問已知條件。
 
 研究問題、資產類型、研究截止日／時間（Asia/Taipei）、結論與 Research Priority、信心及最重要缺口。明示 draft／needs_information／ready_for_review，均不是批准或交易指令。篩選階段列 Candidate List 與研究理由，不冒充完成深度研究。
 

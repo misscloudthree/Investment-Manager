@@ -1,0 +1,506 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-manager.example/schemas/decision-snapshot.schema.json",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "artifact_type": {
+      "const": "decision_snapshot"
+    },
+    "data_mode": {
+      "enum": [
+        "mock",
+        "public_sources",
+        "user_documents"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "data_cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "research_context": {
+      "$ref": "research-context.schema.json"
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "instrument": {
+            "$ref": "common.schema.json#/$defs/instrument"
+          },
+          "research_priority": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "enum": [
+                  "high",
+                  "medium",
+                  "low",
+                  "unranked"
+                ]
+              },
+              "rationale": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "level",
+              "rationale"
+            ],
+            "additionalProperties": false
+          },
+          "research_stage": {
+            "enum": [
+              "screening",
+              "deep_research"
+            ]
+          },
+          "data_quality_status": {
+            "enum": [
+              "sufficient",
+              "insufficient",
+              "conflicting"
+            ]
+          },
+          "investment_decision": {
+            "$ref": "investment-decision.schema.json"
+          },
+          "core_reasons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "kind": {
+                  "enum": [
+                    "support",
+                    "counterargument",
+                    "unknown"
+                  ]
+                },
+                "source_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "required": [
+                "text",
+                "kind",
+                "source_ids"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "contains": {
+              "properties": {
+                "kind": {
+                  "const": "counterargument"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            }
+          },
+          "entry_price": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_estimated",
+                  "verified_estimate"
+                ]
+              },
+              "low": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "exclusiveMinimum": 0
+              },
+              "high": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "exclusiveMinimum": 0
+              },
+              "currency": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              "as_of": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date"
+              },
+              "method": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "formula": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "assumptions": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "calculation_verified": {
+                "type": "boolean"
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "status",
+              "low",
+              "high",
+              "currency",
+              "as_of",
+              "method",
+              "formula",
+              "assumptions",
+              "source_ids",
+              "calculation_verified",
+              "message"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "not_estimated"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "low": {
+                      "type": "null"
+                    },
+                    "high": {
+                      "type": "null"
+                    },
+                    "as_of": {
+                      "type": "null"
+                    },
+                    "method": {
+                      "type": "null"
+                    },
+                    "formula": {
+                      "type": "null"
+                    },
+                    "calculation_verified": {
+                      "const": false
+                    },
+                    "message": {
+                      "const": "未能可靠估計"
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "low": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "high": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "as_of": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "method": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "formula": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "assumptions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "minItems": 1
+                    },
+                    "source_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "minItems": 1
+                    },
+                    "calculation_verified": {
+                      "const": true
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "return_basis": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "risks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "window": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "text",
+                "source_ids",
+                "window"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 3
+          },
+          "catalysts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "window": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "text",
+                "source_ids",
+                "window"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 3
+          },
+          "alternatives": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "window": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "text",
+                "source_ids",
+                "window"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 3
+          },
+          "key_missing_information": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "instrument",
+          "research_priority",
+          "research_stage",
+          "data_quality_status",
+          "investment_decision",
+          "core_reasons",
+          "entry_price",
+          "return_basis",
+          "risks",
+          "catalysts",
+          "alternatives",
+          "key_missing_information"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "source_references": {
+      "type": "array",
+      "items": {
+        "$ref": "thesis-proposal.schema.json#/$defs/source"
+      },
+      "minItems": 0
+    },
+    "deep_dive_offer": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "ask_selection",
+            "already_requested"
+          ]
+        },
+        "prompt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "mode",
+        "prompt"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "data_mode",
+    "generated_at",
+    "data_cutoff",
+    "research_context",
+    "candidates",
+    "source_references",
+    "deep_dive_offer"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "research_context": {
+            "properties": {
+              "requested_depth": {
+                "const": "deep_dive"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "deep_dive_offer": {
+            "properties": {
+              "mode": {
+                "const": "already_requested"
+              },
+              "prompt": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "deep_dive_offer": {
+            "properties": {
+              "mode": {
+                "const": "ask_selection"
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

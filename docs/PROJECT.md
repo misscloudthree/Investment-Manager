@@ -1,121 +1,119 @@
 # AI Investment Manager 專案規格
 
-狀態：Task 1 基礎已建立，Task 2 進行互動研究交接與提案驗證；尚未具備真實資料接入、研究引擎或排程能力。本文為未來任務的首要專案規格。研究市場為台灣上市／上櫃股票與台灣掛牌 ETF，報告繁體中文、時間 Asia/Taipei、基準幣別 TWD（可指定且須換匯依據）。
+狀態：Task 2.2 — Broad Discovery & Batch Research Execution。本文為未來 Codex 任務的首要規格；歷史 task 文件與舊開發清單若與本文衝突，以本文及 canonical Skills 為準。市場目標為台灣上市／上櫃股票與台灣掛牌 ETF，繁體中文、Asia/Taipei、基準幣別 TWD。
 
-## 目標與非目標
+## 從最終產出反推專案目的
 
-以 Investment Thesis 為核心：主動發掘候選、深度研究、保存使用者認可的理由／KPI／估值與風險條件、每日觀察新證據、評估穿透曝險，只在重要變化時請使用者重評。
+建立以 Investment Thesis 為核心的投資研究與監控助手。使用者提出資金用途、投資期間與可投資市場後，系統應自行建立有來源的研究母體，處理大量標的，解釋哪些值得深研、哪些暫不研究以及原因；經深研後回答「現在是否值得投入、為什麼、什麼條件會改變結論」。使用者認可的理由、KPI、估值與風險條件，未來才進入受控的核准紀錄與每日監控。
 
-成功不是短線股價預測或產生大量警報，而是讓每個投資理由可查證、可追蹤、可反駁、可追溯至核准版本。系統不自動下單，不直接連接交易執行接口；AI 不得修改已核准假設、實際持倉或假造交易。第一階段不建置全自動投資平台、歷史績效宣稱或最佳化配置模型。
+成功產出是可查證、可反駁、可重算且可追溯的研究與人工重評依據。不是只有商品介紹、幾檔知名標的比較、短線預測或大量警報。系統不自動下單，不建立券商交易路徑；AI 不得自行修改已核准論點或實際持倉。
 
-## 已確認的混合架構（Task 2）
+## 使用者如何使用
 
-- ChatGPT：依 GitHub canonical Skills 互動研究、質性分析與決策支援；不假設它會自動收到 Codex Skills 或能讀私有 Repository。
-- GitHub：Skills、Schema、規格與未來已核准投資紀錄的 Single Source of Truth。敏感批准紀錄須在 Task 3 確認私有／受控 Repository 與權限；本 Task 不寫批准紀錄，公開 repo 不放私人持倉或金鑰。
-- Codex：開發、更新與驗證方法及軟體；Python：確定性驗證、計算及未來監控；GitHub Actions：未來排程。
-- Human Investor：投資決策最終權限。ChatGPT／Codex 不自動批准或交易。
+1. 廣泛發掘：例如「請從可驗證的台灣上市股票尋找適合研究五年投資的候選」，不要求使用者先知道代碼。先確認／揭露資料、母體範圍與研究預算，執行完整初篩，然後只對有限候選深研。
+2. 指定範圍：例如研究某產業或比較三檔 ETF。這是明示的樣本研究，不能對外聲稱全市場最佳。
+3. 閱讀批次 coverage、同組比較與候選 Memo／未核准 Proposal。若缺持倉或風險資料，仍能研究資產品質與進場條件；Gate 3 必須 Not Assessed，不能自行配置資金。
+4. 未來 Task 3：明確批准確切提案版本後保存 thesis，另匯入經確認的實際持倉；每日只對重大新證據提出重評要求。批准研究不等於發生成交。
 
-Task 2 聚焦方法整合、Memo、Thesis Proposal 與 ChatGPT Mode A/B 交接，不建立自動研究引擎或排程篩選。Task 3 才落實核准、持久化、每日監控與組合風險；Task 1 的整體架構與長期規格保留。
+讀取 GitHub 本身不會啟動市場資料擷取、Python 或背景研究。現階段透過有執行能力的 Codex／受信任本機執行批次，再把完整報告和候選資料交給 ChatGPT；ChatGPT 有適當工具時可執行經審閱流程。無工具時須交代阻礙，不能聲稱已跑完大量標的。尚未部署 ChatGPT Action、研究服務或定時排程。
 
-## 兩個邏輯 Agent
-
-這裡的 Agent 是未來工作流程角色，不代表已部署服務，也不要求目前啟動多代理。
-
-| 角色 | 觸發 | 流程 | 產物與人工介面 |
-|---|---|---|---|
-| Agent 01 — Investment Discovery & Research | 手動／未來每月排程 | 主檔與可用性檢查 → Opportunity Screener → 分開的股票／ETF 候選 → Company Research／ETF 分支 → 結構化 Investment Memo | 候選清單、證據與估值假設；由使用者決定加入觀察清單、候選配置或提交投資假設更新 |
-| Agent 02 — Investment Monitoring & Risk | 手動／未來每日排程 | 讀取核准 thesis 版本與實際持倉快照 → 取最新可驗證證據 → 事件去重與關聯 → Thesis Health → Macro/Industry Risk → Portfolio Risk | Daily Investment Brief、證據缺口、重大警示與變更提案；不得自行更新核准基線 |
-
-每日時點待決，必須配合台灣收盤、公告延遲及海外資產 NAV 時差。無交易日不假造行情；重要公告仍可按公告時間處理。
-
-## 六個 Skills 邊界
-
-| Skill | 工作 | 本階段狀態 |
-|---|---|---|
-| opportunity-screener | 驗證母體、品質閘門、多因子排序；ETF 獨立適配檢查 | 完整方法與 JSON 契約；未接資料／計算執行器 |
-| company-research | 公司財務／生意／治理／估值、ETF 基金盡職調查、Memo／kill criteria | 完整方法與 JSON 契約；未接資料／計算執行器 |
-| thesis-monitor | 核准 KPI／失效條件逐項對照最新證據，區分價格噪音與假設變化 | 既有檔仍為佔位，僅本文件定義介面與目標 |
-| macro-industry-risk | 以因果傳導把總經／產業事件映射至 thesis 與曝險 | 既有檔仍為佔位，尚未實作 |
-| portfolio-risk | 以實際市值及 ETF 穿透評估集中、重疊、流動性與情境風險 | 既有檔仍為佔位，尚未實作 |
-| decision-recorder | 變更提案、明確核准、追加版本與審計事件 | 既有檔仍為佔位；尚無權限／儲存後端 |
-
-## 資料流程與責任
+## 不可偏離的產出契約
 
 ```text
-官方／授權資料 → 原始快照（不可變、來源／公告／擷取時間）
-               → 正規化（身分、幣別、單位、季度、公司行動）
-               → 品質閘門 → 版本化證據與計算 → 篩選／研究草稿
-               → 使用者核准 → 核准 Thesis Registry
-核准 thesis + 持倉快照 + 新事件 → 監控／曝險 → 去重警示／Daily Brief
-                                          → 變更提案 → 使用者核准 → 新版本
+使用者目標 → 有日期／來源的明確母體 → 全母體逐檔分類
+           → 同類可比排名＋缺漏／排除帳目 → 有預算的深研佇列
+           → 候選 Memo＋Proposal＋反方 → 跨候選條件性總結
+           → 使用者核准（Task 3）→ thesis／持倉監控與重評
 ```
 
-來源、計算與缺值規則在 `research-data-contract.md`。原始資料與使用者私有狀態不直接存進 Git；API 憑證只由執行環境注入。`schemas/` 定義的是研究交換契約，不是 API 已實作的證明。`docs/reports/` 只放可公開／匿名資料；敏感研究及持倉輸出至指定私有儲存位置。
+- 交付必須列母體定義、完整或樣本、截止時間、方法 SHA／revision、來源、政策與預算。`母體數 = pending + evaluated + excluded + needs_data + failed`；失敗或缺資料不能從分母消失。
+- 所有標的必須有處理紀錄，不能只展示留下的幾檔。初篩完成前不得把已處理部分的前幾名當作完整母體排名；用 process 接續，不重新挑熟悉標的。
+- 候選比較限同產業／同目標曝險、同口徑／日期；不把產業百分位、不同市場 ETF 或不同 profile 混成絕對投資總榜。預算沒涵蓋的組別／候選要揭露。
+- 先廣後深：基礎資料可做低成本研究優先度；正式五因子、長期品質與進場研究各有自己的證據閘門。不能要求先替每檔取得十年財報才開始廣篩，也不能把只有 PE/PB 的結果叫完整五因子。
+- 深研必須比較候選與同目標替代，解釋支持／反對證據、三道決策閘門、情境假設、下行、可觀察的投入／重評條件與決定性缺口。條件不足時給有原因的 Insufficient Evidence，不編價格、預期報酬或風險。
+- `processing_complete` 只表示全母體已分類（可能含 failed）；`research_artifacts_complete` 只表示佇列都收到通過契約檢查的草稿；兩者均不代表投資研究正確、結論已綜合或已核准。批次程式的 `research_complete` 固定 false，只有人工完成證據與總結驗收才可另記研究完成。
 
-至少保存以下邏輯實體（持久化後端下一階段選定）：
+## 混合架構與兩個邏輯 Agent
 
-- Instrument：代碼、交易所、資產類型與幣別；ETF 另含底層／策略。
-- Evidence：來源、URL／文件定位、資料期間、公開／擷取時間、內容版本與品質；事實／推論／假設／未知分開。
-- ResearchRun：run_id、截止時間、版本、輸入、資料覆蓋、輸出、失敗／缺口。
-- ThesisVersion：thesis_id、version、parent_version、instrument、投資理由、3–5 個 KPI、估值假設、風險／kill criteria、觀察頻率、建立者與核准者／時間、決策證據。
-- PortfolioSnapshot：snapshot_id、effective_at、來源／確認者、實際股數／現金、幣別、估值日期；成本與當前市值分開。候選配置不能寫成實際持倉。
-- Event／Assessment／Alert：canonical_event_id、source_event_ids、事件版本、公告時間、受影響 thesis/KPI、風險因子、首次／最近觀察、重要性、去重鍵與確認狀態。
+| 元件 | 責任與目前邊界 |
+|---|---|
+| ChatGPT | 讀固定版本 canonical Skills，質性深研、反方與跨候選總結；取數／計算能力逐次確認，不假設自動繼承 Codex Skills 或私人 GitHub 權限 |
+| GitHub | 方法、規格與 Schema 權威來源；公開 repo 不放金鑰、私人持倉或個人決策。未來核准紀錄的私有權限待 Task 3 |
+| Codex／Python | 開發驗證、官方資料快照、確定性計算、手動分批處理／續跑與收件；沒有自動 LLM 深研服務 |
+| Human Investor | 最終決策與核准權限；AI 不代為批准或交易 |
+| GitHub Actions | 未來排程；現階段沒有部署的市場批次或每日監控排程 |
 
-## 決策與核准狀態機
+Agent 是工作流程角色，不代表已部署多代理服務。
 
-`draft → proposed → approved | rejected`。已核准版本不可原地修改；新證據只新增 assessment。需改理由、門檻、估值或配置時，另建帶 `parent_version` 的 draft，再由使用者核准；核准後另記 supersession 事件標示舊版已被取代，不改舊版內容並保留全文。關閉假設同樣需核准，沒有任何 Skill 可自動繞過。
+| 角色 | 觸發 | 流程／交付 |
+|---|---|---|
+| Agent 01 — Investment Discovery & Research | 現在手動／未來每月 | 驗證官方／匯入母體與來源 → 完整初篩帳目 → 同組比較 → 預算內深研 → Investment Memo＋Thesis Proposal＋總結 → 人工決策 |
+| Agent 02 — Investment Monitoring & Risk | 未來每日／手動 | 核准 thesis＋實際持倉＋新證據 → 事件去重與關聯 → Thesis Health／宏觀產業／組合風險 → Daily Brief／重評提案 |
 
-核准需明確包含：核准者、核准時間、proposal_id、被核准的確切版本／內容雜湊、父版、理由。模糊回覆、沉默、模型同意或測試 fixture 都不算核准。未來儲存層須做版本衝突檢查與原子追加；舊提案不得覆蓋新核准版本。
+每日時點需配合收盤、公告延遲與海外 NAV 時差。無交易日不假造行情，資料中斷不等於低風險。
 
-觀察清單、候選配置、已核准投資假設與實際持倉是四種獨立狀態。實際持倉只能從使用者明確確認的輸入／可信匯入形成新快照；AI 推薦不會創造持倉。即使使用者核准研究或配置提案，系統仍不執行交易。
+## Task 2.2 可執行範圍與缺口
 
-研究產物的 `status=complete` 僅表示該次方法與證據檢查完成；`approval_status=draft` 永遠不等於核准 thesis。
+Task 2 原先「僅交接、不建執行器」的限制，在 Task 2.2 明確擴充為**手動觸發的批次初篩與研究交接**；未擴充至排程、自動深研、批准、持倉變更或交易。
 
-## 監控、去重與重要性
+- `src/market_snapshot.py`：固定 TWSE 官方 bulk 端點擷取主檔、日行情、PE/PB，保存 raw／hash／失敗紀錄。初始 live adapter 只涵蓋 TWSE 上市公司主檔，不是完整台灣股票／ETF 市場。主檔以擷取當時為準，不能作歷史成分回測。
+- `src/batch_research.py`：凍結 snapshot／政策／已提交方法版本，SQLite 保存逐檔狀態，支援預算分批、續跑與明確 retry；五項 research_context 隨 run 凍結並傳遞。全母體分類後產生組內比較、完整 ledger、簡短 Decision Snapshot 與候選深研 packets／ChatGPT 工作單；收件只新增未核准草稿版本。
+- normalized snapshot 可匯入 TPEx／ETF，但目前沒有 TPEx、投信／指數費用、NAV、持股、財報、完整歷史含息等 live adapters。ETF 初篩只提供已驗證被動、非槓桿股票型同曝險商品的有限載具比較；其他類型保留紀錄、待專用方法，不硬套。
+- basic PE/PB profile 不是五因子或資產品質結論。完整五因子需另備所有適用資料與可比模型，金融業不可套一般企業 ROIC／槓桿。ETF 載具優先度不回答底層當前估值。
+- 先前官方 API 曾遭代理 `403 Forbidden`；2026-10-19 已成功擷取 TWSE 三個端點並完成欄位接合／正規化：主檔 1,096 筆，1,086 筆股票、10 筆 TDR。TDR 依官方產業別 91 保留為 other 並排除於股票 profile，未只按代碼長度猜商品。行情資料日為 2026-10-16，不能冒稱當日即時價格；投資研究、數值交叉核對與 TPEx／ETF live 接入仍待驗收。離線 120 檔只驗工程流程。詳見 `TASK22_REVIEW.md`。
 
-- Thesis Health 初期採 `intact / challenged / invalidated / insufficient_data`，皆為 assessment，不改核准基線；無可靠 KPI 不產生虛構 0–100 分數。失效表示須人工重評，不等於自動賣出。
-- 同一公告被多家媒體轉載，依官方公告 ID／發行者／日期／內容版本建立 canonical event；來源證據保留多筆但事件只一筆。更正公告建立新版並連回原事件。
-- 一事件可同時連到宏觀、產業、個股及組合，但摘要引用同一 event_id；不可把同一匯率衝擊在各 Skill 分數加總成多次獨立損失。情境計算需列因子相依與共同假設，不加總互斥情境。
-- 重大事件：事先核准的 KPI／kill 門檻觸發、重大治理／法規或交易狀態變化、核准曝險限額突破、關鍵資料失效致無法監控。以重要性與新證據決定通知；單純跌價非 thesis 失效。
-- 無重要變化時 Daily Brief 記錄「未發現可驗證重大變化」、覆蓋範圍與缺口，不要求使用者反覆核准。無資料時不能稱無風險。
-- 警示去重鍵規劃為 `(thesis_version, canonical_event_id, rule_id, severity)`；相同事件無新證據／嚴重度變化不重發，重大更正／升級可重開。冷卻期、通知渠道及延遲容許值待使用者決定。
+操作、資料契約與驗收見 `BATCH_RESEARCH.md`、`research-data-contract.md`。canonical 分析方法仍只維護在 SKILL.md。
 
-## 第一階段成功標準
+## 六個 Skills
 
-1. 未來任務能從本文件、AGENTS 與來源紀錄理解邊界，不將佔位 Skill 視為可執行能力。
-2. 兩個優先 Skill 有輸入／輸出 JSON Schema、股票／ETF 不同方法、來源／日期／缺值／計算／風險／報告規則。
-3. 契約測試接受明示合成的合理輸入，拒絕錯誤商品、漏來源、缺值假裝分數、ETF 混用公司估值與草稿冒充核准等錯誤。
-4. 上游版本與 MIT 授權可追溯；不執行第三方未知程式；不臆測未公開的 XVARY 權重。
-5. 真實資料未串接前，明確標示只能做規格與契約驗證，不聲稱投資研究績效或即時監控已上線。
+| Skill | 工作 | 狀態 |
+|---|---|---|
+| opportunity-screener | 廣泛母體、分層證據閘門、可比研究優先度、排除與缺漏帳目 | 完整方法；已有有限批次執行器，live 未驗收 |
+| company-research | 財報／生意／治理／估值、ETF 盡調、三閘門、反方與 Memo／Proposal | 完整方法及部分確定性計算；仍須工具／研究者補證，沒有自動 LLM 引擎 |
+| thesis-monitor | 核准 KPI／失效條件對照新證據 | 佔位；Task 3 |
+| macro-industry-risk | 事件因果傳導與曝險 | 佔位，未實作 |
+| portfolio-risk | 實際市值、ETF 穿透集中與重疊 | 佔位，未實作 |
+| decision-recorder | 明確核准、追加版本與審計 | 佔位，無核准／私有儲存後端 |
 
-## 未來運行驗收（本次尚未達成）
+方法 revision 由 `SKILL_MANIFEST.json` 記錄；新批次契約 1.0 與既有 Proposal 2.0 分開，不把 campaign SQLite 當 Thesis Database。Task 2.1 的三道閘門、ETF 情境、七題反方與穩定 condition_id／kpi_id 保留，Task 3 再接核准與監控。
 
-- 官方主檔與少量具代表性的上市／上櫃、金融／非金融、股票型／債券／跨境／主動式 ETF 實際取數、來源核對與可重算報告。
-- Python 計算模組通過季度差分、單位換算、負分母、公司行動、TD/TE、DCF／敏感性及資料日期邊界測試。
-- 核准狀態機、不可變歷史、衝突控制與私密儲存測試；AI 無交易權限。
-- 每日重跑相同事件不重發警示；真正更新可觸發；資料中斷顯示缺口而非低風險。
-- 用事先標記的歷史案例驗證事件對應與人工重評品質；篩選權重須另做避免前視／存活者偏誤的研究，未完成前不聲稱有效 alpha。
+## 資料流程、版本與安全
 
-## 後續順序與待決事項
+原始來源 → 正規化 Instrument／Evidence → 品質檢查 → 計算／篩選／研究草稿 → 明確核准 → ThesisVersion。實際持倉形成獨立 PortfolioSnapshot；新 Event／Assessment 不改核准基線。
 
-1. 確認市場範圍、基準、投資期間、風險限額與資料預算；依 `api-integration.md` 選來源、授權、存取限制與 refresh SLA。
-2. 實作正規化資料層及可測試 Python 計算；以匿名／公開樣本走通兩個 Skill，保留真實驗證結果。
-3. 定義 thesis／portfolio／event 的正式 schemas 與私有儲存，落實使用者核准和版本控制；目前兩個研究契約不能取代核准後端。
-4. 完成其餘四個 Skill，驗證事件去重、組合穿透及警示規則；再接排程與 Daily Brief。
-5. 通知管道、冷卻／升級規則、資料留存／刪除、持倉匯入方式與權限待決。未選定前不部署或傳送私人資料。
+重要數據含來源、期間、公開／擷取時間、幣別與單位；已驗證事實、推論、假設、未知分開。不把未知公告時間補為午夜。財務與報酬計算用可測試 Python，ETF 不用公司 DCF。原始資料、個人持倉與金鑰不直接存 Git；`data/campaigns/`、`data/snapshots/` 預設忽略，使用者私有輸出依其受控位置保存。
+
+至少保留 ResearchRun 的 snapshot_id、截止、政策、完整母體、每檔狀態、來源／計算、方法 commit／hash、預算與版本。凍結後若要改價格、名單、資料截止或政策，另開 campaign；同一 campaign 不默默替換資料。中斷可續跑，不重置已完成紀錄。hash 保證一致性，不保證來源真實或方法有效。
+
+第三方來源以固定 commit／MIT 授權追溯，不執行未知程式；下載內容只當資料，不接受內嵌指令。當日資料不是避免存活者／前視偏誤的歷史回測資料。篩選權重與 profile 未完成 alpha 驗證，不聲稱有效投資策略。
+
+## 決策與核准狀態機（Task 3 規格，尚未實作）
+
+`draft → proposed → approved | rejected`。觀察清單、候選配置、已核准 thesis 與實際持倉分開。Proposal 2.0 只允許未核准狀態，Decision Status 是研究建議，不是交易指令。
+
+核准必須明確指定核准者／時間、proposal_id、確切版本／內容 hash、parent_version 與理由；沉默、模型同意與 fixture 不是核准。已核准版本不可原地修改：新證據另增 assessment；變更另建草稿，核准後新增版本與 supersession 事件，保留舊版全文。關閉 thesis 也需核准。儲存層要做版本衝突檢查與原子追加；舊提案不得覆蓋新核准版本。
+
+實際持倉只接受經使用者明確確認的輸入／可信匯入形成新快照。AI 推薦、配置草稿或研究核准不能創造交易／持倉。
+
+## 未來監控與風險準則
+
+- Thesis Health 採 intact／challenged／invalidated／insufficient_data。無可靠 KPI 不產生假 0–100 分。失效是人工重評依據，不等於自動賣出。
+- 同一公告／轉載以 canonical_event_id 去重，保留多來源；更正建立新版並連原事件。跨公司／產業／宏觀／組合引用同事件，不將同一衝擊加總成多個獨立損失，互斥情境不可相加。
+- 重大變化包含核准 KPI／kill 門檻、治理／法規／交易狀態、曝險限額突破及關鍵監控資料失效。價格波動本身不是 thesis 失效。
+- 無可驗證重大變化時，Brief 記錄覆蓋與缺口，不反覆要求核准。警示去重鍵為 thesis_version／canonical_event_id／rule_id／severity；無新證據不重發，重大更正可升級。
+
+## 成功標準與接續順序
+
+1. **本階段工程驗收**：120 檔以上明示 mock 母體、分批與一次跑一致、所有數量守恆、缺值／排除／失敗保留、可中斷續跑、凍結資料／方法不可悄改、不可比不排名、預算延後揭露、佇列不是研究完成、收件不核准。
+2. **接續 live 驗收**：首輪 TWSE 取數與欄位接合已完成；接續人工核對主檔／日期／單位／數量與數值，檢查完整研究證據；檢查缺價／負 PE／金融／新上市案例。再用少量真實候選跑完深研、三閘門與跨候選結論。測試與原始證據另存，不以 mock 取代。
+3. **擴大市場與證據**：接 TPEx、ETF 官方分類與投信／指數 NAV、費用、持股、含息／風險與底層估值；MOPS 財報／營收／公告；補可重算指標及公司行動。資料授權、基準、更新 SLA、歷史窗口與預算逐項確認。
+4. **Task 3**：先做 decision-recorder、thesis／portfolio／event schema、私有儲存與人工核准版本控制，再做 thesis-monitor 及其餘風險 Skills；最後接排程與 Daily Brief。通知渠道、冷卻／升級、留存／刪除與持倉匯入權限待決，不預先部署。
+
+未來任務必須依上述產出鏈定位工作：若只增加格式、Skill 數量或漂亮敘事，卻沒有擴大可驗證覆蓋或改善決策證據，不能宣稱已完成 Investment Manager 目標。
 
 
-## Task 2 交付與下一階段
+## 互動與產出約束（GitHub Issue #1／#2）
 
-canonical 方法仍在兩個 SKILL.md；ETF 留在隔離分支，決策理由見 `TASK2_AUDIT.md`。`SKILL_MANIFEST.json` 記錄方法 revision、依賴與檔案 hash，Git commit 在實際 bundle／研究時解析，不把 HEAD 字樣當版本。交接與收件流程見 `CHATGPT_HANDOFF.md`，輸出使用 `INVESTMENT_MEMO_TEMPLATE.md` 及唯一 `schemas/thesis-proposal.schema.json`。既有研究工作表 Schema 保留相容，不能充當已核准 thesis。
+先讀既有對話，核對商品／範圍、持有期、進場窗口、累積報酬目標及期限、風險偏好；只問缺少且影響研究的項目。多項用精簡可部分填表、僅一項用單問；不確定／不限／無特定報酬目標可接受。使用者要求直接開始，或有用的探索可在明示假設下做 provisional_screening，不能把假設變成已知風險承受。條件帶來源／時間一路傳給深研與 Memo／未核准提案。
 
-Task 2 成功：離線 bundle 可重現、缺依賴／版本漂移可拒絕、stock／ETF mock 提案與錯誤案例通過／被拒，使用者有第一檔 ChatGPT 手動測試步驟。這些不等於真實金融分析或 live ChatGPT acceptance；尚須實際工具、官方資料與人工驗證。
-
-接續順序調整：先以 ChatGPT 測試一檔股票及 ETF 的方法載入、來源品質與輸出，記錄真實驗證結果；依需求再做小型 Python 計算與資料 adapter，而非先建全自動研究平台。Task 3 才設計權限、批准版本與私有儲存，之後才接每日事件、去重、風險和排程。舊 `agent-implementation-prompt.md` 為歷史候選開發清單，不覆蓋本階段範圍。
-
-
-## Task 2.1 決策品質升級
-
-研究的成功標準增加「現在是否值得投入、為什麼、何時應改變決定」；三閘門、ETF 底層報酬情境與反方方法仍以 canonical company-research 為準，不能只交產品介紹。Proposal 2.0 增必要 investment_decision，Memo 最後呈現同一決策。缺證據可交 Insufficient Evidence，但必須列取得決定性資料的方法。
-
-TASK21_DECISION_REVIEW.md 記錄設計根因與執行責任的證據限制。Mock 100 萬／五年／0050、00646、00713 僅測契約與降級，不等於真實 ETF 評等。Task 3 還未實作，新增穩定 condition_id、既有 kpi_id／source_id 與未核准狀態供後續保存／監控，不更改既有核准紀錄。真正研究仍需官方資料、模型適用性與人工審查。
+一般請求預設 Decision Snapshot，先回答研究價值、當前投資判斷、核心反方及下一步，並完整但緊湊涵蓋價格、期限總報酬、風險、催化劑及替代；無可靠價位／報酬明寫不能估計。之後主動詢問全部或指定標的深研，沿用已知條件；已明確要求深研則直接給摘要＋完整 Memo，不多一輪確認。詳細方法只維護在 canonical Skills，摘要契約不放寬 Task 2.1 的證據／三閘門。互動規則亦適用於 Task 2.2 批次：先完整初篩，再預設交候選摘要，使用者要求深研時才展開；真實資料與 Task 3 仍須各自驗收。

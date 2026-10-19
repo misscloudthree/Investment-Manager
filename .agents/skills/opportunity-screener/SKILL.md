@@ -7,15 +7,72 @@ description: 篩選台灣上市上櫃股票與台灣掛牌 ETF；使用來源可
 
 先讀 `docs/PROJECT.md` 與 `docs/research-data-contract.md`。方法改寫自 InvestSkill stock-screener / etf-analysis、AI Berkshire quality-screen / industry-funnel；完整版本與授權見 `docs/skill-provenance.md`。這是研究優先度篩選，不是交易系統。
 
+## 研究前互動：先讀既有條件（Issue #1）
+
+啟動時先讀目前請求與既有對話，抽取使用者**已明確提供**的五項條件，不重問：
+
+| 欄位 | 核對內容 |
+|---|---|
+| product_scope | 商品／投信／市場／產業限制，或明確不限；不要求先給代碼 |
+| holding_period | 預計持有期（例如 6／12／24 個月或長期） |
+| entry_window | 預計開始時間／資金投入期限；不得與持有期混淆 |
+| return_target | **期望的累積總報酬及衡量期限**，或無特定目標；這是使用者目標，不能冒充預測 |
+| risk_preference | 保守／平衡／積極或其他定性偏好；可承受波動與最大虧損容忍分開，缺少就未知 |
+
+只詢問尚缺且會實質改變篩選的條件。五項皆未知、只說「推薦基金」時，先用一份精簡、可部分填寫的表單；僅缺一項只問該項。允許不限／不確定／交由系統假設／無特定報酬目標；已回答不確定不是未回答，不反覆追問。使用者明確說直接初篩、不先提問時，遵循要求做暫定探索。
+
+開始前簡短列「已知條件／本次假設／仍需確認」。有用的初步探索可在明示假設下開始，標記 provisional_screening；無明示指示又缺關鍵條件時先收集，不先吐固定熱門榜。不得假稱已知風險承受／報酬目標，或由高風險偏好推導最大虧損百分比、個人化買入比例。缺持有期用 null／未量化長期，不為通過 Schema 偷填 36 個月。
+
+以 `schemas/research-context.schema.json` 保存五項原文、provided／no_preference／uncertain／delegated／missing／assumed、user／system_assumption／unknown、對話定位與 recorded_at；可量化持有期另存 holding_period.months，未量化用 null，與 input.horizon_months／情境期限一致。後續輸入、篩選理由、company-research、Memo 與提案沿用 research_context，不要重收一次。新答案取代對應欄位，其他已知條件保留；假設不得改標 provided。實際母體若不能滿足投信／市場限制，標缺口，不偷偷放寬限制。
+
+## 預設交付：Decision Snapshot（Issue #2）
+
+一般「有什麼基金值得研究？」先完成必要條件取得，再預設提供簡短 Decision Snapshot，而不是完整長篇 Memo。摘要必須先回答「值得研究嗎／現在值得買嗎／為何／下一步」，逐檔緊湊表格或卡片列：
+
+1. 商品代號與名稱；研究優先度與投資決策分欄，不能以高研究優先度充當可買。
+2. 決策狀態沿用 Task 2.1 五種正式值；顯示 Wait 時對應 Wait for Conditions，不另加狀態。
+3. 最多 2–3 個決定性原因，至少含主要反方；加明確下一步與關鍵缺資料。
+4. 合理進場價／區間：必須驗證資料與適用估值法，列日期、幣別、公式、假設與來源／計算紀錄。否則寫「未能可靠估計」，不以現價機械減 5%／10% 冒充合理價。
+5. 預期累積總報酬與期限：有依據才給 Bull／Base／Bear 條件情境，列含息／費用／匯率口徑、來源日期、假設與可重算模型；無可靠模型寫「尚無可信估計」。使用者的 +20% 願望不是本欄預測。
+6. 最重要 1–3 項風險及可能翻轉判斷的因素。
+7. 催化劑／機會的事件、基本面機制與日期／窗口；未知要明寫待核對，不編日期。
+8. 類似基金／同目標替代及主要曝險／成本取捨；未核對的替代明寫未驗證，不宣稱更便宜。
+
+摘要用 `schemas/decision-snapshot.schema.json`，只新增呈現契約，重用既有 investment_decision 的三閘門、模型與反方規則；不另創較寬鬆推薦方法。不足處明文揭露、數值 null，不留容易被當作通過的空白。沒有證據時清楚給 Insufficient Evidence＋決定性缺口。摘要不表示已完成深研、Proposal 驗證或可直接交易。
+
+摘要後主動問一句「需要對全部或指定哪些標的展開深度報告？」並沿用已知條件。若一開始明確要求深入研究／完整報告，直接提供短摘要＋完整 company-research／Memo，不再詢問是否要詳細版。只有在展開深研時才交完整研究與適用的未核准 Proposal；一般摘要不強制虛構完整 thesis。以下完整方法與工作表按研究階段使用，不因漸進揭露省略數據驗證。
+
 ## 輸入與範圍
 
-接受代碼清單、產業、主題或指數。記錄截止日期、投資期間、基準、流動性下限、排除條件及權重。未指定時：最近已公開資料、中長期觀察、股票以交易所產業分類分組，ETF 按底層資產／策略分組。不擅自設定個人可承受虧損或倉位。
+接受未指定代碼的投資目標、代碼清單、產業、主題或指數。記錄截止日期、投資期間、基準、流動性下限、排除條件及權重。未指定期間／偏好依上節列假設或待確認，不默認已知；資料取最近已公開版本，股票以交易所產業分類分組，ETF 按底層資產／策略分組。不擅自設定個人可承受虧損或倉位。
 
 先取官方商品主檔核對 TWSE/TPEx、個股／ETF、幣別及交易狀態。全市場／指數模式須有截止日完整母體與成分股；無法取得時標為「樣本篩選」，報告母體、納入數及缺漏數，不聲稱全市場最佳。台灣掛牌海外股票、債券、主動式、槓桿與反向 ETF 分類處理。
 
+## Task 2.2：先廣後深與批次比較方法
+
+使用者未指定標的時，從可取得且明示範圍的官方主檔建立母體；不得改成自行挑幾檔知名標的。主檔、類型、日期、政策與方法版號先凍結；完整處理後才能選候選。取得失敗／範圍不足時交 blocked 或 sample，列決定性缺口。`docs/BATCH_RESEARCH.md` 是操作／契約，分析規則以本節為準。
+
+分三種**研究優先度** profile，名稱與分數不能互換：
+
+| Profile | 資料與計算 | 結果的界線 |
+|---|---|---|
+| stock_basic_v1 | 同交易所產業組、同日正 PE/PB，各做下述百分位，兩者均有效才等權平均 | 基礎估值待查順序；未查品質、成長、動能或反向估值，低 PE 可能是景氣高峰，絕非完整五因子／可買榜 |
+| stock_five_factor_v1 | 使用原五維因子／權重與 ≥75% 覆蓋規則，不靜默改權重 | 需經驗證非金融業可比模型；金融業改專用方法，不硬套一般 ROIC／槓桿。品質旗標另列，不能用高分抵銷 |
+| etf_vehicle_v1 | 同目標、底層市場／資產／策略／幣別／避險且窗口可比的被動非槓桿股票型 ETF；實際總費用、TE 低佳，成交金額高佳，各百分位等權，三項均有效 | 僅載具待查順序；未驗 NAV、底層估值、完整持股與五年風險，不能稱 ETF Quality Pass 或現在進場吸引力 |
+
+active／bond／leveraged_inverse／derivative 等 ETF 不能塞進 vehicle profile；保留待資料／專用方法紀錄，再按 ETF 分支質性研究。ETF 僅有 2–3 個同目標替代時可比較原始值與證據，但不足五個有效同業不造數值排名。不可為湊樣本把 0050、00646、00713 當同曝險組。
+
+所有 profile 每項至少五個有效可比樣本，使用本文百分位公式。ratio 一律小數，PE/PB 等倍數為 multiple；參與計分數字須為組內最新行情日已公開可得的狀態快照、同單位與同口徑。報告期／計算窗口另記，不因同日填表就假定 TE／費用／財報可比。負 PE／PB、缺值、時間／單位錯誤、樣本不足列 N/A；不把缺資料當零分。每檔列 factor value、來源／日期、組中位數、方向、樣本數、覆蓋與未排名原因，說明為什麼優先研究及可能誤判。
+
+交易風險未知要列 flag；官方／可信匯入的停止交易、下市先排除。未知不能稱可交易，但不以缺限制資料為由悄悄刪掉大半母體。行情／成交資料缺失或過期列 needs_data；使用者沒指定成交下限時預設 0，只做揭露，不推論個人流動性適合。初始 adapter 只有單日金額，不冒充 20 日均值。
+
+批次必交母體數及 pending／evaluated／excluded／needs_data／failed、逐檔理由／缺口。evaluated 不表示足夠因子可排名；完整分類前不發布暫時排行榜。失敗保留錯誤，明確 retry；缺資料補新 snapshot。新政策／資料／方法另開 campaign，原 run 可續跑，不重做或隱藏已處理項。
+
+候選按各組研究排名取 shortlist，再跨組輪流分配明確 deep_research_limit；列未被名額涵蓋的組別／候選。這是研究資源分配，不是跨組投資價值排行。為每個選中標的交資料 packet、同行比較、支持／反對待驗問題、長期／估值／個人資料缺口與補證來源，送 company-research。最後交付要分「全母體初篩已完成」「幾檔待／已深研」「總結是否完成」，不能只列 packet 就稱完成研究。
+
 ## 步驟一：資料品質與交易風險閘門
 
-1. 取得最近交易日價格、20 日成交金額／成交量、交易狀態、公司行動；取近 5 年與最近四季財報、近 12–24 個月營收。10 年不足時用可得期間，不假裝滿足長期檢驗。
+1. 先按下節分層預算取得主檔／最近交易日價格／成交金額、類型、分組及可用交易狀態；初篩不是先替全市場做深研。完整品質階段再取 20 日成交資料、公司行動、近 5 年與最近四季財報、近 12–24 個月營收。10 年不足用可得期間，不能假裝滿足長期檢驗。
 2. 注意／處置、變更交易方法、停止交易、下市風險、重大訊息、會計師保留意見等各列旗標；區分官方事實與研究判斷。無法交易者不進可執行候選榜，仍列排除原因。
 3. 使用者未給成交金額下限時，只揭露流動性與可比較性，不隨意刪除小型股；大型預期部位須另外評估成交參與率與退出天數。
 4. 價格或財報身分不明、重大來源衝突未解決者列「待補資料」，不得靠估計進榜。
@@ -74,9 +131,9 @@ ETF 不使用公司五因子總分。先核對公開說明書、指數方法／�
 
 第一階段以各項「符合／警示／未驗證／用途不符」呈現 ETF 適配度，不移植上游美國 AUM／稅表門檻，也不與個股總分混排；不宣稱重現上游 ETF Fitness Score。
 
-## 輸出與交接
+## 完整研究工作表與交接（展開時）
 
-以 Markdown 保存 `docs/reports/YYYY-MM-DD-opportunity-screen.md`，同日重跑加版本尾碼，不覆蓋：
+完整方法報告以 Markdown 保存 `docs/reports/YYYY-MM-DD-opportunity-screen.md`（批次初篩另依 campaign 契約，basic 不填五因子工作表），同日重跑加版本尾碼，不覆蓋：
 
 1. 資料與來源摘要、輸入條件、完整母體／樣本與排除統計。
 2. 個股榜：代碼｜市場｜產業｜五維分數｜總分／未排名原因｜覆蓋率｜品質旗標｜信心。
@@ -89,7 +146,7 @@ ETF 不使用公司五因子總分。先核對公開說明書、指數方法／�
 
 ## 結構化交換與核准邊界
 
-執行前依 `docs/skill-contracts.md` 正規化輸入；使用對應的 `schemas/opportunity-screener.input.schema.json`。輸出同時提供 Markdown 報告與符合 `schemas/opportunity-screener.output.schema.json` 的 JSON（同名 `.json`）。格式檢查後仍須人工逐項完成契約文件的語義品質檢查；尚無 API adapter／財務計算執行器，不能宣稱已自動執行。
+執行前依 `docs/skill-contracts.md` 正規化輸入；使用對應的 `schemas/opportunity-screener.input.schema.json`。展開完整研究工作表時，輸出同時提供 Markdown 報告與符合 `schemas/opportunity-screener.output.schema.json` 的 JSON（同名 `.json`）。格式檢查後仍須人工逐項完成契約文件的語義品質檢查；Task 2.2 已有有限資料 adapter／批次比較；完整財務與品質資料仍須補證，未執行的步驟不能宣稱完成。
 
 缺關鍵證據時 meta.status=partial 或 blocked、數值 null、列出 data_gaps，不能用合成數字完成報告。所有產物 approval_status=draft。與已核准 thesis 的差異只形成新提案，不修改原版 KPI、估值假設、失效門檻或實際持倉；新增核准版本須使用者明確確認。不得自動下單。
 
@@ -102,7 +159,7 @@ ETF 不使用公司五因子總分。先核對公開說明書、指數方法／�
 
 輸出 Candidate List、篩選理由、來源、研究優先度及不確定／缺漏；Research Priority 為 high／medium／low／unranked，說明依據。資訊不可比時給 unranked；它不是獲利概率。各資產類型分開，透明記錄所有調整與排除。
 
-篩選 Markdown 以 `docs/INVESTMENT_MEMO_TEMPLATE.md` 保留適用章節（不足處明示 screening／未深研），原 screener JSON 保留作工作表。若為候選生成結構化提案，唯一提案契約是 `schemas/thesis-proposal.schema.json`：research_stage=screening，status 只能 draft／needs_information；不把分數直接變成完整投資論點或核准門檻。單一候選完成深研後，由 company-research 產出 Memo + Thesis Proposal。
+使用者展開深研時，篩選 Markdown 以 `docs/INVESTMENT_MEMO_TEMPLATE.md` 保留適用章節（不足處明示 screening／未深研），原 screener JSON 保留作工作表。若為候選生成結構化提案，唯一提案契約是 `schemas/thesis-proposal.schema.json`：research_stage=screening，status 只能 draft／needs_information；不把分數直接變成完整投資論點或核准門檻。單一候選完成深研後，由 company-research 產出 Memo + Thesis Proposal。
 
 
 ## Task 2.1：研究優先度與現在投資是兩個問題

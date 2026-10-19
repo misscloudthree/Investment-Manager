@@ -6,27 +6,27 @@
   "shared_dependencies": [
     {
       "path": "AGENTS.md",
-      "sha256": "98e22311a5655806ff7cb455be258d4f4c0c17d5da225f6264bc80578d55be67"
+      "sha256": "3dad207551f52d5d7913f9cf05961e2b72c6b0fdd8aa7d3eacb7fb5338b658a4"
     },
     {
       "path": "README.md",
-      "sha256": "38273097e61320cd3a884dbfa9f759f757bb62504cf77cd45db3ffcb01a26cc3"
+      "sha256": "123544455110b8e4398834b99c4e14f3f9ca439cdb26a1d4029cc8b338028532"
     },
     {
       "path": "docs/CHATGPT_BOOTSTRAP.md",
-      "sha256": "6e552fe70006178e2c0780f1bcb307f2787b376beae542c8b2202182b098ee1e"
+      "sha256": "16db290bf88cd15eef8cc1cde3d4185ab66eb20186e0232b24773f72eb80a226"
     },
     {
       "path": "docs/CHATGPT_HANDOFF.md",
-      "sha256": "63e48d389266c46f60910f42a8296126769186fd6f70d6e3df1ff0b343827fca"
+      "sha256": "80a3d4b848c7dea0227c4e86f9de376e1417cc7931752838e297b4d49b08c468"
     },
     {
       "path": "docs/INVESTMENT_MEMO_TEMPLATE.md",
-      "sha256": "3ed0fe9572b4648142ecd052a748b48d04a94980000df87cae4a4163db702052"
+      "sha256": "69d5952eaf44a8196c995df8b325910a06e54651d45667f541c38a175d98aa9a"
     },
     {
       "path": "docs/PROJECT.md",
-      "sha256": "a6fe4176dde9f79a499ea2d2118b2b4a635762e603829c11efb87f4b49902134"
+      "sha256": "bb1a6861776e22a5fc7affa64538e1a90963e5ad20792d0815176afd10fbbadd"
     },
     {
       "path": "docs/TASK2_AUDIT.md",
@@ -34,19 +34,19 @@
     },
     {
       "path": "docs/api-integration.md",
-      "sha256": "81f2952bd75111dc21349d57863c5d03d2ab2c7c49faf8ec7c5180f22a856d01"
+      "sha256": "3f6e4a6a72d47d4ff3b979843007d92b7e7dd4e8923e8c84fe3a6a2dc6277100"
     },
     {
       "path": "docs/research-data-contract.md",
-      "sha256": "7a7ecd274b69f38eca7fb54521a6520b4ff7e566bfe5ffc3a0e1e43d3ce9d15a"
+      "sha256": "289a8e592448482348fdf920f4a3635bcae23042473b151d80b5d23b4b794050"
     },
     {
       "path": "docs/skill-contracts.md",
-      "sha256": "96d5183cdb28d10dfb905ae72d829571bd19540dfef9ad701f4c66f7b74fc4a6"
+      "sha256": "7064617b4475d6fdcb51c006fcd275d64f3c749b22a5b99df88bf00ccb7e852b"
     },
     {
       "path": "docs/skill-provenance.md",
-      "sha256": "ff039ae7e27e1d8a6bc67fcb00f3b8111e69eb23eb084de400bd64abb2bd5b90"
+      "sha256": "50a825bb7c616ffc39c694575d30744c187c1dda3a5bed3030fc8cb1a80c86cd"
     },
     {
       "path": "docs/third-party-licenses/InvestSkill-MIT.txt",
@@ -70,27 +70,27 @@
     },
     {
       "path": "schemas/company-research.input.schema.json",
-      "sha256": "fbffa04e41f7b910f7d6e72dfcc0a0bebb1c571d0065a4757bdb291d9c378562"
+      "sha256": "8854f94dcc5addc3042c6fc74f26f58b1b423cbe76c85042d95680b42efd77fe"
     },
     {
       "path": "schemas/company-research.output.schema.json",
-      "sha256": "d55bf204398c91034d92178b90c90092d9901630f820f1511255745a2f9c2a27"
+      "sha256": "5fea008e99a9b73ebce1aac66a3ff41f9214d8e97bf95835609a802fc766bac0"
     },
     {
       "path": "schemas/opportunity-screener.input.schema.json",
-      "sha256": "75f6ca2d8d90db625ca947643b5bebe9a4e5d25f8daee80a5b3738c7b0240858"
+      "sha256": "7fd91f1bec4b6cfc7dafa4b5e091cae356225b67d10285ee5abda3017105dd28"
     },
     {
       "path": "schemas/opportunity-screener.output.schema.json",
-      "sha256": "f5d25d6eca4109040d069c1f4e1cda1be8bad6ddd60a09a0575cc1314fb5c7a0"
+      "sha256": "eed74f372ebcd15496a3db4709da8cb2c26319ee2e17a0d484d9b6152aca665d"
     },
     {
       "path": "schemas/thesis-proposal.schema.json",
-      "sha256": "36a155fe21191fc0cdb9af306dc49c6ff68fc6cb64332178752a8d540e7daed6"
+      "sha256": "b5bd1a8bf678086aebd3201c8d7e09e2caec90167e85da9ec392155d19559915"
     },
     {
       "path": "src/research_handoff.py",
-      "sha256": "676d15156a7e4f98f3e27bc37a352b4321f3c946aa71f609bd2de1f75b979430"
+      "sha256": "e1525741684436ea40c5582d29a74ced4e6bb99094114509504df2e4f931ac85"
     },
     {
       "path": "docs/repository-audit.md",
@@ -123,14 +123,66 @@
     {
       "path": "tests/fixtures/task21-etf-context.mock.json",
       "sha256": "dba2812541acd91552c99a882db30ce04576b7dc238091a0fa13388400d6c62f"
+    },
+    {
+      "path": "schemas/research-context.schema.json",
+      "sha256": "ec9abd84ea27c3fc0f0565a3cf2122edff13cb3456a8a97e356551f4083ead11"
+    },
+    {
+      "path": "schemas/decision-snapshot.schema.json",
+      "sha256": "0b1846ad534c3180880a8fa49c514da3c28adbf75dca12806d24282679000830"
+    },
+    {
+      "path": "src/research_interaction.py",
+      "sha256": "7dd1305b1d7dc79cf20f202ec925b6683cc9522629a8e3888d64887c6eb5f558"
+    },
+    {
+      "path": "tests/fixtures/research-interaction.mock.json",
+      "sha256": "05ef6fcfa6cea4fdb527e8a7aed09213ced7930937eeebab65a3d5f429f92dc4"
+    },
+    {
+      "path": "src/market_snapshot.py",
+      "sha256": "6981bbfffd55bf9854c55e8f14445d800f9caa2faa40e60e95e185ba344edc21"
+    },
+    {
+      "path": "src/batch_research.py",
+      "sha256": "12d1ac39097e81ea6822b20d1c876bbd0fbae956b51f61f9c5c142b36c1be17e"
+    },
+    {
+      "path": "schemas/market-snapshot.schema.json",
+      "sha256": "543a947872c6f5cacf41ebf8332223709cf6446cfd08ef93eae38c1e86a897c9"
+    },
+    {
+      "path": "schemas/research-campaign.input.schema.json",
+      "sha256": "56c96a14ef9734cb760891cab8e05119b81a6d7bbbc62d053187126f36911c17"
+    },
+    {
+      "path": "schemas/research-campaign.output.schema.json",
+      "sha256": "ac00038fc9470be20da22af6f48065a2df143ccf7edc349c48096031925a662a"
+    },
+    {
+      "path": "examples/batch_research_acceptance.py",
+      "sha256": "6e760cd02889c7513cff80f4371e26d1cf3756313aa6023cfb1429dd8a852b90"
+    },
+    {
+      "path": "docs/BATCH_RESEARCH.md",
+      "sha256": "a023430f0d1008e32c216328026350aab7dbc56198c09d977ec0239a5a67461f"
+    },
+    {
+      "path": "docs/TASK22_REVIEW.md",
+      "sha256": "2078b835af9c3699e8bf48e524772c152345b7592a4bf3e12af374e7d9c41337"
+    },
+    {
+      "path": "config/batch-policy.example.json",
+      "sha256": "9cfc68449de443a596a71ef795a957d6168ff6afbfce5d24c9fba367dce77ebe"
     }
   ],
   "skills": [
     {
       "name": "opportunity-screener",
       "canonical_path": ".agents/skills/opportunity-screener/SKILL.md",
-      "revision": "2.1.0",
-      "sha256": "40ea34676c792e8e32d490361d73ce30d1f17538923aa5722686416e6dd1df75",
+      "revision": "2.2.0",
+      "sha256": "acfa6779f64c0eb7c44fded405f7f887525df51eb5c23936d85106bc9335f12a",
       "upstream_references": [
         "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/stock-screener/SKILL.md",
         "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/etf-analysis/SKILL.md",
@@ -149,14 +201,17 @@
         "research cutoff",
         "verified instrument/universe",
         "available source documents",
-        "actual tool capabilities"
+        "actual tool capabilities",
+        "Five conversation-aware investment conditions with provenance; explicit assumptions when provisional"
       ],
       "input_schema": "schemas/opportunity-screener.input.schema.json",
       "expected_outputs": [
+        "Decision Snapshot by default; explicit deep-dive request receives short snapshot plus full Memo without reconfirmation",
         "Investment Memo",
         "Candidate List and Research Priority",
         "Three separate decision gates",
-        "Investment Decision with adversarial review (research recommendation, never approval)"
+        "Investment Decision with adversarial review (research recommendation, never approval)",
+        "Frozen-universe ledger, peer comparison, coverage and pending deep-research queue; not a completed research recommendation"
       ],
       "intermediate_output_schema": "schemas/opportunity-screener.output.schema.json",
       "proposal_schema": "schemas/thesis-proposal.schema.json",
@@ -166,15 +221,20 @@
       },
       "execution_dependencies": {
         "natural_language": "Read canonical methodology",
-        "python": "For deterministic calculations/hash/schema checks only when available",
-        "data_access": "Authorized web/API or dated user documents; no adapters supplied"
-      }
+        "python": "Deterministic contracts/calculations and manually triggered resumable batch CLI when execution is available",
+        "data_access": "TWSE common-company bulk adapter (live validation pending); normalized imports for other scopes. No autonomous ChatGPT tool/API deployed"
+      },
+      "interaction_context_schema": "schemas/research-context.schema.json",
+      "presentation_schema": "schemas/decision-snapshot.schema.json",
+      "batch_input_schema": "schemas/market-snapshot.schema.json",
+      "batch_policy_schema": "schemas/research-campaign.input.schema.json",
+      "batch_output_schema": "schemas/research-campaign.output.schema.json"
     },
     {
       "name": "company-research",
       "canonical_path": ".agents/skills/company-research/SKILL.md",
-      "revision": "2.1.0",
-      "sha256": "d8872c4768f135cb15cfbc12e6d6611f98cac9a8f793687e7e40504d36326eeb",
+      "revision": "2.2.0",
+      "sha256": "5b71a53283b047a796206d2cdfb4ea866b448b54638c1bf96cfaad58057590d4",
       "upstream_references": [
         "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/etf-analysis/SKILL.md",
         "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/stock-eval/SKILL.md",
@@ -199,10 +259,12 @@
         "research cutoff",
         "verified instrument/universe",
         "available source documents",
-        "actual tool capabilities"
+        "actual tool capabilities",
+        "Five conversation-aware investment conditions with provenance; explicit assumptions when provisional"
       ],
       "input_schema": "schemas/company-research.input.schema.json",
       "expected_outputs": [
+        "Decision Snapshot by default; explicit deep-dive request receives short snapshot plus full Memo without reconfirmation",
         "Investment Memo",
         "Thesis Proposal (unapproved)",
         "Three separate decision gates",
@@ -216,10 +278,13 @@
       },
       "execution_dependencies": {
         "natural_language": "Read canonical methodology",
-        "python": "For deterministic calculations/hash/schema checks only when available",
-        "data_access": "Authorized web/API or dated user documents; no adapters supplied"
-      }
+        "python": "Deterministic contracts/calculations and manually triggered resumable batch CLI when execution is available",
+        "data_access": "TWSE common-company bulk adapter (live validation pending); normalized imports for other scopes. No autonomous ChatGPT tool/API deployed"
+      },
+      "interaction_context_schema": "schemas/research-context.schema.json",
+      "presentation_schema": "schemas/decision-snapshot.schema.json"
     }
   ],
-  "proposal_schema_version": "2.0"
+  "proposal_schema_version": "2.0",
+  "batch_contract_version": "1.0"
 }

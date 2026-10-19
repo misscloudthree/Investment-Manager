@@ -490,6 +490,9 @@
     },
     "investment_decision": {
       "$ref": "investment-decision.schema.json"
+    },
+    "research_context": {
+      "$ref": "research-context.schema.json"
     }
   },
   "required": [

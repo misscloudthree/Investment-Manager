@@ -222,6 +222,18 @@ def unique_ids(items, field):
 
 def validate_proposal(proposal, sha, read, manifest):
     schema_validator(read, 'thesis-proposal.schema.json').validate(proposal)
+    if 'research_context' in proposal:
+        if __package__:
+            from .research_interaction import validate_context
+        else:
+            from research_interaction import validate_context
+        validate_context(proposal['research_context'], read)
+        months = proposal['research_context']['conditions']['holding_period']['months']
+        years = proposal['investment_decision']['investor_context']['horizon_years']
+        if months is not None and years is not None and not math.isclose(months, 12 * years):
+            raise ValueError('Proposal horizon contradicts recorded holding period')
+        if datetime.fromisoformat(proposal['research_context']['recorded_at'].replace('Z', '+00:00')) > datetime.fromisoformat(proposal['research_timestamp'].replace('Z', '+00:00')):
+            raise ValueError('Research context recorded after proposal generation')
     if proposal['research_commit_sha'] != sha:
         raise ValueError('Unknown/unverifiable research commit')
     names = {s['skill_name'] for s in proposal['skill_versions']}
@@ -359,6 +371,11 @@ def proposal_from_research(research, sha, read, manifest, memo_path, *, data_mod
               'scenarios': [], 'memo_path': memo_path,
               'investment_decision': blank_decision('Legacy worksheet lacks decision-gate evidence; reassess instead of promoting a recommendation')}
     field = 'equity_analysis' if research['path'] == 'company' else 'etf_analysis'
+    if 'research_context' in research:
+        result['research_context'] = copy.deepcopy(research['research_context'])
+        holding = result['research_context']['conditions']['holding_period']
+        if holding['status'] == 'provided' and holding['months'] is not None:
+            result['investment_decision']['investor_context']['horizon_years'] = holding['months'] / 12
     result[field] = copy.deepcopy(research['company_analysis' if research['path'] == 'company' else 'etf_analysis'])
     if research['path'] == 'company':
         scenarios = research['company_analysis']['valuation']['scenarios']

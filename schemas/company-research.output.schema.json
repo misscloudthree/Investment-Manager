@@ -503,6 +503,9 @@
         "holdings_coverage"
       ],
       "additionalProperties": false
+    },
+    "research_context": {
+      "$ref": "research-context.schema.json"
     }
   },
   "required": [

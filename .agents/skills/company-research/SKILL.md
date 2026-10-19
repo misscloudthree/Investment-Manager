@@ -7,6 +7,14 @@ description: 對台灣上市上櫃公司做財報、商業模式、護城河、�
 
 先讀 `docs/PROJECT.md` 與 `docs/research-data-contract.md`。融合 InvestSkill stock-eval / financial-report-analyst / etf-analysis、AI Berkshire investment-research，以及 XVARY 公開的證據閘門、五向驗證與 kill criteria；原始路徑與改寫見 `docs/skill-provenance.md`。不宣稱使用 XVARY 私有權重或其品牌評分。
 
+## 投資條件承接與漸進揭露（Issue #1／#2）
+
+先沿用 opportunity-screener 記錄的 research_context 與既有對話；只問仍缺且實質改變研究的條件，不重問已知投信／商品範圍、持有期、進場窗口、累積報酬目標及風險偏好。尚無紀錄時按 screener 的五項取得規則收集。使用者說不確定／無特定目標或直接初篩時可暫定探索並明列假設；高風險偏好不等於完整風險承受、最大虧損或個人配置授權。把原文／來源／時間一起傳入 Memo／Proposal，不能把願望報酬變預測，或把進場期限變持有期。
+
+呈現遵循 screener「Decision Snapshot」八項契約，預設先交緊湊摘要：決策／研究優先度分開、最多三個核心原因含反方、下一步、可驗證價位或「未能可靠估計」、同口徑期限報酬或「尚無可信估計」、風險／翻轉條件、催化劑窗口、替代與取捨。不另養一套摘要研究方法，三閘門與下文模型仍是唯一判準。先做足以支持摘要的驗證；未知不靠敘事補足，不自稱已完成深研／Proposal schema 檢查。
+
+摘要後主動詢問是否對全部／指定標的展開深研；已明確要求深度報告則直接交短摘要＋完整 Memo，不再反問。研究成熟且需求適用時才交 Thesis Proposal；即使完整研究仍缺證據，可交 needs_information 草稿。沒有深研需求的短摘要不需要補造論點／KPI 以湊完整提案。下文長報告要求適用於已要求／已展開的深研；Memo 的摘要與第 14 節／JSON 決策保持一致。數字須附可查來源、日期、方法、算式與假設，不能套機械跌幅或把歷史績效當未來承諾。
+
 ## 研究啟動與資料閘門
 
 輸入代碼、截止日、期間、問題、可選比較標的與既有論點。核對官方代碼、TWSE／TPEx、公司／ETF、幣別。未給持倉身分就分別描述新研究者與既有持有人可觀察事項，不假設成本或部位。
@@ -85,7 +93,7 @@ description: 對台灣上市上櫃公司做財報、商業模式、護城河、�
 
 ## 結構化交換與核准邊界
 
-執行前依 `docs/skill-contracts.md` 正規化輸入；使用對應的 `schemas/company-research.input.schema.json`。Task 1 的 `schemas/company-research.output.schema.json` 保留為可選工作表；Task 2 正式交付改用文末的 Memo 與 canonical Thesis Proposal，避免兩套提案漂移。格式檢查後仍須人工逐項完成契約文件的語義品質檢查；尚無 API adapter／財務計算執行器，不能宣稱已自動執行。
+執行前依 `docs/skill-contracts.md` 正規化輸入；使用對應的 `schemas/company-research.input.schema.json`。Task 1 的 `schemas/company-research.output.schema.json` 保留為可選工作表；Task 2 正式交付改用文末的 Memo 與 canonical Thesis Proposal，避免兩套提案漂移。格式檢查後仍須人工逐項完成契約文件的語義品質檢查；已有部分確定性計算與有限初篩 adapter，深研財報／ETF 證據仍須工具或研究者補齊，不宣稱全部自動執行。
 
 缺關鍵證據時 meta.status=partial 或 blocked、數值 null、列出 data_gaps，不能用合成數字完成報告。所有產物 approval_status=draft。與已核准 thesis 的差異只形成新提案，不修改原版 KPI、估值假設、失效門檻或實際持倉；新增核准版本須使用者明確確認。不得自動下單。
 
@@ -100,7 +108,7 @@ description: 對台灣上市上櫃公司做財報、商業模式、護城河、�
 
 ETF 的 Bull／Base／Bear 以底層曝險、利率／匯率、追蹤／主動績效、折溢價、流動性及策略變動描述，不能套公司 EPS／DCF／護城河評分。沒有持倉就 overlap_status=not_assessed；只有部分持股時不能稱 full。
 
-完成研究的兩個正式交付：
+已要求／已展開深研、且交付需求適用時的兩個正式產物（一般摘要不強制補造提案）：
 
 1. 按 `docs/INVESTMENT_MEMO_TEMPLATE.md` 產生人類可讀 Memo，包含來源日期、門檻理由、情境、反證、版本及工具限制。
 2. 產生符合 `schemas/thesis-proposal.schema.json` 的 Thesis Proposal（research_stage=deep_research），附 skill_versions、research_commit_sha 與 methodology_receipt。只可 draft／needs_information／ready_for_review；ready 表示可交人審，不是核准。
@@ -110,7 +118,7 @@ ETF 的 Bull／Base／Bear 以底層曝險、利率／匯率、追蹤／主動�
 
 ## Task 2.1 — Investment Decision：每份深度研究的最後一道交付
 
-產品介紹不足以回答投資問題。先確認使用者的投入金額、3–5 年或其他明確期間、持倉、風險承受與資金需求；沒有提供的欄位記 missing，不能由年齡、標的名稱或假設資金反推。100 萬元只是分析情境，不等於持倉、風險預算或買入授權。
+產品介紹不足以回答投資問題。先讀既有條件與 research_context，確認尚缺且必要的投入金額、期間、持倉、風險承受與資金需求；沒有提供的欄位記 missing，不能由年齡、標的名稱或假設資金反推。100 萬元只是分析情境，不等於持倉、風險預算或買入授權。
 
 ### 三道獨立閘門
 
@@ -169,3 +177,14 @@ Memo 最末第 14 節與 `investment_decision` JSON 必須一致：三閘門、D
 - **Insufficient Evidence**：目前價格、底層估值、三情境、風險或個人適合度不足／矛盾。具體列不能決策的原因、去哪裡補資料、何時重評；不是空白結論。
 
 Decision Status 與 proposal_status 是不同維度：Invest Now 仍可為未核准 draft；Insufficient Evidence 應為 needs_information／draft。不得更改已核准 thesis 或持倉。新提案使用 Schema 2.0；舊工作表轉換一律初始化為未評估決策，不能從舊「基金合格」自動升級成 Invest Now。
+
+
+## Task 2.2：接收大量初篩候選與跨候選結論
+
+接收 campaign queue packet 時先讀同 SHA canonical 方法、coverage／ledger／政策／比較母體。pending 未歸零先續跑初篩；少量樣本必須明示，不能把它改稱全市場。packet 是待研究工作單，不是已驗證論點：原始數值須核對來源／日期，研究優先度只解釋為何挑它，不替代三閘門。同行分數、原始值／中位數與反證一併帶入，不只介紹被選中者。
+
+對 queue 每個候選分別走適當公司／ETF 分支，補長期品質、歷史含息／風險、當前估值、前瞻假設、替代方案；basic PE/PB 不能稱品質已過。資料不足時清楚說明哪個門檻不能評、去哪取得決定性資料及何時重評，仍可產生 needs_information 草稿，不虛構估值。沒有個人資料不必停止整個資產研究；Gate 3 Not Assessed／最終個人決策 Insufficient Evidence。
+
+使用者已要求／選擇展開的每檔交 14 節 Memo＋deep_research Proposal 2.0，保留 campaign 截止、asset_id、固定 SHA／revision、穩定 KPI／condition／來源 ID。收件驗證只驗契約與部分語義，不能稱投資準確、已核准或已進入監控。若新增資料晚於截止，另開 campaign 而不是回填前視資訊。
+
+全部已選候選完成或明示阻礙後，另交跨候選總結：母體／初篩覆蓋、實際深研數與預算延後、每檔支持／反對、Asset Quality vs Entry vs Suitability、同目標可替代性、現在／分批／等待條件、關鍵缺口及能翻轉結論的證據。不同曝險不能用一個總分排序，未深研者不能說較差。資料不足的可用結論是「目前不能決策，取得哪些資料才可判斷」，不是把產品故事加長。
