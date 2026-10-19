@@ -115,8 +115,10 @@ def normalize_twse(raws, captured_at):
             'raw_sha256':hashlib.sha256(raw).hexdigest()})
     instruments=[]
     for code,row in sorted(masters.items()):
-        # This master documents listed companies; reject surprising identities rather than guessing.
-        if not re.fullmatch(r'\d{4}',code):
+        # Official industry 91 identifies TDRs; retain them for universe accounting.
+        industry=str(row['產業別']).strip()
+        tdr=industry=='91'
+        if not re.fullmatch(r'\d{4}',code) and not (tdr and re.fullmatch(r'\d{6}',code)):
             raise ValueError('Company-master identity requires manual review')
         q=prices.get(code); v=vals.get(code); metrics={}
         if q:
@@ -128,14 +130,15 @@ def normalize_twse(raws, captured_at):
                 value=numeric(v[key])
                 metrics[name]={'value':value if value is None or value>0 else None,'as_of':val_date,'source_id':'twse-valuation','unit':'multiple'}
         instruments.append({'asset_id':'TWSE:'+code,'ticker':code,'name':str(row['公司名稱']),
-            'market':'TWSE','asset_type':'stock','currency':'TWD','comparison_group':'TWSE:stock:industry-'+str(row['產業別']),
+            'market':'TWSE','asset_type':'other' if tdr else 'stock','currency':'TWD',
+            'comparison_group':'TWSE:other:TDR' if tdr else ('TWSE:stock:industry-'+industry if industry else ''),
             'master_source_id':'twse-master','trading_status':'unknown','metrics':metrics,
             'limitations':['Official attention/disposition and long-term fundamentals not captured by this basic adapter']})
     result={'schema_version':'1.0','data_mode':'public_sources','captured_at':captured_at,
-        'scope':{'label':'TWSE listed common-company master (not all Taiwan securities)',
+        'scope':{'label':'TWSE listed-company master including TDR audit records (not all Taiwan securities)',
                  'coverage':'full','origin':'official_master','source_ids':['twse-master']},
         'sources':sources,'instruments':instruments,
-        'limitations':['TWSE common companies only; no TPEx/ETF coverage claimed',
+        'limitations':['TWSE listed-company master only; official industry-91 TDRs retained as other and excluded from stock profile; no TPEx/ETF coverage claimed',
             'Latest master captured at retrieval; not a historical constituent universe',
             'Basic valuation data is not five-factor or investment-decision evidence']}
     result['snapshot_id']=sha(result)

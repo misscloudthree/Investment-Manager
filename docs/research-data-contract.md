@@ -59,4 +59,4 @@ Decision Snapshot 僅縮短呈現，不放寬三閘門。合理進場價須有�
 
 metric.as_of 是比較日的已知狀態日，財報期放 period；沒有公告證據不得把期末當可得日期。參與排名的各資料須同組最新行情日、正確單位且口徑／窗口可比；窗口由來源／匯入者驗證，程式檢查日期與單位不等於已驗證所有經濟口徑。未知原始發布時間 null，不製造午夜 timestamp。官方 raw 與 SHA 保存於 run；檔案不得越界或缺失。資料／政策有變更另開 campaign。
 
-initial TWSE adapter 僅主檔／單日行情／PE/PB，不能完成品質、五因子或 ETF 進場分析。部分基本資料可以進入有限 profile 研究排序，必須使用 profile 名稱與缺口；不得把 basic 分數寫進舊五因子 composite，不能把 vehicle 優先度宣稱基金品質／底層便宜。實測官方連線仍受本環境 403 限制。
+initial TWSE adapter 僅主檔／單日行情／PE/PB，不能完成品質、五因子或 ETF 進場分析。部分基本資料可以進入有限 profile 研究排序，必須使用 profile 名稱與缺口；不得把 basic 分數寫進舊五因子 composite，不能把 vehicle 優先度宣稱基金品質／底層便宜。2026-10-19 已取得 TWSE 官方回應並做初步欄位接合；先前 403 已不代表目前 TWSE 狀態。行情資料日為 2026-10-16，資料新鮮度與完整研究仍須驗證。

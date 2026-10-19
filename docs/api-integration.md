@@ -33,7 +33,7 @@
 
 ## Task 2.2 串接狀態（更新舊規劃）
 
-已實作 `src/market_snapshot.py` 的固定 TWSE OpenAPI bulk adapter：`/v1/opendata/t187ap03_L`（上市公司主檔）、`/v1/exchangeReport/STOCK_DAY_ALL`（日行情）、`/v1/exchangeReport/BWIBBU_ALL`（PE/PB）。無需 API key；保存 raw/hash，缺一端點或欄位漂移即拒絕成功快照。這是已寫程式、未 live 驗收的狀態；本環境 403 proxy 阻擋，不能宣稱取得真實資料。環境網路草稿已加入 openapi.twse.com.tw／www.tpex.org.tw，仍需在環境設定檢視、儲存並發布才會生效。
+已實作 `src/market_snapshot.py` 的固定 TWSE OpenAPI bulk adapter：`/v1/opendata/t187ap03_L`（上市公司主檔）、`/v1/exchangeReport/STOCK_DAY_ALL`（日行情）、`/v1/exchangeReport/BWIBBU_ALL`（PE/PB）。無需 API key；保存 raw/hash，缺一端點或欄位漂移即拒絕成功快照。先前曾遭 403；2026-10-19 已成功取得三端點官方 JSON，確認欄位並保留原始來源。上市公司主檔包含官方產業別 91 的 TDR，依證據分類為 other、保留帳目並排除於預設股票 profile。這只完成有限取數／正規化接合，非完整研究驗收；目前行情資料日為 2026-10-16，不能宣稱即時行情。
 
 仍需依授權串接：TPEx 主檔／日行情／交易限制；MOPS 財報、月營收、重大訊息與公司行動；TWSE／TPEx ETF 官方主檔與分類；投信正式 NAV、實際總費用、完整持股、配息／收益分配；指數商的含息基準、底層盈利／估值與方法。歷史含息／調整／匯率資料可評估可信且有授權的金融 API（例如 FinMind），不能假設免費額度、再散布權或所需欄位已具備。
 

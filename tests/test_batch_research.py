@@ -230,6 +230,19 @@ class OfficialSnapshotAdapterTests(unittest.TestCase):
         h.schema_validator(h.local_files(h.ROOT),'market-snapshot.schema.json').validate(snapshot)
         self.assertIn('not all Taiwan',snapshot['scope']['label'])
 
+    def test_official_tdr_classification_retains_four_and_six_digit_codes(self):
+        raw=self.raws();rows=json.loads(raw['master'])
+        rows.extend([{'公司代號':code,'公司名稱':'MOCK TDR','產業別':'91'} for code in ['9103','910322']])
+        raw['master']=ms.encode(rows)
+        snapshot=ms.normalize_twse(raw,'2026-10-19T16:00:00+08:00')
+        tdrs=[item for item in snapshot['instruments'] if item['asset_type']=='other']
+        self.assertEqual(len(snapshot['instruments']),8)
+        self.assertEqual({item['ticker'] for item in tdrs},{'9103','910322'})
+        policy={**b.DEFAULT_POLICY,'as_of':snapshot['captured_at']}
+        for item in tdrs:self.assertEqual(b.stage1(item,policy)[0],'excluded')
+        rows[-1]['產業別']='24';raw['master']=ms.encode(rows)
+        with self.assertRaises(ValueError):ms.normalize_twse(raw,'2026-10-19T16:00:00+08:00')
+
     def test_schema_drift_duplicate_and_future_values_fail_closed(self):
         raw=self.raws();raw['master']=b'[{"WrongField":"1000"}]'
         with self.assertRaises(ValueError):ms.normalize_twse(raw,'2026-10-19T16:00:00+08:00')

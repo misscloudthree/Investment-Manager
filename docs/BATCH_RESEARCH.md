@@ -18,7 +18,7 @@ python -m src.batch_research export --run-dir data/campaigns/research-001
 python -m src.batch_research process --run-dir data/campaigns/research-001 --max-items 100 --retry-failed
 ```
 
-官方網路遭阻擋時退出非零，保留 fetch_attempt.json；不改用 mock、舊資料或模型數字冒充最新資料。三端點缺一即不產生成功 snapshot。有限 timeout、暫時錯誤最多兩次嘗試；403 不重試，不停用 TLS／代理。初始欄位映射只通過合成來源測試，live 須另驗。
+官方網路遭阻擋時退出非零，保留 fetch_attempt.json；不改用 mock、舊資料或模型數字冒充最新資料。三端點缺一即不產生成功 snapshot。有限 timeout、暫時錯誤最多兩次嘗試；403 不重試，不停用 TLS／代理。欄位映射已補一輪 TWSE 實際回應驗證；官方產業別 91 的 4／6 碼 TDR 保留為 other，不進預設股票榜，其他未識別長碼仍拒絕。完整投資數值與研究品質仍須另驗。
 
 自訂政策用 `--policy config/batch-policy.example.json`，先把例子 as_of 改成該快照已擷取之後的明確截止；不能拿歷史例子直接套今日快照。截止含 timezone、行情日以台北日期計，max_quote_age_days 是日曆日；預設 7 天只供資料可用性，不是每個策略的理想時效。min_turnover_twd 是當日金額，不是 20 日均量；不提供個人流動性適合度。深研名額 0 可只做初篩，不表示完成研究。
 

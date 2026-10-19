@@ -10,7 +10,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "d8e38cf56b43014c6759ea50020f8b980f9f0bd98161dde6bad7930387a63c75"
+      "sha256": "123544455110b8e4398834b99c4e14f3f9ca439cdb26a1d4029cc8b338028532"
     },
     {
       "path": "docs/CHATGPT_BOOTSTRAP.md",
@@ -26,7 +26,7 @@
     },
     {
       "path": "docs/PROJECT.md",
-      "sha256": "e9f8b9f312262dfdedc83d412517d6b4962567d982efad2c9d9fc5e26f5bf6a8"
+      "sha256": "bb1a6861776e22a5fc7affa64538e1a90963e5ad20792d0815176afd10fbbadd"
     },
     {
       "path": "docs/TASK2_AUDIT.md",
@@ -34,11 +34,11 @@
     },
     {
       "path": "docs/api-integration.md",
-      "sha256": "785bed2ee74443dc7fb219f36c28b85618a84bba6e288c5a1f5c3a9eefbf05f4"
+      "sha256": "3f6e4a6a72d47d4ff3b979843007d92b7e7dd4e8923e8c84fe3a6a2dc6277100"
     },
     {
       "path": "docs/research-data-contract.md",
-      "sha256": "bb29be7b83619a8dd9db95fb28e67525cf47249d460f8c1d51730e990a694e18"
+      "sha256": "289a8e592448482348fdf920f4a3635bcae23042473b151d80b5d23b4b794050"
     },
     {
       "path": "docs/skill-contracts.md",
@@ -142,7 +142,7 @@
     },
     {
       "path": "src/market_snapshot.py",
-      "sha256": "2abd8f39f0a888f84c1e0513371a9ea4a710f7b6e3b0e96cf41cb89a06fb2688"
+      "sha256": "6981bbfffd55bf9854c55e8f14445d800f9caa2faa40e60e95e185ba344edc21"
     },
     {
       "path": "src/batch_research.py",
@@ -166,11 +166,11 @@
     },
     {
       "path": "docs/BATCH_RESEARCH.md",
-      "sha256": "a90c836b6b344c54aa96a2ff2652747ea3a7053ba109834594903cb2f09ebae9"
+      "sha256": "a023430f0d1008e32c216328026350aab7dbc56198c09d977ec0239a5a67461f"
     },
     {
       "path": "docs/TASK22_REVIEW.md",
-      "sha256": "330882af2a9d95c9e6efccefee76a2d62ab65ead640606deb986589c446e3246"
+      "sha256": "2078b835af9c3699e8bf48e524772c152345b7592a4bf3e12af374e7d9c41337"
     },
     {
       "path": "config/batch-policy.example.json",
