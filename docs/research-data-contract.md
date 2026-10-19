@@ -52,3 +52,11 @@
 research_context 記錄五項投資條件原文、使用者／假設／未知、對話定位與記錄時間，供篩選／深研／Memo／Proposal 沿用。使用者報酬目標不是預期報酬資料，定性高風險不是最大虧損／持倉／個人配置授權。沒有月份時維持 null，不偷偷設定期限。
 
 Decision Snapshot 僅縮短呈現，不放寬三閘門。合理進場價須有核對過的資料、適用估值法、日期、公式／假設及來源；機械跌幅不是估值。報酬引用既有情境輸入與可重算公式、含息／費用／匯率／期限口徑，不能將目標或歷史報酬改成預測。未知用 null 與明確「未能可靠估計／尚無可信估計」，催化劑／替代未驗證也須明說。資料真實性與估值經濟合理性仍需人工審查。
+
+## Task 2.2 批次資料補充
+
+新增 normalized snapshot／campaign 契約 1.0，見 `schemas/market-snapshot.schema.json`、`schemas/research-campaign.input.schema.json`、`schemas/research-campaign.output.schema.json` 與 `BATCH_RESEARCH.md`。這些是 ResearchRun／初篩資料，不能替代 Proposal 2.0 或 Task 3 核准資料庫。snapshot、截止、政策與版本凍結；一個母體每檔都有 ledger，缺漏／失敗不刪除。完整與 sample 範圍必須明示，最新主檔不能作歷史成分。
+
+metric.as_of 是比較日的已知狀態日，財報期放 period；沒有公告證據不得把期末當可得日期。參與排名的各資料須同組最新行情日、正確單位且口徑／窗口可比；窗口由來源／匯入者驗證，程式檢查日期與單位不等於已驗證所有經濟口徑。未知原始發布時間 null，不製造午夜 timestamp。官方 raw 與 SHA 保存於 run；檔案不得越界或缺失。資料／政策有變更另開 campaign。
+
+initial TWSE adapter 僅主檔／單日行情／PE/PB，不能完成品質、五因子或 ETF 進場分析。部分基本資料可以進入有限 profile 研究排序，必須使用 profile 名稱與缺口；不得把 basic 分數寫進舊五因子 composite，不能把 vehicle 優先度宣稱基金品質／底層便宜。實測官方連線仍受本環境 403 限制。

@@ -8,3 +8,5 @@
 
 
 新互動先讀既有對話取得五條件及來源，依 canonical screener 只問必要缺項；先列已知／假設／待確認，記錄 research_context，之後沿用不重問。一般請求先交 Decision Snapshot（研究優先與投資決策分開，缺價／報酬明寫不能可靠估計），再詢問全部／指定標的深研；已明確要求深研則直接交短摘要＋完整 Memo，不反問是否要詳細版。不要為初步摘要捏造完整 thesis 或宣稱 Proposal 已驗證。
+
+Task 2.2 廣泛發掘時：使用者不提供代碼，也要依官方母體建立 frozen campaign，按 opportunity-screener 分層批次比較。先確認有沒有實際執行工具；有就依 docs/BATCH_RESEARCH.md 跑完母體分類，沒有就清楚要求由 Codex／本機執行並交付 campaign 輸出，不能聲稱讀 GitHub 就跑完。先交 coverage、完整 ledger、同組比較與預算延後；預設交簡短 Decision Snapshot 並提供深研選擇，已要求深研則直接處理 queue、收件 Memo＋Proposal，再交跨候選條件性結論。未完成批次不能自行挑幾檔知名標的替代；pending packet 不算深研。

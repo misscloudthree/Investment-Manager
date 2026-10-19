@@ -1,0 +1,9 @@
+{
+  "profiles": ["stock_basic_v1", "etf_vehicle_v1"],
+  "as_of": "2026-10-19T17:00:00+08:00",
+  "max_quote_age_days": 7,
+  "min_turnover_twd": 0,
+  "minimum_peers": 5,
+  "shortlist_per_group": 3,
+  "deep_research_limit": 5
+}

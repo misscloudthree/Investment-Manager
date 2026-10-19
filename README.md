@@ -2,7 +2,7 @@
 
 以投資假設為核心、專注台股與台灣掛牌 ETF 的 AI Investment Manager。
 
-目前為 **Task 2：互動研究方法與 ChatGPT 交接階段**。尚無資料 API、研究執行器、排程、核准儲存系統或交易功能；兩個完成設計的 Skill 不代表已具備真實市場分析能力。
+目前為 **Task 2.2：廣泛探索、可續跑的批次初篩與深研交接**。已有有限 TWSE 官方 adapter 與手動批次 CLI，live 官方網路遭 403、尚未驗收；沒有自動 LLM 深研服務、排程或核准儲存系統。
 
 - [專案目標與架構](docs/PROJECT.md)：未來任務先讀，定義兩個 Agent、人工核准與成功標準。
 - [開發規範](AGENTS.md)、[Repository 稽核](docs/repository-audit.md)。
@@ -21,7 +21,7 @@ python -m pip install -r requirements-dev.txt
 python -m unittest discover -s tests -v
 ```
 
-測試只驗證 Schema、合成資料與靜態文件一致性，不驗證真實行情、估值正確性、策略績效或自動監控。程式財務計算與資料接入是下一階段工作。系統不自動下單，已核准的投資假設與實際持倉必須經使用者明確確認才能形成新版本。
+測試只驗證 Schema、合成資料與靜態文件一致性，不驗證真實行情、估值正確性、策略績效或自動監控。部分計算與批次取數程式已實作；真實資料串接與結果核對尚待驗收。系統不自動下單，已核准的投資假設與實際持倉必須經使用者明確確認才能形成新版本。
 
 
 ## 在 ChatGPT 測試研究
@@ -43,7 +43,7 @@ python src/research_handoff.py validate /private/path/proposal.json --bundle /tm
 
 src/research_handoff.py 只做離線封裝／契約與來源一致性檢查，不取得金融資料、不進行自動研究、不產生批准。src/run.py 是既有離線 demo，不是真實組合風險模型。只有模擬測試通過不能聲稱 ChatGPT live 研究已驗收。
 
-下一階段先手動驗證一檔股票與 ETF 的真實研究，再在 Task 3 實作人工批准、受控持久化、每日監控與組合風險；GitHub Actions 和資料 adapter 依驗證需求逐步建置。不接券商、不自動交易。
+下一階段先驗收真實廣泛母體與候選深研，補 TPEx／ETF／財報 adapters，再在 Task 3 實作人工批准、受控持久化、每日監控與組合風險；排程待後續驗收。不接券商、不自動交易。
 
 
 ## Task 2.1：投資決策品質
@@ -62,6 +62,21 @@ python -m examples.etf_decision_acceptance --output-dir /tmp/task21-mock
 
 ## 研究互動與摘要（Issue #1／#2）
 
-方法包 2.1.1 先讀既有對話、只詢問會影響篩選的缺少條件，保留五項條件及來源／時間，沿用到深研與提案。預設先交緊湊 Decision Snapshot，再提供全部／指定標的深研選擇；明確要求深研則直接交摘要＋完整 Memo。缺證據不給虛構價位、報酬或個人倉位比例。
+方法包 2.2.0 先讀既有對話、只詢問會影響篩選的缺少條件，保留五項條件及來源／時間，沿用到深研與提案。預設先交緊湊 Decision Snapshot，再提供全部／指定標的深研選擇；明確要求深研則直接交摘要＋完整 Memo。缺證據不給虛構價位、報酬或個人倉位比例。
 
 新增 [條件契約](schemas/research-context.schema.json)、[摘要契約](schemas/decision-snapshot.schema.json) 與 `src/research_interaction.py`（已結構化輸入的分流／驗證／呈現，無自然語言解析或市場串接）。完整規則只在 canonical Skills；舊工作表與 Proposal 2.0 保持相容，mock 回歸不等於 live ChatGPT／投資回測驗收。
+
+## Task 2.2：讓系統自行找候選
+
+[BATCH_RESEARCH.md](docs/BATCH_RESEARCH.md) 提供擷取 → 凍結母體 → 分批 process／續跑 → 完整比較 → queue 深研 → submit 的指令與限制。輸出包含完整 coverage／ledger、組內研究排名、原始值與組中位數、預算延後及 ChatGPT 工作單。不是只比較使用者先指定的幾檔，也不把研究分數當買入建議。
+
+```sh
+# 方法提交後，以 120 檔虛構資產驗收批次工程，不取得市場資料
+python -m examples.batch_research_acceptance --output-dir /tmp/task22-mock
+# 真實 TWSE 擷取（須官方網路可用且另做欄位核對）
+python -m src.batch_research capture-twse --output-dir data/snapshots/twse-capture-001
+python -m src.batch_research init --snapshot data/snapshots/twse-capture-001/snapshot.json --run-dir data/campaigns/research-001
+python -m src.batch_research process --run-dir data/campaigns/research-001 --max-items 100
+```
+
+重複 process 到 pending=0，再把完整 run 與同 SHA 方法交給 ChatGPT 深研；讀 GitHub 不會自動啟動批次。現有 TWSE adapter 只涵蓋上市公司主檔；ETF／TPEx 可匯入正規化快照，live adapters 待補。詳見 [驗收紀錄](docs/TASK22_REVIEW.md)。

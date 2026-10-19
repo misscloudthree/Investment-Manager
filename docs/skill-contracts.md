@@ -97,7 +97,7 @@ underlying_equity_v1 的三情境 inputs 與逐參數 input_evidence、成本口
 每個 condition_id 與 linked_kpi_ids 可由未來 Task 3 作重評關聯；decision_status 不等於批准狀態，不寫實際持倉。資料缺口與論點失效應分開存 assessment。反方逐題答案、來源、未解爭點與是否支持推薦都需保存，未解重要爭點不能產生正面投資建議。
 
 
-## Issue #1／#2 互動與呈現擴充（revision 2.1.1）
+## Issue #1／#2 互動與呈現擴充（revision 2.2.0）
 
 - `schemas/research-context.schema.json` 1.0：五項 conditions 的 status／原文 text／origin／source_ref／material、recorded_at、skip_questions、exploratory_allowed、requested_depth 與 screening_mode。caller 先讀對話做結構化擷取；helper 不做自然語言理解。provided／no_preference／uncertain／delegated 需 user 原文與對話來源；assumed 強制 system_assumption；missing 必須 null／unknown。只有 missing 且 material 的條件進提問，不重問已明確回答的 uncertain。
 - 舊兩份 input/output 與 Proposal 2.0 加可選 research_context，向後相容；新互動按 Skill 必須帶入。input.horizon_months 未量化可 null，需附 context，不假造月數。具體月份與目標期限由研究者核對原文；Schema 不解析「長期」或句意。
@@ -106,3 +106,7 @@ underlying_equity_v1 的三情境 inputs 與逐參數 input_evidence、成本口
 - `validate_snapshot` 除 Schema，拒絕 dangling／未來來源、重複商品、反向價格區間、未解釋缺口／報酬口徑，並呼叫既有 validate_decision，不能藉摘要繞過 screening／個人資料／證據閘門。公式是否有經濟依據、來源數字是否真實與 Markdown／JSON 逐句一致，仍需人工驗收。
 
 具體持有月份記在 research_context.conditions.holding_period.months（未量化時 null），與 input.horizon_months／decision horizon 必須一致；`validate_input`／`validate_snapshot`／Proposal 驗證會核對有提供的月份，不能把兩年條件默改成五年報酬。helper 不從原文猜月份，由研究者根據對話正規化。
+
+## Task 2.2 多標的批次契約
+
+批次 initial screening 另外使用 snapshot／campaign 1.0，詳見 `BATCH_RESEARCH.md`。舊 opportunity-screener.output 的正式五因子 composite 仍只代表完整方法，不接收 basic／ETF vehicle 分數。深研輸出保持 Thesis Proposal 2.0；campaign queue 不是 proposal，processing_complete／research_artifacts_complete 不是研究正確或批准。全母體數量守恆、同組比較、pending 不出完整榜、未支援類型保留缺口、資料／方法凍結、收件追加草稿是必要語義驗收。
