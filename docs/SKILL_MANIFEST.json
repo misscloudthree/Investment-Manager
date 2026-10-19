@@ -118,7 +118,7 @@
     },
     {
       "path": "examples/etf_decision_acceptance.py",
-      "sha256": "3f4ddbe88f7a778494bb85a4645408a6db1ac9147e00d1ef606eae8ddea0ff7c"
+      "sha256": "d331305a240699c538f2eca3b2e197d7a0c6a899f0a6503ec47bf3aa73eae86f"
     },
     {
       "path": "tests/fixtures/task21-etf-context.mock.json",

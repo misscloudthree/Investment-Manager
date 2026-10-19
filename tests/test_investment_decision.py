@@ -88,6 +88,15 @@ class DecisionSupportTests(unittest.TestCase):
         self.assertIn('不配置這 100 萬元',report)
         self.assertEqual(len({p['research_priority']['rationale'] for p in proposals}),3)
 
+    def test_bundle_acceptance_does_not_claim_authenticated_git_access(self):
+        from src import research_handoff as h
+        sha,read,manifest=h.bundle_materials(self.bundle)
+        proposals=acceptance.mock_proposals(sha,read,manifest,'bundle_hashes')
+        for p in proposals:
+            self.assertEqual(p['methodology_receipt']['verification_method'],'bundle_hashes')
+            self.assertEqual(p['methodology_receipt']['origin_authentication'],'not_verified')
+            h.validate_proposal(p,sha,read,manifest)
+
     def test_quality_pass_does_not_permit_buy_or_phase_or_fake_wait(self):
         for status in ['Invest Now','Phased Entry','Wait for Conditions']:
             p=acceptance.mock_proposals(self.sha,self.read,self.manifest)[0]

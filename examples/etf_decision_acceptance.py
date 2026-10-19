@@ -13,7 +13,7 @@ def metric(name, value, source_id):
             'classification':'verified_fact','quality':'verified','source_ids':[source_id],'formula':None}
 
 
-def mock_proposals(sha, read, manifest):
+def mock_proposals(sha, read, manifest, verification_method='local_git'):
     context = h.decode(read('tests/fixtures/task21-etf-context.mock.json'))
     if context['mock_only'] is not True:
         raise ValueError('This acceptance generator supports MOCK data only')
@@ -23,6 +23,7 @@ def mock_proposals(sha, read, manifest):
         worksheet['instrument'].update(ticker=candidate['asset_id'].split(':')[1], name='MOCK ONLY: '+candidate['asset_id'])
         worksheet['meta']['run_id'] = 'MOCK-TASK21-'+worksheet['instrument']['ticker']
         p = h.proposal_from_research(worksheet,sha,read,manifest,'MOCK-'+worksheet['instrument']['ticker']+'.md',data_mode='mock')
+        p['methodology_receipt']=h.receipt(read,manifest,verification_method)
         p['research_priority'].update(level='unranked',rationale=candidate['research_focus'],missing_information=['缺少可比較進場資料，不能排名投資吸引力'])
         source = {'source_id':'mock-product','provider':'SYNTHETIC_PRODUCT_EVIDENCE_ONLY',
                   'locator':'synthetic://task21/not-real-fund-information','data_period':'MOCK',
@@ -90,7 +91,7 @@ def main():
     parser.add_argument('--bundle',type=Path)
     args=parser.parse_args()
     sha,read,manifest=h.bundle_materials(args.bundle) if args.bundle else h.committed_materials(h.ROOT)
-    proposals=mock_proposals(sha,read,manifest)
+    proposals=mock_proposals(sha,read,manifest,'bundle_hashes' if args.bundle else 'local_git')
     args.output_dir.mkdir(parents=True,exist_ok=True)
     for p in proposals:
         (args.output_dir/(p['asset_id'].replace(':','-')+'.json')).write_text(json.dumps(p,ensure_ascii=False,indent=2)+'\n')
