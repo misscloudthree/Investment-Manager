@@ -19,7 +19,7 @@ description: 對台灣上市上櫃公司做財報、商業模式、護城河、�
 
 ### 1. 商業本質與價值驅動
 
-用一句話描述誰付錢、為什麼付、成本與重複需求。列產品／地區收入、銷量×價格、產能×稼動率、毛利來源與營運槓桿；挑 2–3 個可驗證價值驅動。畫出產業鏈及利潤歸屬，不把 AI／高股息等標籤當成投資理由。比較同業 2–3 家並說明選取理由。
+用一句話描述誰付錢、為什麼付、成本與重複需求。列產品／地區收入、銷量×價格、產能×稼動率、毛利來源與營運槓桿；挑 2–3 個可驗證價值驅動。畫出產業鏈及利潤歸屬，不把 AI／高股息等標籤當成投資理由。比較同業 2–3 家並說明選取理由。借用 industry-map／competitor-analysis 的節點、供應依賴與五力檢查：新進者、替代、供應商、客戶、同業競爭，分清定價權在誰手中；缺資料不硬填市場份額或護城河分數。
 
 ### 2. 財報品質與現金
 
@@ -43,7 +43,7 @@ description: 對台灣上市上櫃公司做財報、商業模式、護城河、�
 
 ### 5. 估值與三情境
 
-- 列同日 PE/PB/EV 倍數、股數、淨債務、歷史區間與同行口徑；合理價與好公司分開判斷。
+- 列同日 PE/PB/EV 倍數、股數、淨債務、歷史區間與同行口徑；合理價與好公司分開判斷。安全邊際定義為 `(基準公允價−目前價格)/基準公允價`（公允價須正），相對價格上行空間為 `(公允價−目前價格)/目前價格`，兩者分母不同；不照搬美股固定 30% 折價門檻當使用者政策。
 - 非金融業視資料用 DCF：`FCFF=EBIT×(1−稅率)+折舊攤銷−資本支出−營運資金增加`；`EV=Σ FCFF_t/(1+WACC)^t + TV/(1+WACC)^n`；`TV=FCFF_(n+1)/(WACC−g)`。股權價值由 EV 加非營運資產、減淨債務／非控制權益及其他優先請求權，再除以一致的稀釋股數；避免現金重複加計。
 - WACC／g 與現金流使用相同幣別與名目／實質口徑，WACC > g；列無風險利率、風險溢酬、beta、稅率、成長、利潤率、再投資、終值占比與依據。不移植上游 USD/CNY 的固定折現率到 TWD。
 - 至少悲觀／基準／樂觀三情境，列需求／營收、利潤率、capex、股數、估值法、公允區間、相對價格空間及期限；概率只有有依據才給，且總和為 1。DCF 不適用時，明列改用正常化盈餘倍數或金融股 ROE/PB／股利模型及限制。
@@ -85,8 +85,24 @@ description: 對台灣上市上櫃公司做財報、商業模式、護城河、�
 
 ## 結構化交換與核准邊界
 
-執行前依 `docs/skill-contracts.md` 正規化輸入；使用對應的 `schemas/company-research.input.schema.json`。輸出同時提供 Markdown 報告與符合 `schemas/company-research.output.schema.json` 的 JSON（同名 `.json`）。格式檢查後仍須人工逐項完成契約文件的語義品質檢查；尚無 API adapter／財務計算執行器，不能宣稱已自動執行。
+執行前依 `docs/skill-contracts.md` 正規化輸入；使用對應的 `schemas/company-research.input.schema.json`。Task 1 的 `schemas/company-research.output.schema.json` 保留為可選工作表；Task 2 正式交付改用文末的 Memo 與 canonical Thesis Proposal，避免兩套提案漂移。格式檢查後仍須人工逐項完成契約文件的語義品質檢查；尚無 API adapter／財務計算執行器，不能宣稱已自動執行。
 
 缺關鍵證據時 meta.status=partial 或 blocked、數值 null、列出 data_gaps，不能用合成數字完成報告。所有產物 approval_status=draft。與已核准 thesis 的差異只形成新提案，不修改原版 KPI、估值假設、失效門檻或實際持倉；新增核准版本須使用者明確確認。不得自動下單。
 
 若內容含私人持倉、個人決策或帳戶資訊，改寫至使用者指定的私有儲存，不存入 Git；公開／匿名報告才使用上述 docs 路徑。風險事件保留 event_id，後續跨 Skill 合併時不重複計數。
+
+
+## Task 2：互動研究、監測設計與正式交付
+
+先按 `docs/CHATGPT_HANDOFF.md` 載入 manifest 對應固定版本及依賴，再進行互動研究；記錄可用網頁／Python／API、實際閱讀文件與計算。來源不足可產生 needs_information 草稿，不假稱最新資料、已執行上游工具或完成實盤驗證。
+
+每個監測 KPI 須有穩定 kpi_id、名稱、單位、頻率、來源、operator、threshold、理由與證據、觀察窗口、freshness 要求及缺資料策略。沿用 thesis-tracker「先寫假設再追蹤」：定量與質性條件分開，門檻只能來自可引用的經濟／契約依據或使用者明確指示。缺理由時 threshold=null、status=unconfigured，不套通用數字；不能聲稱使用者已批准。質性條件同樣需明確可觀測、資料源及重評動作。
+
+ETF 的 Bull／Base／Bear 以底層曝險、利率／匯率、追蹤／主動績效、折溢價、流動性及策略變動描述，不能套公司 EPS／DCF／護城河評分。沒有持倉就 overlap_status=not_assessed；只有部分持股時不能稱 full。
+
+完成研究的兩個正式交付：
+
+1. 按 `docs/INVESTMENT_MEMO_TEMPLATE.md` 產生人類可讀 Memo，包含來源日期、門檻理由、情境、反證、版本及工具限制。
+2. 產生符合 `schemas/thesis-proposal.schema.json` 的 Thesis Proposal（research_stage=deep_research），附 skill_versions、research_commit_sha 與 methodology_receipt。只可 draft／needs_information／ready_for_review；ready 表示可交人審，不是核准。
+
+原 `schemas/company-research.output.schema.json` 是可選的分析工作表，保留相容性；不是另一套提案方法。可直接寫 canonical proposal，或用 `src/research_handoff.py convert` 保守轉換，之後人工補有證據的 KPI 與情境；轉換不會把草稿升為批准。Task 3 才做核准與持久化，本 Task 不修改任何已核准投資紀錄或持倉。

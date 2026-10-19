@@ -62,3 +62,23 @@ JSON Schema 能檢查型別、必要欄位、取值範圍、null／分數與公�
 ## 樣本與檢查
 
 `tests/fixtures/` 四份輸入／輸出全是合成、部分資料不足的樣本，使用虛構代碼；不代表真實行情、持倉、核准或投資建議。`python -m unittest discover -s tests -v` 驗證結構、負向案例與文件／固定版來源參照。當前沒有 adapter／財務計算／端到端／排程測試可執行。
+
+
+## Task 2 唯一 Thesis Proposal 契約（版本 1.0）
+
+新增 `schemas/thesis-proposal.schema.json`；既有兩個 output schemas 仍是工作表／中間格式，不是平行提案契約。completed deep research 的正式交付是 Memo + proposal；可直接按 canonical schema 產生，或 convert 舊工作表後補齊。ETF 繼續使用 mutually exclusive etf_analysis；公司才有 equity_analysis。
+
+提案必要欄位：asset_id（如 TWSE:2330）、asset_type、proposal_status、investment_thesis、supporting_evidence、assumptions、monitoring_kpis、quantitative_triggers、qualitative_triggers、invalidation_criteria、risk_factors、data_quality、source_references、research_timestamp、skill_versions、research_commit_sha，以及資料截止時間、資料模式、收件／工具限制、研究優先度、三情境與 Memo 定位。
+
+- proposal_status 僅 draft／needs_information／ready_for_review，與永久批准無關；needs_information 必須列缺口／衝突。screening 不能 ready_for_review。
+- data_mode=mock／public_sources／user_documents。mock 數字與門檻不能混入 real；所有 mock 輸出仍需明示合成。換資料模式不會使資料真的有效。
+- investment_thesis 文字標 verified_fact／inference／assumption／unknown；supporting_evidence 必須 verified_fact；assumptions 必須 assumption。每個來源引用需存在，同一 claim_id 不可有互相矛盾的定義。
+- monitoring_kpis 含 ID、名稱、單位、頻率、source_ids、operator、threshold、門檻理由／basis、觀察窗口、freshness 及缺資料策略。未有依據就 null／unconfigured；定量 trigger 只引用已配置 KPI，避免重複存不同門檻。`change` 的變化定義須寫在理由與單位。freshness 無足夠資訊時 max_age_days=null 且列缺口，不等於無限有效。
+- 門檻 basis 為 evidence／user_instruction／unconfigured／mock；user_instruction 指使用者明確要求試算／提出門檻，不代表批准 thesis。資料新鮮度與來源足夠性仍需人工驗證。
+- quantitative／qualitative triggers 與 invalidation 的 action 只能 request_human_review，不賣出、不修改批准資料。risk_factors 同一 canonical_event_id 合併傳導路徑，不重複計分。
+- source_references 允許日期精度 date／timestamp／unknown；不知道時間就 null，不捏造午夜公告。公告／擷取不能晚於研究可得時間；日精度仍無法用於盤中先後保證，需列限制。
+- ready_for_review 需足夠證據、3–5 支柱、KPI、失效條件、Bull/Base/Bear 及已驗證來源版本；仍不是投資準確性認證。ETF 情境僅底層與基金結構，不套公司 DCF。
+
+`methodology_receipt` 記錄 manifest digest、完整檔案 hash 清單、Mode A/B、origin 驗證、可用能力及計算狀態。它是資料／版本收據，不是 Skill 執行證明。實際 SHA 在研究時由固定 Git commit 或已確認 bundle metadata 取得，未知／浮動版本不可假填通過。
+
+`src/research_handoff.py validate` 在 Schema 之外檢查 source／KPI／支柱引用、來源時間、版本／依賴 hash、部分缺值與提案狀態一致性。它不驗證官方數值、財報口徑、freshness 實際合規、計算正確性或 LLM 是否遵循方法；舊工作表其餘語義檢查仍依上列人工清單。見 CHATGPT_HANDOFF 的可重現離線範例與 live acceptance 區分。

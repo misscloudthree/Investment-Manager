@@ -1,0 +1,200 @@
+{
+  "manifest_version": "1.0",
+  "repository": "https://github.com/misscloudthree/Investment-Manager",
+  "canonical_methodology": "SKILL.md files; other documents are contracts/presentation/handoff only",
+  "research_revision_policy": "Record actual immutable Git SHA at execution/bundle time; never use main/HEAD/unknown as a research SHA. Working changes must be committed before bundling.",
+  "shared_dependencies": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "98e22311a5655806ff7cb455be258d4f4c0c17d5da225f6264bc80578d55be67"
+    },
+    {
+      "path": "README.md",
+      "sha256": "a5181e51f96e13bb7aaa1150902dd442754343a88c70014a3f95836d7292cb74"
+    },
+    {
+      "path": "docs/CHATGPT_BOOTSTRAP.md",
+      "sha256": "a192dc16fd798ea1b65d09df3dc7e69f0eddeb961e5e0bd37606c4a6ebe85e4f"
+    },
+    {
+      "path": "docs/CHATGPT_HANDOFF.md",
+      "sha256": "069425643e162ee79051e1e80d65084457d30038fb1e2a009ab4e44e2aba1a5b"
+    },
+    {
+      "path": "docs/INVESTMENT_MEMO_TEMPLATE.md",
+      "sha256": "ee624ac06427eeef68249167e7ee701ec4b07b12569baf9bc209f83ee996d349"
+    },
+    {
+      "path": "docs/PROJECT.md",
+      "sha256": "4f760c927733f614c82c898f68888d2224c17ef008685b361207b22cdc218558"
+    },
+    {
+      "path": "docs/TASK2_AUDIT.md",
+      "sha256": "a8d66c6672df2bdb90ac265a55ee06f862e3b91c426bbc220d7e5b1b013d2fed"
+    },
+    {
+      "path": "docs/api-integration.md",
+      "sha256": "81f2952bd75111dc21349d57863c5d03d2ab2c7c49faf8ec7c5180f22a856d01"
+    },
+    {
+      "path": "docs/research-data-contract.md",
+      "sha256": "6b95c02d93a1be946c0556e8da6ae767fc1f87c0419918401b69156fc9747707"
+    },
+    {
+      "path": "docs/skill-contracts.md",
+      "sha256": "f11be53de7de507f65a0fc91f458120f0285418fe79dc716712ee22c166b38a0"
+    },
+    {
+      "path": "docs/skill-provenance.md",
+      "sha256": "e2b7df3cf2f993da3708cb894b44e2fdd585f986bff7f7b7d13833fced4da888"
+    },
+    {
+      "path": "docs/third-party-licenses/InvestSkill-MIT.txt",
+      "sha256": "32af38b5ad0f3ce9316b2256acabbb17a280d744c04a0d9778ece5589d972869"
+    },
+    {
+      "path": "docs/third-party-licenses/ai-berkshire-MIT.txt",
+      "sha256": "81b843bec8a087f4c20e5be8ad744cfe1a169dc0b4f0147cbe61e6cd3da39981"
+    },
+    {
+      "path": "docs/third-party-licenses/claude-code-stock-analysis-skill-MIT.txt",
+      "sha256": "af861bf6c918f07f6c23f60ee228274c5fdbc4ba64ac673629403fb04b31e9cc"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "sha256": "83de779b9a4bce5a6faee07aabf0d6c9cf8bbab024513a103d4635df501fb2fc"
+    },
+    {
+      "path": "schemas/common.schema.json",
+      "sha256": "b70b6a45098f2f9b9eca2925225595066c950d5c8c63928c9d2ea13367af5936"
+    },
+    {
+      "path": "schemas/company-research.input.schema.json",
+      "sha256": "fbffa04e41f7b910f7d6e72dfcc0a0bebb1c571d0065a4757bdb291d9c378562"
+    },
+    {
+      "path": "schemas/company-research.output.schema.json",
+      "sha256": "d55bf204398c91034d92178b90c90092d9901630f820f1511255745a2f9c2a27"
+    },
+    {
+      "path": "schemas/opportunity-screener.input.schema.json",
+      "sha256": "75f6ca2d8d90db625ca947643b5bebe9a4e5d25f8daee80a5b3738c7b0240858"
+    },
+    {
+      "path": "schemas/opportunity-screener.output.schema.json",
+      "sha256": "f5d25d6eca4109040d069c1f4e1cda1be8bad6ddd60a09a0575cc1314fb5c7a0"
+    },
+    {
+      "path": "schemas/thesis-proposal.schema.json",
+      "sha256": "a888d57711ba081a90a645b8117bd3c15bae172a50b47ddf244d6b1c1e98ffeb"
+    },
+    {
+      "path": "src/research_handoff.py",
+      "sha256": "bbf0deb92a26491cd3b333f0667c2418ddde678b4f8fc38c01e6431c496dbc4f"
+    },
+    {
+      "path": "docs/repository-audit.md",
+      "sha256": "9b36a7d41c7173f33227249007c5a683e44cc4a3c7f7e3e30869731a5d9c390f"
+    },
+    {
+      "path": "tests/fixtures/company-research.output.json",
+      "sha256": "a846f46f6ff4d0fbf88ff0391e07c8de567502e974492930bf107fa3e2bc7f14"
+    },
+    {
+      "path": "tests/fixtures/company-research.stock.output.json",
+      "sha256": "9a462dd8873c2e0c6d4ca3f12123191aa95c03acb6303f628385303f8c4a63f0"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opportunity-screener",
+      "canonical_path": ".agents/skills/opportunity-screener/SKILL.md",
+      "revision": "2.0.0",
+      "sha256": "bca8dae380386df666cd972fc65892c1bc921c9329f0d4e46c366a22c55ffcf4",
+      "upstream_references": [
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/stock-screener/SKILL.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/etf-analysis/SKILL.md",
+        "https://github.com/xbtlin/ai-berkshire/blob/87dda1b605fb027d3a0a0f1aa89f04c2c47da450/codex-skills/quality-screen/SKILL.md",
+        "https://github.com/xbtlin/ai-berkshire/blob/87dda1b605fb027d3a0a0f1aa89f04c2c47da450/codex-skills/industry-funnel/SKILL.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/stock-eval/SKILL.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/industry-map/SKILL.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/competitor-analysis/SKILL.md"
+      ],
+      "dependencies": [],
+      "asset_types": [
+        "stock",
+        "etf"
+      ],
+      "required_inputs": [
+        "research cutoff",
+        "verified instrument/universe",
+        "available source documents",
+        "actual tool capabilities"
+      ],
+      "input_schema": "schemas/opportunity-screener.input.schema.json",
+      "expected_outputs": [
+        "Investment Memo",
+        "Candidate List and Research Priority"
+      ],
+      "intermediate_output_schema": "schemas/opportunity-screener.output.schema.json",
+      "proposal_schema": "schemas/thesis-proposal.schema.json",
+      "workflows": {
+        "stock": "canonical equity workflow",
+        "etf": "isolated ETF branch; no company DCF or company moat score"
+      },
+      "execution_dependencies": {
+        "natural_language": "Read canonical methodology",
+        "python": "For deterministic calculations/hash/schema checks only when available",
+        "data_access": "Authorized web/API or dated user documents; no adapters supplied"
+      }
+    },
+    {
+      "name": "company-research",
+      "canonical_path": ".agents/skills/company-research/SKILL.md",
+      "revision": "2.0.0",
+      "sha256": "2fc8d4c278ebd38659d210e47c6da56c3f599d2d8a1fb7da77a218796f7eb680",
+      "upstream_references": [
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/etf-analysis/SKILL.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/stock-eval/SKILL.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/financial-report-analyst/SKILL.md",
+        "https://github.com/xbtlin/ai-berkshire/blob/87dda1b605fb027d3a0a0f1aa89f04c2c47da450/codex-skills/investment-research/SKILL.md",
+        "https://github.com/xvary-research/claude-code-stock-analysis-skill/blob/6323f19c3e613373cfcc56921ee53d4583d4a655/SKILL.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/thesis-tracker/SKILL.md",
+        "https://github.com/xbtlin/ai-berkshire/blob/87dda1b605fb027d3a0a0f1aa89f04c2c47da450/codex-skills/thesis-tracker/SKILL.md",
+        "https://github.com/xvary-research/claude-code-stock-analysis-skill/blob/6323f19c3e613373cfcc56921ee53d4583d4a655/references/methodology.md",
+        "https://github.com/xvary-research/claude-code-stock-analysis-skill/blob/6323f19c3e613373cfcc56921ee53d4583d4a655/references/scoring.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/industry-map/SKILL.md",
+        "https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/competitor-analysis/SKILL.md"
+      ],
+      "dependencies": [
+        ".agents/skills/opportunity-screener/SKILL.md"
+      ],
+      "asset_types": [
+        "stock",
+        "etf"
+      ],
+      "required_inputs": [
+        "research cutoff",
+        "verified instrument/universe",
+        "available source documents",
+        "actual tool capabilities"
+      ],
+      "input_schema": "schemas/company-research.input.schema.json",
+      "expected_outputs": [
+        "Investment Memo",
+        "Thesis Proposal (unapproved)"
+      ],
+      "intermediate_output_schema": "schemas/company-research.output.schema.json",
+      "proposal_schema": "schemas/thesis-proposal.schema.json",
+      "workflows": {
+        "stock": "canonical equity workflow",
+        "etf": "isolated ETF branch; no company DCF or company moat score"
+      },
+      "execution_dependencies": {
+        "natural_language": "Read canonical methodology",
+        "python": "For deterministic calculations/hash/schema checks only when available",
+        "data_access": "Authorized web/API or dated user documents; no adapters supplied"
+      }
+    }
+  ]
+}

@@ -10,7 +10,7 @@
 
 ## 六個 Skill 對照
 
-現有已提交版本六個檔都只有標題和待補文字，沒有分析方法、輸入輸出或品質驗證。本次優先落實前兩個；其餘列出下一階段對應，沒有假稱完成。
+Task 1 初始基線六個檔都只有標題和待補文字，沒有分析方法、輸入輸出或品質驗證。本次優先落實前兩個；其餘列出下一階段對應，沒有假稱完成。
 
 ### opportunity-screener
 
@@ -97,3 +97,16 @@
 - [claude-code-stock-analysis-skill/references/scoring.md](https://github.com/xvary-research/claude-code-stock-analysis-skill/blob/6323f19c3e613373cfcc56921ee53d4583d4a655/references/scoring.md)
 
 本地文件為有來源的中文方法整合與改寫，不原樣匯入上游完整工具或全套 prompt。三份 MIT 原文均保存，保留著作權、授權及免責條款；本專案未因此替其他新增檔案自動宣告整體 MIT 授權。未來更新上游須重新比對固定 commit、授權、方法變更及測試，不能直接 pull 後執行未知程式。任何將來工具復用需先讀程式、盤點依賴與傳輸目的地、審查權限及測試，再決定是否採用。
+
+
+## Task 2 增量檢查
+
+繼續使用上述固定版本，三份 MIT 授權不變。新增來源：
+
+- [InvestSkill industry-map/SKILL.md](https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/industry-map/SKILL.md)：採產業鏈節點／供應關係、瓶頸與利潤池遷移，刪除無證據打分及美股標籤，改台灣投資母體；不搬上游範例當事實。
+- [InvestSkill competitor-analysis/SKILL.md](https://github.com/yennanliu/InvestSkill/blob/dc9fa39fcdea74c9169fcd5bb8f1e8085707d3e6/plugins/us-stock-analysis/skills/competitor-analysis/SKILL.md)：採同業可比、定價／替代／切換成本與五力反證，不宣稱台股護城河一定維持 10–20 年或沿用美股財務門檻。
+- stock-eval（上方原始路徑）補安全邊際與 upside 不同分母；不把美股固定折價率當使用者政策。
+- ai-berkshire 的 moat-analysis、valuation、reverse-thinking 在所檢查 commit 中不是獨立命名的 SKILL.md，而是 investment-research 的護城河、估值與逆向思考段落；thesis-tracker 原始 SKILL 已列於前文。借用先寫可驗證假設／KPI 的方法，不採自動清倉與未安裝 financial_rigor 工具。
+- XVARY 公開方法的五向驗證、支柱、quality gate、kill criteria 保留，不推測私有 thresholds。新 manifest／bundle／收件收據為本專案整合設計，非上游既有執行能力。
+
+Task 2 沒有複製或執行第三方程式／安裝器。bundle 含原本保留的完整 MIT notice，方法改寫仍須保留來源紀錄；工具維護以單一 manifest／canonical SKILL 與測試檢查，外部連結只是來源，不是自動下載／執行依賴。

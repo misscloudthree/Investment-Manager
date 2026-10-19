@@ -26,7 +26,7 @@ class SkillContracts(unittest.TestCase):
         self.assertTrue(list(validator(schema).iter_errors(value)))
 
     def test_schema_definitions(self):
-        self.assertEqual(len(SCHEMAS), 5)
+        self.assertIn('thesis-proposal.schema.json', SCHEMAS)
         for schema in SCHEMAS.values():
             Draft202012Validator.check_schema(schema)
 

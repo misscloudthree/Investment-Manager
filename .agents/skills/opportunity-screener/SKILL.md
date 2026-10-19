@@ -20,6 +20,12 @@ description: 篩選台灣上市上櫃股票與台灣掛牌 ETF；使用來源可
 3. 使用者未給成交金額下限時，只揭露流動性與可比較性，不隨意刪除小型股；大型預期部位須另外評估成交參與率與退出天數。
 4. 價格或財報身分不明、重大來源衝突未解決者列「待補資料」，不得靠估計進榜。
 
+## 產業／主題入口的機會發現
+
+借用 InvestSkill industry-map 與 competitor-analysis：先界定主題、上下游邊界與需求來源，列供應商→客戶的有向關係、可信供應者數、替代難度、誰捕捉利潤以及稀缺性可能遷移到哪一層。沒有證據不打瓶頸分數。不能只選新聞熱門或名稱含主題的公司；用產品／收入占比、客戶或官方法說驗證關聯程度，未知就列未知。
+
+對同一產業節點建立可比同業組，列定價權、切換成本、競爭替代、資本密集與主要風險。高成長產業不保證成員股東回報；產業鏈有利位置仍須過財務、估值與流動性檢查。海外競爭者可作脈絡，但不偷偷加入台灣投資母體。少於五家可比資料只輸出質性研究優先理由，不造排名。
+
 ## 步驟二：個股品質初篩
 
 沿用 AI Berkshire 的長期品質檢查概念，逐項顯示數值、期間與證據；以下上游門檻只是風險提示，不是適用所有台股的淘汰定律：
@@ -88,3 +94,12 @@ ETF 不使用公司五因子總分。先核對公開說明書、指數方法／�
 缺關鍵證據時 meta.status=partial 或 blocked、數值 null、列出 data_gaps，不能用合成數字完成報告。所有產物 approval_status=draft。與已核准 thesis 的差異只形成新提案，不修改原版 KPI、估值假設、失效門檻或實際持倉；新增核准版本須使用者明確確認。不得自動下單。
 
 若內容含私人持倉、個人決策或帳戶資訊，改寫至使用者指定的私有儲存，不存入 Git；公開／匿名報告才使用上述 docs 路徑。風險事件保留 event_id，後續跨 Skill 合併時不重複計數。
+
+
+## Task 2：ChatGPT 交接與輸出
+
+開始前依 `docs/CHATGPT_HANDOFF.md` 讀 manifest、canonical 檔案及全部依賴，核對 revision／完整 Git SHA；不因技能名稱出現在對話就宣稱已讀或執行。自然語言分析可互動完成；資料查詢、Python 排名及驗算只能在能力可用且實際執行時標示完成。
+
+輸出 Candidate List、篩選理由、來源、研究優先度及不確定／缺漏；Research Priority 為 high／medium／low／unranked，說明依據。資訊不可比時給 unranked；它不是獲利概率。各資產類型分開，透明記錄所有調整與排除。
+
+篩選 Markdown 以 `docs/INVESTMENT_MEMO_TEMPLATE.md` 保留適用章節（不足處明示 screening／未深研），原 screener JSON 保留作工作表。若為候選生成結構化提案，唯一提案契約是 `schemas/thesis-proposal.schema.json`：research_stage=screening，status 只能 draft／needs_information；不把分數直接變成完整投資論點或核准門檻。單一候選完成深研後，由 company-research 產出 Memo + Thesis Proposal。

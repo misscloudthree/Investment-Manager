@@ -14,3 +14,7 @@
 
 - 同一事件跨 Skill 以 canonical_event_id 關聯，不將重複新聞加總成獨立風險；資料不足必須標示未知，不能產生假風險值。
 - 優先以可測試 Python 實作計算；新增功能須區分契約測試、計算測試、真實 API 測試與端到端驗證。第一階段只交付兩個 Skill 設計，其餘四個仍是佔位。
+
+- Task 2 互動研究按 `docs/SKILL_MANIFEST.json` 與 `docs/CHATGPT_HANDOFF.md` 載入固定版本；方法只維護在 canonical SKILL.md，Memo／bootstrap 不另養一套研究方法。
+- GitHub 是規格／方法與未來受控核准紀錄的權威來源；Task 2 僅提案與本地驗證，不實作批准／持倉變動。私人紀錄的 Repository／權限待 Task 3 決定。
+- 改 Skill 或依賴後更新 manifest 對應 hash／revision，驗證相依閉包；bundle 只從已提交版本產生。hash 相符不表示已讀、已執行或投資準確。

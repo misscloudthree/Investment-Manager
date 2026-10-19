@@ -1,12 +1,21 @@
 # AI Investment Manager 專案規格
 
-狀態：第一階段規格與 Skill 設計；尚未具備真實資料接入、研究引擎或排程能力。本文為未來任務的首要專案規格。研究市場為台灣上市／上櫃股票與台灣掛牌 ETF，報告繁體中文、時間 Asia/Taipei、基準幣別 TWD（可指定且須換匯依據）。
+狀態：Task 1 基礎已建立，Task 2 進行互動研究交接與提案驗證；尚未具備真實資料接入、研究引擎或排程能力。本文為未來任務的首要專案規格。研究市場為台灣上市／上櫃股票與台灣掛牌 ETF，報告繁體中文、時間 Asia/Taipei、基準幣別 TWD（可指定且須換匯依據）。
 
 ## 目標與非目標
 
 以 Investment Thesis 為核心：主動發掘候選、深度研究、保存使用者認可的理由／KPI／估值與風險條件、每日觀察新證據、評估穿透曝險，只在重要變化時請使用者重評。
 
 成功不是短線股價預測或產生大量警報，而是讓每個投資理由可查證、可追蹤、可反駁、可追溯至核准版本。系統不自動下單，不直接連接交易執行接口；AI 不得修改已核准假設、實際持倉或假造交易。第一階段不建置全自動投資平台、歷史績效宣稱或最佳化配置模型。
+
+## 已確認的混合架構（Task 2）
+
+- ChatGPT：依 GitHub canonical Skills 互動研究、質性分析與決策支援；不假設它會自動收到 Codex Skills 或能讀私有 Repository。
+- GitHub：Skills、Schema、規格與未來已核准投資紀錄的 Single Source of Truth。敏感批准紀錄須在 Task 3 確認私有／受控 Repository 與權限；本 Task 不寫批准紀錄，公開 repo 不放私人持倉或金鑰。
+- Codex：開發、更新與驗證方法及軟體；Python：確定性驗證、計算及未來監控；GitHub Actions：未來排程。
+- Human Investor：投資決策最終權限。ChatGPT／Codex 不自動批准或交易。
+
+Task 2 聚焦方法整合、Memo、Thesis Proposal 與 ChatGPT Mode A/B 交接，不建立自動研究引擎或排程篩選。Task 3 才落實核准、持久化、每日監控與組合風險；Task 1 的整體架構與長期規格保留。
 
 ## 兩個邏輯 Agent
 
@@ -94,3 +103,12 @@
 3. 定義 thesis／portfolio／event 的正式 schemas 與私有儲存，落實使用者核准和版本控制；目前兩個研究契約不能取代核准後端。
 4. 完成其餘四個 Skill，驗證事件去重、組合穿透及警示規則；再接排程與 Daily Brief。
 5. 通知管道、冷卻／升級規則、資料留存／刪除、持倉匯入方式與權限待決。未選定前不部署或傳送私人資料。
+
+
+## Task 2 交付與下一階段
+
+canonical 方法仍在兩個 SKILL.md；ETF 留在隔離分支，決策理由見 `TASK2_AUDIT.md`。`SKILL_MANIFEST.json` 記錄方法 revision、依賴與檔案 hash，Git commit 在實際 bundle／研究時解析，不把 HEAD 字樣當版本。交接與收件流程見 `CHATGPT_HANDOFF.md`，輸出使用 `INVESTMENT_MEMO_TEMPLATE.md` 及唯一 `schemas/thesis-proposal.schema.json`。既有研究工作表 Schema 保留相容，不能充當已核准 thesis。
+
+Task 2 成功：離線 bundle 可重現、缺依賴／版本漂移可拒絕、stock／ETF mock 提案與錯誤案例通過／被拒，使用者有第一檔 ChatGPT 手動測試步驟。這些不等於真實金融分析或 live ChatGPT acceptance；尚須實際工具、官方資料與人工驗證。
+
+接續順序調整：先以 ChatGPT 測試一檔股票及 ETF 的方法載入、來源品質與輸出，記錄真實驗證結果；依需求再做小型 Python 計算與資料 adapter，而非先建全自動研究平台。Task 3 才設計權限、批准版本與私有儲存，之後才接每日事件、去重、風險和排程。舊 `agent-implementation-prompt.md` 為歷史候選開發清單，不覆蓋本階段範圍。
