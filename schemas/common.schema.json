@@ -1,0 +1,419 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-manager.example/schemas/common.schema.json",
+  "$defs": {
+    "instrument": {
+      "type": "object",
+      "properties": {
+        "ticker": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "market": {
+          "enum": [
+            "TWSE",
+            "TPEx"
+          ]
+        },
+        "asset_type": {
+          "enum": [
+            "stock",
+            "etf"
+          ]
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        }
+      },
+      "required": [
+        "ticker",
+        "name",
+        "market",
+        "asset_type",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "data_period": {
+          "type": "string",
+          "minLength": 1
+        },
+        "published_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "retrieval": {
+          "enum": [
+            "api",
+            "official_document",
+            "user_provided"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        }
+      },
+      "required": [
+        "source_id",
+        "provider",
+        "locator",
+        "data_period",
+        "published_at",
+        "retrieved_at",
+        "retrieval",
+        "confidence"
+      ],
+      "additionalProperties": false
+    },
+    "metric": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Z]{3}$"
+        },
+        "period": {
+          "type": "string",
+          "minLength": 1
+        },
+        "classification": {
+          "enum": [
+            "verified_fact",
+            "inference",
+            "assumption",
+            "unknown"
+          ]
+        },
+        "quality": {
+          "enum": [
+            "verified",
+            "unverified",
+            "missing",
+            "conflict"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "formula": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "unit",
+        "currency",
+        "period",
+        "classification",
+        "quality",
+        "source_ids",
+        "formula"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "verified_fact"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "number"
+              },
+              "quality": {
+                "const": "verified"
+              },
+              "source_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "classification": {
+                "const": "unknown"
+              },
+              "quality": {
+                "enum": [
+                  "missing",
+                  "conflict",
+                  "unverified"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "unknown"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "claim": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "classification": {
+          "enum": [
+            "verified_fact",
+            "inference",
+            "assumption",
+            "unknown"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "counter_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "claim_id",
+        "text",
+        "classification",
+        "source_ids",
+        "counter_evidence"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "verified_fact"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "kill_criterion": {
+      "type": "object",
+      "properties": {
+        "thesis_pillar_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "indicator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "baseline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "threshold": {
+          "type": "string",
+          "minLength": 1
+        },
+        "window": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "review_action": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "thesis_pillar_id",
+        "indicator",
+        "baseline",
+        "threshold",
+        "window",
+        "source_ids",
+        "review_action"
+      ],
+      "additionalProperties": false
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timezone": {
+          "const": "Asia/Taipei"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "partial",
+            "blocked"
+          ]
+        },
+        "approval_status": {
+          "const": "draft"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/source"
+          },
+          "minItems": 0
+        },
+        "data_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "schema_version",
+        "run_id",
+        "generated_at",
+        "as_of",
+        "timezone",
+        "confidence",
+        "status",
+        "approval_status",
+        "limitations",
+        "sources",
+        "data_gaps"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

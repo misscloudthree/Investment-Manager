@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "request_id": "synthetic-request",
+  "as_of": "2026-10-19T17:00:00+08:00",
+  "horizon_months": 36,
+  "base_currency": "TWD",
+  "source_inputs": [],
+  "instrument": {
+    "ticker": "00000A",
+    "name": "合成測試 ETF",
+    "market": "TWSE",
+    "asset_type": "etf",
+    "currency": "TWD"
+  },
+  "research_question": "合成 ETF 的研究資料是否充分？",
+  "peer_instruments": [],
+  "approved_thesis_ref": null,
+  "portfolio_snapshot_ref": null
+}

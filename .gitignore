@@ -1,0 +1,15 @@
+# Python and local development outputs
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets and private investor inputs/outputs
+.env
+.env.*
+!.env.example
+/private/
+/data/private/
+/docs/reports/private/
+/docs/decisions/private/

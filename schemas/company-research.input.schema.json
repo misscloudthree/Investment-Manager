@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-manager.example/schemas/company-research.input.schema.json",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "horizon_months": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "base_currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "source_inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "official_url",
+              "local_snapshot",
+              "user_document"
+            ]
+          }
+        },
+        "required": [
+          "locator",
+          "kind"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "instrument": {
+      "$ref": "common.schema.json#/$defs/instrument"
+    },
+    "research_question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "peer_instruments": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/instrument"
+      },
+      "minItems": 0
+    },
+    "approved_thesis_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "portfolio_snapshot_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "as_of",
+    "horizon_months",
+    "base_currency",
+    "source_inputs",
+    "instrument",
+    "research_question",
+    "peer_instruments",
+    "approved_thesis_ref",
+    "portfolio_snapshot_ref"
+  ],
+  "additionalProperties": false
+}

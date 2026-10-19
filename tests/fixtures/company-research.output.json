@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "run_id": "synthetic-run",
+    "generated_at": "2026-10-19T18:00:00+08:00",
+    "as_of": "2026-10-19T17:00:00+08:00",
+    "timezone": "Asia/Taipei",
+    "confidence": "low",
+    "status": "partial",
+    "approval_status": "draft",
+    "limitations": [
+      "合成資料，無真實市場驗證"
+    ],
+    "sources": [],
+    "data_gaps": [
+      "未接真實資料來源"
+    ]
+  },
+  "request_id": "synthetic-request",
+  "instrument": {
+    "ticker": "00000A",
+    "name": "合成測試 ETF",
+    "market": "TWSE",
+    "asset_type": "etf",
+    "currency": "TWD"
+  },
+  "path": "etf",
+  "verdict": "insufficient_data",
+  "summary": "合成樣本，未完成研究。",
+  "information_richness": "C",
+  "thesis_pillars": [],
+  "risks": [],
+  "kill_criteria": [],
+  "next_checks": [],
+  "etf_analysis": {
+    "fund_card": [],
+    "strategy_and_index": "未驗證",
+    "checks": {
+      "cost": "unverified",
+      "tracking_or_active_performance": "unverified",
+      "liquidity": "unverified",
+      "exposure": "unverified",
+      "distributions": "unverified",
+      "structure": "unverified",
+      "overlap": "unverified"
+    },
+    "holdings_metrics": [],
+    "cost_tracking_metrics": [],
+    "distribution_analysis": "資料不足",
+    "structure_risks": [],
+    "peer_comparison": [],
+    "overlap_status": "not_assessed",
+    "holdings_coverage": null
+  }
+}

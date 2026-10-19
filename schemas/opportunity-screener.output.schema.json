@@ -1,0 +1,542 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-manager.example/schemas/opportunity-screener.output.schema.json",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "$ref": "common.schema.json#/$defs/meta"
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "universe_summary": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coverage": {
+          "enum": [
+            "full",
+            "sample"
+          ]
+        },
+        "declared_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evaluated_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "excluded_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missing_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "mode",
+        "coverage",
+        "declared_count",
+        "evaluated_count",
+        "excluded_count",
+        "missing_count",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "applied_weights": {
+      "type": "object",
+      "properties": {
+        "valuation": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "quality": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "momentum": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sentiment": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "growth": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "valuation",
+        "quality",
+        "momentum",
+        "sentiment",
+        "growth"
+      ],
+      "additionalProperties": false
+    },
+    "stock_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "instrument": {
+            "allOf": [
+              {
+                "$ref": "common.schema.json#/$defs/instrument"
+              },
+              {
+                "properties": {
+                  "asset_type": {
+                    "const": "stock"
+                  }
+                }
+              }
+            ]
+          },
+          "comparison_group": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "ranked",
+              "insufficient_data",
+              "excluded"
+            ]
+          },
+          "rank": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "dimension_scores": {
+            "type": "object",
+            "properties": {
+              "valuation": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 10
+              },
+              "quality": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 10
+              },
+              "momentum": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 10
+              },
+              "sentiment": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 10
+              },
+              "growth": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 10
+              }
+            },
+            "required": [
+              "valuation",
+              "quality",
+              "momentum",
+              "sentiment",
+              "growth"
+            ],
+            "additionalProperties": false
+          },
+          "composite": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 10
+          },
+          "coverage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/metric"
+            },
+            "minItems": 0
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "risk_flags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          }
+        },
+        "required": [
+          "instrument",
+          "comparison_group",
+          "status",
+          "rank",
+          "dimension_scores",
+          "composite",
+          "coverage",
+          "metrics",
+          "reasons",
+          "risk_flags",
+          "source_ids",
+          "confidence"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "ranked"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "rank": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "composite": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10
+                },
+                "coverage": {
+                  "minimum": 0.75
+                },
+                "source_ids": {
+                  "minItems": 1
+                },
+                "dimension_scores": {
+                  "type": "object",
+                  "properties": {
+                    "valuation": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 10
+                    },
+                    "quality": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 10
+                    },
+                    "momentum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 10
+                    },
+                    "sentiment": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 10
+                    },
+                    "growth": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 10
+                    }
+                  },
+                  "required": [
+                    "valuation",
+                    "quality",
+                    "momentum",
+                    "sentiment",
+                    "growth"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "rank": {
+                  "type": "null"
+                },
+                "composite": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 0
+    },
+    "etf_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "instrument": {
+            "allOf": [
+              {
+                "$ref": "common.schema.json#/$defs/instrument"
+              },
+              {
+                "properties": {
+                  "asset_type": {
+                    "const": "etf"
+                  }
+                }
+              }
+            ]
+          },
+          "strategy": {
+            "type": "string",
+            "minLength": 1
+          },
+          "checks": {
+            "type": "object",
+            "properties": {
+              "cost": {
+                "enum": [
+                  "fit",
+                  "warning",
+                  "unverified",
+                  "purpose_mismatch"
+                ]
+              },
+              "tracking_or_active_performance": {
+                "enum": [
+                  "fit",
+                  "warning",
+                  "unverified",
+                  "purpose_mismatch"
+                ]
+              },
+              "liquidity": {
+                "enum": [
+                  "fit",
+                  "warning",
+                  "unverified",
+                  "purpose_mismatch"
+                ]
+              },
+              "exposure": {
+                "enum": [
+                  "fit",
+                  "warning",
+                  "unverified",
+                  "purpose_mismatch"
+                ]
+              },
+              "distributions": {
+                "enum": [
+                  "fit",
+                  "warning",
+                  "unverified",
+                  "purpose_mismatch"
+                ]
+              },
+              "structure": {
+                "enum": [
+                  "fit",
+                  "warning",
+                  "unverified",
+                  "purpose_mismatch"
+                ]
+              },
+              "overlap": {
+                "enum": [
+                  "fit",
+                  "warning",
+                  "unverified",
+                  "purpose_mismatch"
+                ]
+              }
+            },
+            "required": [
+              "cost",
+              "tracking_or_active_performance",
+              "liquidity",
+              "exposure",
+              "distributions",
+              "structure",
+              "overlap"
+            ],
+            "additionalProperties": false
+          },
+          "fitness": {
+            "enum": [
+              "fit",
+              "review",
+              "insufficient_data",
+              "purpose_mismatch"
+            ]
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/metric"
+            },
+            "minItems": 0
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "risk_flags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "holdings_coverage": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "instrument",
+          "strategy",
+          "checks",
+          "fitness",
+          "metrics",
+          "reasons",
+          "risk_flags",
+          "source_ids",
+          "holdings_coverage"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "follow_up": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "instrument": {
+            "$ref": "common.schema.json#/$defs/instrument"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "counter_case": {
+            "type": "string",
+            "minLength": 1
+          },
+          "invalidation_condition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "next_review_date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "instrument",
+          "reason",
+          "counter_case",
+          "invalidation_condition",
+          "next_review_date"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "meta",
+    "request_id",
+    "universe_summary",
+    "applied_weights",
+    "stock_candidates",
+    "etf_candidates",
+    "follow_up"
+  ],
+  "additionalProperties": false
+}

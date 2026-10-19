@@ -1,0 +1,619 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-manager.example/schemas/company-research.output.schema.json",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "$ref": "common.schema.json#/$defs/meta"
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "instrument": {
+      "$ref": "common.schema.json#/$defs/instrument"
+    },
+    "path": {
+      "enum": [
+        "company",
+        "etf"
+      ]
+    },
+    "verdict": {
+      "enum": [
+        "constructive",
+        "neutral",
+        "cautious",
+        "insufficient_data"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "information_richness": {
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "thesis_pillars": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/claim"
+      },
+      "minItems": 0
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "transmission": {
+            "type": "string",
+            "minLength": 1
+          },
+          "impact_or_scenario": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "event_id",
+          "transmission",
+          "impact_or_scenario",
+          "source_ids"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "kill_criteria": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/kill_criterion"
+      },
+      "minItems": 0
+    },
+    "next_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 1
+          },
+          "due_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "source_needed": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "question",
+          "due_date",
+          "source_needed"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "company_analysis": {
+      "type": "object",
+      "properties": {
+        "business_model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "financial_snapshot": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/metric"
+          },
+          "minItems": 0
+        },
+        "financial_quality": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "moat_and_governance": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/claim"
+          },
+          "minItems": 0
+        },
+        "five_vector_checks": {
+          "type": "object",
+          "properties": {
+            "accounting": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expectations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "competition": {
+              "type": "string",
+              "minLength": 1
+            },
+            "macro": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "accounting",
+            "expectations",
+            "operations",
+            "competition",
+            "macro"
+          ],
+          "additionalProperties": false
+        },
+        "valuation": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "enum": [
+                "dcf",
+                "normalized_earnings",
+                "roe_pb",
+                "dividend_model",
+                "not_assessed"
+              ]
+            },
+            "scenarios": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "bear",
+                      "base",
+                      "bull"
+                    ]
+                  },
+                  "horizon_months": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "assumptions": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "common.schema.json#/$defs/claim"
+                    },
+                    "minItems": 1
+                  },
+                  "fair_value_per_unit": {
+                    "$ref": "common.schema.json#/$defs/metric"
+                  },
+                  "expected_return": {
+                    "$ref": "common.schema.json#/$defs/metric"
+                  }
+                },
+                "required": [
+                  "name",
+                  "horizon_months",
+                  "assumptions",
+                  "fair_value_per_unit",
+                  "expected_return"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            },
+            "sensitivity_notes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            },
+            "calculation_records": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            },
+            "limitations": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "method",
+            "scenarios",
+            "sensitivity_notes",
+            "calculation_records",
+            "limitations"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "method": {
+                    "const": "not_assessed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "scenarios": {
+                    "maxItems": 0
+                  },
+                  "limitations": {
+                    "minItems": 1
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "scenarios": {
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "allOf": [
+                      {
+                        "contains": {
+                          "properties": {
+                            "name": {
+                              "const": "bear"
+                            }
+                          }
+                        },
+                        "minContains": 1,
+                        "maxContains": 1
+                      },
+                      {
+                        "contains": {
+                          "properties": {
+                            "name": {
+                              "const": "base"
+                            }
+                          }
+                        },
+                        "minContains": 1,
+                        "maxContains": 1
+                      },
+                      {
+                        "contains": {
+                          "properties": {
+                            "name": {
+                              "const": "bull"
+                            }
+                          }
+                        },
+                        "minContains": 1,
+                        "maxContains": 1
+                      }
+                    ],
+                    "items": {
+                      "properties": {
+                        "fair_value_per_unit": {
+                          "properties": {
+                            "value": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "calculation_records": {
+                    "minItems": 1
+                  },
+                  "sensitivity_notes": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "business_model",
+        "financial_snapshot",
+        "financial_quality",
+        "moat_and_governance",
+        "five_vector_checks",
+        "valuation"
+      ],
+      "additionalProperties": false
+    },
+    "etf_analysis": {
+      "type": "object",
+      "properties": {
+        "fund_card": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/metric"
+          },
+          "minItems": 0
+        },
+        "strategy_and_index": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checks": {
+          "type": "object",
+          "properties": {
+            "cost": {
+              "enum": [
+                "fit",
+                "warning",
+                "unverified",
+                "purpose_mismatch"
+              ]
+            },
+            "tracking_or_active_performance": {
+              "enum": [
+                "fit",
+                "warning",
+                "unverified",
+                "purpose_mismatch"
+              ]
+            },
+            "liquidity": {
+              "enum": [
+                "fit",
+                "warning",
+                "unverified",
+                "purpose_mismatch"
+              ]
+            },
+            "exposure": {
+              "enum": [
+                "fit",
+                "warning",
+                "unverified",
+                "purpose_mismatch"
+              ]
+            },
+            "distributions": {
+              "enum": [
+                "fit",
+                "warning",
+                "unverified",
+                "purpose_mismatch"
+              ]
+            },
+            "structure": {
+              "enum": [
+                "fit",
+                "warning",
+                "unverified",
+                "purpose_mismatch"
+              ]
+            },
+            "overlap": {
+              "enum": [
+                "fit",
+                "warning",
+                "unverified",
+                "purpose_mismatch"
+              ]
+            }
+          },
+          "required": [
+            "cost",
+            "tracking_or_active_performance",
+            "liquidity",
+            "exposure",
+            "distributions",
+            "structure",
+            "overlap"
+          ],
+          "additionalProperties": false
+        },
+        "holdings_metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/metric"
+          },
+          "minItems": 0
+        },
+        "cost_tracking_metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/metric"
+          },
+          "minItems": 0
+        },
+        "distribution_analysis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "structure_risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "peer_comparison": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/claim"
+          },
+          "minItems": 0
+        },
+        "overlap_status": {
+          "enum": [
+            "not_assessed",
+            "partial",
+            "full"
+          ]
+        },
+        "holdings_coverage": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "fund_card",
+        "strategy_and_index",
+        "checks",
+        "holdings_metrics",
+        "cost_tracking_metrics",
+        "distribution_analysis",
+        "structure_risks",
+        "peer_comparison",
+        "overlap_status",
+        "holdings_coverage"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "meta",
+    "request_id",
+    "instrument",
+    "path",
+    "verdict",
+    "summary",
+    "information_richness",
+    "thesis_pillars",
+    "risks",
+    "kill_criteria",
+    "next_checks"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "path": {
+            "const": "company"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "company_analysis"
+        ],
+        "properties": {
+          "instrument": {
+            "allOf": [
+              {
+                "$ref": "common.schema.json#/$defs/instrument"
+              },
+              {
+                "properties": {
+                  "asset_type": {
+                    "const": "stock"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "etf_analysis"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "etf_analysis"
+        ],
+        "properties": {
+          "instrument": {
+            "allOf": [
+              {
+                "$ref": "common.schema.json#/$defs/instrument"
+              },
+              {
+                "properties": {
+                  "asset_type": {
+                    "const": "etf"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "company_analysis"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "meta": {
+            "properties": {
+              "status": {
+                "const": "complete"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "thesis_pillars": {
+            "minItems": 3,
+            "maxItems": 5
+          },
+          "kill_criteria": {
+            "minItems": 1
+          },
+          "next_checks": {
+            "minItems": 1
+          },
+          "meta": {
+            "properties": {
+              "sources": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

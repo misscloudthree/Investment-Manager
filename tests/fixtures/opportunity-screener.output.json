@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "run_id": "synthetic-run",
+    "generated_at": "2026-10-19T18:00:00+08:00",
+    "as_of": "2026-10-19T17:00:00+08:00",
+    "timezone": "Asia/Taipei",
+    "confidence": "low",
+    "status": "partial",
+    "approval_status": "draft",
+    "limitations": [
+      "合成資料，無真實市場驗證"
+    ],
+    "sources": [],
+    "data_gaps": [
+      "未接真實資料來源"
+    ]
+  },
+  "request_id": "synthetic-request",
+  "universe_summary": {
+    "mode": "tickers",
+    "coverage": "sample",
+    "declared_count": 2,
+    "evaluated_count": 0,
+    "excluded_count": 0,
+    "missing_count": 2,
+    "source_ids": []
+  },
+  "applied_weights": {
+    "valuation": 0.2,
+    "quality": 0.25,
+    "momentum": 0.2,
+    "sentiment": 0.15,
+    "growth": 0.2
+  },
+  "stock_candidates": [
+    {
+      "instrument": {
+        "ticker": "0000",
+        "name": "合成測試公司",
+        "market": "TWSE",
+        "asset_type": "stock",
+        "currency": "TWD"
+      },
+      "comparison_group": "合成組別",
+      "status": "insufficient_data",
+      "rank": null,
+      "dimension_scores": {
+        "valuation": null,
+        "quality": null,
+        "momentum": null,
+        "sentiment": null,
+        "growth": null
+      },
+      "composite": null,
+      "coverage": 0,
+      "metrics": [],
+      "reasons": [
+        "缺資料，不排名"
+      ],
+      "risk_flags": [],
+      "source_ids": [],
+      "confidence": "low"
+    }
+  ],
+  "etf_candidates": [
+    {
+      "instrument": {
+        "ticker": "00000A",
+        "name": "合成測試 ETF",
+        "market": "TWSE",
+        "asset_type": "etf",
+        "currency": "TWD"
+      },
+      "strategy": "未驗證",
+      "checks": {
+        "cost": "unverified",
+        "tracking_or_active_performance": "unverified",
+        "liquidity": "unverified",
+        "exposure": "unverified",
+        "distributions": "unverified",
+        "structure": "unverified",
+        "overlap": "unverified"
+      },
+      "fitness": "insufficient_data",
+      "metrics": [],
+      "reasons": [
+        "缺官方文件"
+      ],
+      "risk_flags": [],
+      "source_ids": [],
+      "holdings_coverage": null
+    }
+  ],
+  "follow_up": []
+}
