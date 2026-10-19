@@ -7,6 +7,14 @@ description: 對台灣上市上櫃公司做財報、商業模式、護城河、�
 
 先讀 `docs/PROJECT.md` 與 `docs/research-data-contract.md`。融合 InvestSkill stock-eval / financial-report-analyst / etf-analysis、AI Berkshire investment-research，以及 XVARY 公開的證據閘門、五向驗證與 kill criteria；原始路徑與改寫見 `docs/skill-provenance.md`。不宣稱使用 XVARY 私有權重或其品牌評分。
 
+## 投資條件承接與漸進揭露（Issue #1／#2）
+
+先沿用 opportunity-screener 記錄的 research_context 與既有對話；只問仍缺且實質改變研究的條件，不重問已知投信／商品範圍、持有期、進場窗口、累積報酬目標及風險偏好。尚無紀錄時按 screener 的五項取得規則收集。使用者說不確定／無特定目標或直接初篩時可暫定探索並明列假設；高風險偏好不等於完整風險承受、最大虧損或個人配置授權。把原文／來源／時間一起傳入 Memo／Proposal，不能把願望報酬變預測，或把進場期限變持有期。
+
+呈現遵循 screener「Decision Snapshot」八項契約，預設先交緊湊摘要：決策／研究優先度分開、最多三個核心原因含反方、下一步、可驗證價位或「未能可靠估計」、同口徑期限報酬或「尚無可信估計」、風險／翻轉條件、催化劑窗口、替代與取捨。不另養一套摘要研究方法，三閘門與下文模型仍是唯一判準。先做足以支持摘要的驗證；未知不靠敘事補足，不自稱已完成深研／Proposal schema 檢查。
+
+摘要後主動詢問是否對全部／指定標的展開深研；已明確要求深度報告則直接交短摘要＋完整 Memo，不再反問。研究成熟且需求適用時才交 Thesis Proposal；即使完整研究仍缺證據，可交 needs_information 草稿。沒有深研需求的短摘要不需要補造論點／KPI 以湊完整提案。下文長報告要求適用於已要求／已展開的深研；Memo 的摘要與第 14 節／JSON 決策保持一致。數字須附可查來源、日期、方法、算式與假設，不能套機械跌幅或把歷史績效當未來承諾。
+
 ## 研究啟動與資料閘門
 
 輸入代碼、截止日、期間、問題、可選比較標的與既有論點。核對官方代碼、TWSE／TPEx、公司／ETF、幣別。未給持倉身分就分別描述新研究者與既有持有人可觀察事項，不假設成本或部位。
@@ -100,7 +108,7 @@ description: 對台灣上市上櫃公司做財報、商業模式、護城河、�
 
 ETF 的 Bull／Base／Bear 以底層曝險、利率／匯率、追蹤／主動績效、折溢價、流動性及策略變動描述，不能套公司 EPS／DCF／護城河評分。沒有持倉就 overlap_status=not_assessed；只有部分持股時不能稱 full。
 
-完成研究的兩個正式交付：
+已要求／已展開深研、且交付需求適用時的兩個正式產物（一般摘要不強制補造提案）：
 
 1. 按 `docs/INVESTMENT_MEMO_TEMPLATE.md` 產生人類可讀 Memo，包含來源日期、門檻理由、情境、反證、版本及工具限制。
 2. 產生符合 `schemas/thesis-proposal.schema.json` 的 Thesis Proposal（research_stage=deep_research），附 skill_versions、research_commit_sha 與 methodology_receipt。只可 draft／needs_information／ready_for_review；ready 表示可交人審，不是核准。
@@ -110,7 +118,7 @@ ETF 的 Bull／Base／Bear 以底層曝險、利率／匯率、追蹤／主動�
 
 ## Task 2.1 — Investment Decision：每份深度研究的最後一道交付
 
-產品介紹不足以回答投資問題。先確認使用者的投入金額、3–5 年或其他明確期間、持倉、風險承受與資金需求；沒有提供的欄位記 missing，不能由年齡、標的名稱或假設資金反推。100 萬元只是分析情境，不等於持倉、風險預算或買入授權。
+產品介紹不足以回答投資問題。先讀既有條件與 research_context，確認尚缺且必要的投入金額、期間、持倉、風險承受與資金需求；沒有提供的欄位記 missing，不能由年齡、標的名稱或假設資金反推。100 萬元只是分析情境，不等於持倉、風險預算或買入授權。
 
 ### 三道獨立閘門
 

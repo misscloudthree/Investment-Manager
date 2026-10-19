@@ -18,3 +18,6 @@
 - Task 2 互動研究按 `docs/SKILL_MANIFEST.json` 與 `docs/CHATGPT_HANDOFF.md` 載入固定版本；方法只維護在 canonical SKILL.md，Memo／bootstrap 不另養一套研究方法。
 - GitHub 是規格／方法與未來受控核准紀錄的權威來源；Task 2 僅提案與本地驗證，不實作批准／持倉變動。私人紀錄的 Repository／權限待 Task 3 決定。
 - 改 Skill 或依賴後更新 manifest 對應 hash／revision，驗證相依閉包；bundle 只從已提交版本產生。hash 相符不表示已讀、已執行或投資準確。
+
+- 互動研究先讀已知五項條件與 research_context，只問必要缺項並傳給後續研究；使用者明示直接初篩時揭露暫定假設，不捏造個人風險資料。
+- 預設 Decision Snapshot 後提供全部／指定標的深研選擇；已要求深研則直接摘要＋完整 Memo，不反覆確認。短摘要不代表完整研究或 Proposal 已驗證，價位／報酬仍須既有證據閘門。

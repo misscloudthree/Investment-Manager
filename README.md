@@ -58,3 +58,10 @@ python -m examples.etf_decision_acceptance --output-dir /tmp/task21-mock
 ```
 
 此命令須於新版方法已提交後執行，輸出三檔 mock Decision Proposals 與比較報告，不連市場或 ChatGPT、不配置資金。預期為 Insufficient Evidence；未提供的價格與預測維持 null。真實研究前依 ChatGPT Handoff 重載新版，別沿用舊包。
+
+
+## 研究互動與摘要（Issue #1／#2）
+
+方法包 2.1.1 先讀既有對話、只詢問會影響篩選的缺少條件，保留五項條件及來源／時間，沿用到深研與提案。預設先交緊湊 Decision Snapshot，再提供全部／指定標的深研選擇；明確要求深研則直接交摘要＋完整 Memo。缺證據不給虛構價位、報酬或個人倉位比例。
+
+新增 [條件契約](schemas/research-context.schema.json)、[摘要契約](schemas/decision-snapshot.schema.json) 與 `src/research_interaction.py`（已結構化輸入的分流／驗證／呈現，無自然語言解析或市場串接）。完整規則只在 canonical Skills；舊工作表與 Proposal 2.0 保持相容，mock 回歸不等於 live ChatGPT／投資回測驗收。

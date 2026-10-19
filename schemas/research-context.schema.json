@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-manager.example/schemas/research-context.schema.json",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "conditions": {
+      "type": "object",
+      "properties": {
+        "product_scope": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/answer"
+            }
+          ],
+          "unevaluatedProperties": false
+        },
+        "holding_period": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/answer"
+            }
+          ],
+          "unevaluatedProperties": false,
+          "properties": {
+            "months": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            }
+          },
+          "required": [
+            "months"
+          ]
+        },
+        "entry_window": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/answer"
+            }
+          ],
+          "unevaluatedProperties": false
+        },
+        "return_target": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/answer"
+            }
+          ],
+          "unevaluatedProperties": false
+        },
+        "risk_preference": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/answer"
+            }
+          ],
+          "unevaluatedProperties": false
+        }
+      },
+      "required": [
+        "product_scope",
+        "holding_period",
+        "entry_window",
+        "return_target",
+        "risk_preference"
+      ],
+      "additionalProperties": false
+    },
+    "skip_questions": {
+      "type": "boolean"
+    },
+    "exploratory_allowed": {
+      "type": "boolean"
+    },
+    "requested_depth": {
+      "enum": [
+        "snapshot",
+        "deep_dive"
+      ]
+    },
+    "screening_mode": {
+      "enum": [
+        "awaiting_conditions",
+        "specified_screening",
+        "provisional_screening"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "recorded_at",
+    "conditions",
+    "skip_questions",
+    "exploratory_allowed",
+    "requested_depth",
+    "screening_mode"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "answer": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "provided",
+            "no_preference",
+            "uncertain",
+            "delegated",
+            "missing",
+            "assumed"
+          ]
+        },
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "origin": {
+          "enum": [
+            "user",
+            "system_assumption",
+            "unknown"
+          ]
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "material": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "status",
+        "text",
+        "origin",
+        "source_ref",
+        "material"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "provided",
+                  "no_preference",
+                  "uncertain",
+                  "delegated"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "origin": {
+                "const": "user"
+              },
+              "source_ref": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "missing"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "text": {
+                "type": "null"
+              },
+              "origin": {
+                "const": "unknown"
+              },
+              "source_ref": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "assumed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "origin": {
+                "const": "system_assumption"
+              },
+              "source_ref": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

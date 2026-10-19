@@ -527,6 +527,9 @@
         "additionalProperties": false
       },
       "minItems": 0
+    },
+    "research_context": {
+      "$ref": "research-context.schema.json"
     }
   },
   "required": [
