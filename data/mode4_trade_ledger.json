@@ -1,0 +1,75 @@
+{
+  "schema": "mode4-paper-ledger-v1",
+  "strategy": "Mode 4 Weekly Tactical Trade v3",
+  "timezone": "Asia/Taipei",
+  "currency": "TWD",
+  "initial_capital": 100000,
+  "risk_budget_per_round": 1000,
+  "leverage": false,
+  "tracking_started_at": "2026-10-27T18:03:00+08:00",
+  "history_scope": "Baseline begins at first verified recorded round. Earlier rounds not verified; no historical performance inferred.",
+  "rounds": [
+    {
+      "round_id": "2026-W44",
+      "decision_at": "2026-10-27T18:03:00+08:00",
+      "latest_bar_date": "2026-10-27",
+      "source_path": "data/mode4_latest.json",
+      "source_blob_sha": "799d90280f5f3fc63d7bd544915c02426bd4c579",
+      "coverage": {
+        "A": 5,
+        "B": 5,
+        "C": 5,
+        "c_universe_checked": 15,
+        "total_symbols_fetched": 25
+      },
+      "c_selected": [
+        "2454",
+        "3037",
+        "1301",
+        "0056",
+        "2882"
+      ],
+      "decision": "CONDITIONAL",
+      "watch_symbol": "2881",
+      "market_proxy": "0050",
+      "reason": "0050 close below MA5/MA20/MA60; 2881 relatively strong but trigger and event/risk checks incomplete. No order placed and no fill evidence.",
+      "next_review_date": "2026-10-28",
+      "time_exit_if_filled": "2026-10-30T13:00:00+08:00",
+      "entry_condition": null,
+      "entry_limit": null,
+      "planned_quantity": 0,
+      "filled_quantity": 0,
+      "stop_profit": null,
+      "stop_loss": null,
+      "estimated_cost": null,
+      "estimated_net_win": null,
+      "estimated_net_loss": null,
+      "risk_reward_ratio": null,
+      "filled_at": null,
+      "exit_at": null,
+      "realized_pnl": 0,
+      "pnl_accounting": "0 because no trades recorded from baseline; does not assert no historic trades",
+      "wins_evidence": "not validated",
+      "quality_notes": [
+        "Latest OHLCV dates match for 25 symbols",
+        "90 included bars per symbol, bar_count metadata 162",
+        "No OHLC boundary or negative volume errors in included candles",
+        "Unofficial Yahoo Finance source; corporate actions, exchange status and event risk not independently verified"
+      ]
+    }
+  ],
+  "performance": {
+    "verified_closed_trades": 0,
+    "verified_open_positions": 0,
+    "realized_pnl_since_baseline": 0,
+    "ending_equity_since_baseline": 100000,
+    "cumulative_return_since_baseline": 0,
+    "max_drawdown_since_baseline": 0,
+    "drawdown_status": "baseline only, insufficient history",
+    "strategy_issues": [
+      "market weakness filter",
+      "no validated expectancy/backtest",
+      "trade restrictions and major events require confirmation"
+    ]
+  }
+}
