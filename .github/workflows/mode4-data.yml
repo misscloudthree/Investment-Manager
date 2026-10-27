@@ -1,0 +1,30 @@
+name: Mode4 Daily OHLCV
+on:
+  schedule:
+    # 17:10 Asia/Taipei = 09:10 UTC, weekdays. GitHub scheduler can delay.
+    - cron: '10 9 * * 1-5'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mode4-market-data
+  cancel-in-progress: false
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install 'yfinance>=0.2.60,<2' 'pandas>=2.1,<3'
+      - run: python mode4_fetch.py
+      - name: Commit latest snapshot
+        run: |
+          if git diff --quiet -- data/mode4_latest.json && [ -f data/mode4_latest.json ]; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/mode4_latest.json
+          git commit -m 'data: refresh Mode4 daily OHLCV' || exit 0
+          git push
