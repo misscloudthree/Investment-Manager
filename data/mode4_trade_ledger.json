@@ -186,9 +186,50 @@
       2,
       5
     ],
-    "status": "tracking_initialized; no v4 execution recorded",
-    "accounting": "PAPER and user-reported REAL separated; real account total returns N/A absent equity baseline"
+    "status": "tracking_active; 2026-10-28 user daily trade confirmation recorded; no v4 paper fills",
+    "accounting": "PAPER and user-reported REAL separated; real account total returns N/A absent equity baseline",
+    "last_confirmed_real_market_date": "2026-10-28"
   },
-  "v4_daily_reviews": [],
+  "v4_daily_reviews": [
+    {
+      "review_id": "real-no-other-trades-2026-10-28",
+      "market_date": "2026-10-28",
+      "account": "REAL",
+      "confirmation": "USER_CONFIRMED_NO_ADDITIONAL_TRADES",
+      "details": "User confirmed no additional actual trades on 2026-10-28 beyond previously logged purchase of 2881 100 shares at TWD 161.",
+      "known_real_position_id": "real-2881-2026-10-28-001",
+      "source": "user explicit confirmation",
+      "price_source": "data/mode4_latest.json",
+      "price_bar_date": "2026-10-28",
+      "price_snapshot_close_2881": 161,
+      "valuation": {
+        "shares": 100,
+        "entry_price": 161,
+        "gross_cost": 16100,
+        "close": 161,
+        "market_value": 16100,
+        "unrealized_gross_pnl": 0,
+        "realized_gross_pnl": 0,
+        "estimated_buy_fee": 22.9425,
+        "estimated_liquidation_sell_fee": 22.9425,
+        "estimated_sell_tax": 48.3,
+        "estimated_net_liquidation_pnl_before_slippage": -94.185,
+        "fee_rate_assumption": 0.001425,
+        "sell_tax_rate_assumption": 0.003,
+        "notes": "Illustrative fee/tax estimates only; broker minimums, discounts and slippage not verified. Realized net PnL cannot be certified until actual fees and any exit are known."
+      },
+      "paper": {
+        "cash": 100000,
+        "open_positions": 0,
+        "realized_pnl": 0,
+        "unrealized_pnl": 0,
+        "equity": 100000,
+        "cumulative_return": 0,
+        "drawdown": "N/A: no daily equity curve"
+      },
+      "real_total_account_return": "N/A: account starting capital and other positions unknown",
+      "status": "CONFIRMED"
+    }
+  ],
   "v4_trade_events": []
 }
