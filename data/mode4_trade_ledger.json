@@ -55,6 +55,28 @@
         "90 included bars per symbol, bar_count metadata 162",
         "No OHLC boundary or negative volume errors in included candles",
         "Unofficial Yahoo Finance source; corporate actions, exchange status and event risk not independently verified"
+      ],
+      "reviews": [
+        {
+          "review_at": "2026-10-28T09:11:00+08:00",
+          "source_bar_date": "2026-10-27",
+          "decision": "CONDITIONAL",
+          "watch_symbol": "2881",
+          "planned_quantity": 0,
+          "filled_quantity": 0,
+          "reason": "A/B/C 5/5/5 reviewed using latest completed bars, 0050 weak below moving averages, 2881 watch only; no verified trigger or fill. Hypothetical pullback scenario at 159.5, stop 155.5, TP 168.5, 180 shares yields net loss 913.12, net profit 1415.36 with stated assumptions, but not an order.",
+          "scenario_only": {
+            "entry": 159.5,
+            "stop": 155.5,
+            "target": 168.5,
+            "shares_if_conditions_met": 180,
+            "estimated_loss": 913.12,
+            "estimated_profit": 1415.36,
+            "estimated_rr": 1.55,
+            "cost_assumptions": "0.1425% fee per side, 0.3% sale tax, 0.05% slippage per side; not an executable plan"
+          },
+          "no_fill_evidence": true
+        }
       ]
     }
   ],
@@ -69,7 +91,8 @@
     "strategy_issues": [
       "market weakness filter",
       "no validated expectancy/backtest",
-      "trade restrictions and major events require confirmation"
+      "trade restrictions and major events require confirmation",
+      "2026-10-28: R:R at conditional pullback ~1.55 is not enough to validate positive expectancy; market filter still adverse"
     ]
   }
 }
