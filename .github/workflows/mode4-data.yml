@@ -20,14 +20,16 @@ jobs:
           python-version: '3.11'
       - run: pip install 'yfinance>=0.2.60,<2' 'pandas>=2.1,<3'
       - run: python mode4_fetch.py
+      - name: Run v4.1 deterministic research and paper simulation
+        run: python mode4_v41_engine.py
       - name: Commit latest snapshot
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/mode4_latest.json
+          git add data/mode4_latest.json data/mode4_v41_engine.json data/mode4_v41_paper.json
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m 'data: refresh Mode4 daily OHLCV'
+          git commit -m 'data: refresh Mode4 OHLCV and v4.1 paper snapshots'
           git push
