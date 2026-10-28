@@ -171,5 +171,24 @@
       "estimated_not_guaranteed": true,
       "realized_pnl": null
     }
-  ]
+  ],
+  "v4": {
+    "enabled_since": "2026-10-28",
+    "policy_path": "docs/mode4_v4_policy.md",
+    "paper_initial_cash": 100000,
+    "paper_single_risk_range_twd": [
+      300,
+      500
+    ],
+    "max_total_open_risk_twd": 1000,
+    "max_concurrent_paper_positions": 1,
+    "target_weekly_trade_count_research_only": [
+      2,
+      5
+    ],
+    "status": "tracking_initialized; no v4 execution recorded",
+    "accounting": "PAPER and user-reported REAL separated; real account total returns N/A absent equity baseline"
+  },
+  "v4_daily_reviews": [],
+  "v4_trade_events": []
 }
