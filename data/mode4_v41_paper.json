@@ -1,0 +1,30 @@
+{
+  "schema": "mode4-v41-paper-v1",
+  "cash": 100000.0,
+  "position": null,
+  "events": [],
+  "daily_equity": [
+    {
+      "date": "2026-10-28",
+      "cash": 100000.0,
+      "position_market_value": 0,
+      "equity": 100000.0
+    }
+  ],
+  "pending": {
+    "plan_id": "2026-10-28-2308-MEAN_REVERSION",
+    "symbol": "2308",
+    "strategy": "MEAN_REVERSION",
+    "signal_date": "2026-10-28",
+    "entry_limit": 1550.0,
+    "stop": 1453.143,
+    "target": 1711.429,
+    "max_hold_days": 3,
+    "shares": 3,
+    "estimated_net_loss": -320.99,
+    "estimated_net_win": 450.06,
+    "net_rr": 1.402,
+    "status": "RESEARCH_PENDING",
+    "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively."
+  }
+}
