@@ -1,82 +1,20 @@
-# Investment Manager
+# Investment Manager｜ChatGPT 投資經理
 
-以投資假設為核心、專注台股與台灣掛牌 ETF 的 AI Investment Manager。
+這個 Repository 目前僅保留 **Mode 4 的每日台股資料管線、v4.1 前瞻 PAPER 研究引擎，以及 REAL / PAPER 交易帳本**。Mode 1–3（機會發掘、個股決策、持倉風險）直接依 ChatGPT Project Instructions 使用，不再要求 Codex Skills / Handoff / Schema / Mock 測試作為前置步驟。
 
-目前為 **Task 2.2：廣泛探索、可續跑的批次初篩與深研交接**。已有有限 TWSE 官方 adapter 與手動批次 CLI，已通過一輪官方取數／正規化驗證，完整投資研究尚未驗收；沒有自動 LLM 深研服務、排程或核准儲存系統。
+## 現行系統
+- **GitHub Actions**：`.github/workflows/mode4-data.yml`，週一至週五台灣時間約 17:10 自動取數、計算；工作流程可能延遲，台股休市日需檢查資料日期。
+- **行情**：`mode4_fetch.py` → `data/mode4_latest.json`；第三方 Yahoo Finance，非交易所核驗。
+- **研究及前瞻紙上交易**：`mode4_v41_engine.py` → `data/mode4_v41_engine.json`、`data/mode4_v41_paper.json`。
+- **交易紀錄**：`data/mode4_trade_ledger.json`，保留已確認實際交易及人工回報，與 PAPER 模擬分帳。
+- **交易規則**：`docs/mode4_v4_policy.md`、`docs/mode4_v41_status.md`。
+- **補充資產觀察池**：`data/mode4_additional_pool.json`（研究用，尚未納入自動取數）。
 
-- [專案目標與架構](docs/PROJECT.md)：未來任務先讀，定義兩個 Agent、人工核准與成功標準。
-- [開發規範](AGENTS.md)、[Repository 稽核](docs/repository-audit.md)。
-- [資料規則](docs/research-data-contract.md)、[結構化契約](docs/skill-contracts.md)、[第三方方法與授權](docs/skill-provenance.md)。
-- [機會篩選](.agents/skills/opportunity-screener/SKILL.md)、[公司／ETF 研究](.agents/skills/company-research/SKILL.md)。其餘四個 Skill 仍為佔位。
-- [資料 API 與下一步](docs/api-integration.md)。
+## 重要邊界
+v4.1 固定訊號與前瞻紙上模型**不等於已驗證的正期望值策略**。歷史跨市場回測、樣本外驗證、零股盤中真實撮合與事件全面核驗尚未完成；不能將模型成交當成真實券商成交。使用者回報的真實交易只在確認後更新 ledger。
 
-## 契約檢查
+## 執行
+GitHub Actions → **Mode4 Daily OHLCV** → Run workflow（選 main）。部署後讀取三個 JSON 驗收日期、覆蓋、資料品質、紙上淨值。
 
-Python 3.12；先在虛擬環境安裝開發依賴（含日期格式驗證支援）：
-
-```sh
-python -m venv .venv
-. .venv/bin/activate
-python -m pip install -r requirements-dev.txt
-python -m unittest discover -s tests -v
-```
-
-測試只驗證 Schema、合成資料與靜態文件一致性，不驗證真實行情、估值正確性、策略績效或自動監控。部分計算與批次取數程式已實作；已做有限官方取數接合，完整市場研究與結果核對尚待驗收。系統不自動下單，已核准的投資假設與實際持倉必須經使用者明確確認才能形成新版本。
-
-
-## 在 ChatGPT 測試研究
-
-先看 [交接與第一檔股票操作步驟](docs/CHATGPT_HANDOFF.md)，上傳完整 bundle 或透過授權存取固定 GitHub revision，再貼 [bootstrap](docs/CHATGPT_BOOTSTRAP.md)。單一官方來源的數據仍需核對；不能把 schema-valid 當投資準確。
-
-- [Skill Manifest](docs/SKILL_MANIFEST.json)：canonical 路徑、revision、hash、依賴、資產類型與輸入輸出。
-- [Investment Memo 模板](docs/INVESTMENT_MEMO_TEMPLATE.md) 與 [Thesis Proposal Schema](schemas/thesis-proposal.schema.json)。
-- [Task 2 稽核與 ETF 架構決定](docs/TASK2_AUDIT.md)。
-
-```sh
-python src/research_handoff.py check-materials
-# 方法與 manifest 經審閱提交後，從該提交打包：
-python src/research_handoff.py bundle --output /tmp/investment-research-skills.zip
-python src/research_handoff.py verify-bundle /tmp/investment-research-skills.zip
-# 驗證從 ChatGPT 下載的未核准提案：
-python src/research_handoff.py validate /private/path/proposal.json --bundle /tmp/investment-research-skills.zip
-```
-
-src/research_handoff.py 只做離線封裝／契約與來源一致性檢查，不取得金融資料、不進行自動研究、不產生批准。src/run.py 是既有離線 demo，不是真實組合風險模型。只有模擬測試通過不能聲稱 ChatGPT live 研究已驗收。
-
-下一階段先驗收真實廣泛母體與候選深研，補 TPEx／ETF／財報 adapters，再在 Task 3 實作人工批准、受控持久化、每日監控與組合風險；排程待後續驗收。不接券商、不自動交易。
-
-
-## Task 2.1：投資決策品質
-
-兩個 Skill 新增三道獨立閘門（產品品質／現在進場／個人組合適合度）、七題反方審查，以及 Memo 最末的 Investment Decision。新提案使用 Schema 2.0；歷史提案依原 commit 驗證。來源缺漏不能用產品故事補足或假裝適合個人。
-
-- [根因、相容性與驗收](docs/TASK21_DECISION_REVIEW.md)
-- [決策元件契約](schemas/investment-decision.schema.json)（由唯一 Proposal Schema 引用）
-
-```sh
-python -m examples.etf_decision_acceptance --output-dir /tmp/task21-mock
-```
-
-此命令須於新版方法已提交後執行，輸出三檔 mock Decision Proposals 與比較報告，不連市場或 ChatGPT、不配置資金。預期為 Insufficient Evidence；未提供的價格與預測維持 null。真實研究前依 ChatGPT Handoff 重載新版，別沿用舊包。
-
-
-## 研究互動與摘要（Issue #1／#2）
-
-方法包 2.2.0 先讀既有對話、只詢問會影響篩選的缺少條件，保留五項條件及來源／時間，沿用到深研與提案。預設先交緊湊 Decision Snapshot，再提供全部／指定標的深研選擇；明確要求深研則直接交摘要＋完整 Memo。缺證據不給虛構價位、報酬或個人倉位比例。
-
-新增 [條件契約](schemas/research-context.schema.json)、[摘要契約](schemas/decision-snapshot.schema.json) 與 `src/research_interaction.py`（已結構化輸入的分流／驗證／呈現，無自然語言解析或市場串接）。完整規則只在 canonical Skills；舊工作表與 Proposal 2.0 保持相容，mock 回歸不等於 live ChatGPT／投資回測驗收。
-
-## Task 2.2：讓系統自行找候選
-
-[BATCH_RESEARCH.md](docs/BATCH_RESEARCH.md) 提供擷取 → 凍結母體 → 分批 process／續跑 → 完整比較 → queue 深研 → submit 的指令與限制。輸出包含完整 coverage／ledger、組內研究排名、原始值與組中位數、預算延後及 ChatGPT 工作單。不是只比較使用者先指定的幾檔，也不把研究分數當買入建議。
-
-```sh
-# 方法提交後，以 120 檔虛構資產驗收批次工程，不取得市場資料
-python -m examples.batch_research_acceptance --output-dir /tmp/task22-mock
-# 真實 TWSE 擷取（須官方網路可用且另做欄位核對）
-python -m src.batch_research capture-twse --output-dir data/snapshots/twse-capture-001
-python -m src.batch_research init --snapshot data/snapshots/twse-capture-001/snapshot.json --run-dir data/campaigns/research-001
-python -m src.batch_research process --run-dir data/campaigns/research-001 --max-items 100
-```
-
-重複 process 到 pending=0，再把完整 run 與同 SHA 方法交給 ChatGPT 深研；讀 GitHub 不會自動啟動批次。現有 TWSE adapter 只涵蓋上市公司主檔；ETF／TPEx 可匯入正規化快照，live adapters 待補。詳見 [驗收紀錄](docs/TASK22_REVIEW.md)。
+## 清理記錄
+過去未完成的 Codex Skill / 批次研究 / Schema / Mock 工程已從 main 移除。清理前完整狀態保留於分支 `archive/pre-chatgpt-cleanup-20261028`，如需復原可由該分支擷取。此 Repo 並非 Mode 1–3 唯一研究資料來源。
