@@ -1,0 +1,50 @@
+{
+  "schema": "mode4-additional-pool-v1",
+  "updated_at_taipei": "2026-10-28T15:54:00+08:00",
+  "purpose": "Additional predeclared research pool for Mode4 v3; do not change fixed A/B/C membership or silently expand 15-stock comparisons.",
+  "candidates": [
+    {
+      "code": "00635U",
+      "ticker": "00635U.TW",
+      "name": "期元大S&P黃金",
+      "instrument": "TWSE-listed gold futures ETF (non-leveraged fund; futures underlying)",
+      "category": "gold",
+      "role": "independent conditional watchlist; optional comparison against primary best candidate, not automatic addition to selected C",
+      "reference_market": "XAU/USD spot gold",
+      "selection_date": "2026-10-28",
+      "selection_reason": "User explicitly requested short-term gold volatility as one analysis item; chosen Taiwan-listed liquid gold-linked vehicle",
+      "filters": [
+        "At least 65 clean daily OHLCV bars",
+        "MA5/MA20/MA60, ATR14, RSI14 and KD",
+        "20-day median traded value and spread/liquidity",
+        "ETF price vs indicative NAV/premium discount",
+        "Futures roll and USDTWD FX exposure",
+        "Exchange trading restrictions",
+        "Fee, tax, slippage and time exit"
+      ],
+      "latest_observation": {
+        "date": "2026-10-28",
+        "close_twd": 41.48,
+        "open_twd": 41.69,
+        "high_twd": 41.73,
+        "low_twd": 41.47,
+        "volume_approx_shares": 1260000,
+        "source": "Investing.com delayed daily; independent verification pending"
+      },
+      "decision": "CONDITIONAL",
+      "trade_plan_ready": false,
+      "position": 0
+    }
+  ],
+  "integration": {
+    "status": "POOL_CONFIG_RECORDED_ONLY",
+    "data_pipeline_already_fetches_gold": false,
+    "scheduled_runs_automatically_read_file": false,
+    "required_next_step": "Update the upstream data generator and automation prompts to fetch and evaluate 00635U and XAUUSD; until then report as manually reviewed supplemental asset."
+  },
+  "sources": [
+    "https://www.twse.com.tw/zh/ETFortune/etfInfo/00635U",
+    "https://www.yuantaetfs.com/product/detail/00635U/Basic_information",
+    "https://jp.investing.com/etfs/yuanta-sp-gsci-gold-er-futures-historical-data"
+  ]
+}
