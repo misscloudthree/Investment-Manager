@@ -12,9 +12,9 @@
     {
       "round_id": "2026-W44",
       "decision_at": "2026-10-27T18:03:00+08:00",
-      "latest_bar_date": "2026-10-27",
+      "latest_bar_date": "2026-10-28",
       "source_path": "data/mode4_latest.json",
-      "source_blob_sha": "799d90280f5f3fc63d7bd544915c02426bd4c579",
+      "source_blob_sha": "5b5b52e10cddaa4fc81d4eda425fa46ae438764f",
       "coverage": {
         "A": 5,
         "B": 5,
@@ -32,7 +32,7 @@
       "decision": "CONDITIONAL",
       "watch_symbol": "2881",
       "market_proxy": "0050",
-      "reason": "0050 close below MA5/MA20/MA60; 2881 relatively strong but trigger and event/risk checks incomplete. No order placed and no fill evidence.",
+      "reason": "2881 MA5/20/60 positive but Oct 28 volume only ~0.64x MA20 and below 164.5 resistance; 0050 remains below MA20. No validated cost-adjusted positive expectancy for remaining two trading days.",
       "next_review_date": "2026-10-28",
       "time_exit_if_filled": "2026-10-30T13:00:00+08:00",
       "entry_condition": null,
@@ -76,8 +76,37 @@
             "cost_assumptions": "0.1425% fee per side, 0.3% sale tax, 0.05% slippage per side; not an executable plan"
           },
           "no_fill_evidence": true
+        },
+        {
+          "review_at": "2026-10-28T14:19:00+08:00",
+          "source_bar_date": "2026-10-28",
+          "source_blob_sha": "5b5b52e10cddaa4fc81d4eda425fa46ae438764f",
+          "decision": "CONDITIONAL",
+          "watch_symbol": "2881",
+          "runner_up": [
+            "2882",
+            "2317"
+          ],
+          "coverage": {
+            "A": 5,
+            "B": 5,
+            "C": 5,
+            "total_fetched": 25
+          },
+          "planned_quantity": 0,
+          "filled_quantity": 0,
+          "reason": "2881 MA5/20/60 positive but Oct 28 volume only ~0.64x MA20 and below 164.5 resistance; 0050 remains below MA20. No validated cost-adjusted positive expectancy for remaining two trading days.",
+          "quality_notes": [
+            "Data generated 2026-10-28 14:17:29 Taipei, all 25 symbol latest dates Oct 28",
+            "0050 and 0056 supplied OHLCV sequences skip Oct 27 despite 10/27 prior snapshot; assess indicator consistency",
+            "Some prior 10/27 volumes revised; data vintage differences",
+            "Exchange trading constraints and full major announcement check incomplete"
+          ],
+          "execution": "No order/fill evidence; no simulated execution.",
+          "net_pnl": 0
         }
-      ]
+      ],
+      "latest_review_at": "2026-10-28T14:19:00+08:00"
     }
   ],
   "performance": {
@@ -92,7 +121,8 @@
       "market weakness filter",
       "no validated expectancy/backtest",
       "trade restrictions and major events require confirmation",
-      "2026-10-28: R:R at conditional pullback ~1.55 is not enough to validate positive expectancy; market filter still adverse"
+      "2026-10-28: R:R at conditional pullback ~1.55 is not enough to validate positive expectancy; market filter still adverse",
+      "10/28 EOD: source snapshot skipped 10/27 for 0050/0056 and revised volumes across snapshots; reconcile before stronger plan"
     ]
   }
 }
