@@ -229,6 +229,47 @@
       },
       "real_total_account_return": "N/A: account starting capital and other positions unknown",
       "status": "CONFIRMED"
+    },
+    {
+      "review_id": "v4-manual-risk-review-2026-10-28-postclose",
+      "market_date": "2026-10-28",
+      "review_type": "manual_run_of_morning_risk_task_postclose",
+      "price_source": "data/mode4_latest.json",
+      "price_bar_date": "2026-10-28",
+      "decision": "CONDITIONAL",
+      "coverage": {
+        "A": 5,
+        "B": 5,
+        "C": 5
+      },
+      "data_quality_exclusions": [
+        "0050",
+        "0056"
+      ],
+      "research_candidates": {
+        "breakout": "2882",
+        "pullback": "2317",
+        "mean_reversion": "2303"
+      },
+      "paper": {
+        "cash": 100000,
+        "open_positions": 0,
+        "realized_pnl": 0,
+        "unrealized_pnl": 0,
+        "equity": 100000,
+        "cumulative_return": 0
+      },
+      "real": {
+        "known_position": "2881",
+        "shares": 100,
+        "entry": 161,
+        "close": 161,
+        "gross_unrealized_pnl": 0,
+        "estimated_liquidation_pnl_before_slippage": -94.185,
+        "real_account_return": "N/A"
+      },
+      "actual_trades_today": "No additional trades confirmed for 2026-10-28 in preceding review; no new fill evidence.",
+      "notes": "Market close and event checks partially verified; paper fills zero. Existing real position stop reference 157.5, targets 164.5/166, time exit Oct 30 13:00."
     }
   ],
   "v4_trade_events": []
