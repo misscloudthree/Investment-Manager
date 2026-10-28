@@ -1,6 +1,6 @@
 {
   "schema": "mode4-ohlcv-v1",
-  "generated_at_taipei": "2026-10-28T16:37:54.019561+08:00",
+  "generated_at_taipei": "2026-10-28T23:58:55.500043+08:00",
   "data_basis": "completed_daily_candles",
   "source_notice": "Yahoo Finance third-party EOD data; not live execution or a validated edge",
   "groups": {
@@ -43,16 +43,8 @@
       "ticker": "0050.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
       "date": "2026-10-28",
-      "bar_count": 162,
+      "bar_count": 163,
       "ohlcv": [
-        {
-          "date": "2026-06-15",
-          "open": 105.1,
-          "high": 105.5,
-          "low": 104.3,
-          "close": 105.25,
-          "volume": 95906242.0
-        },
         {
           "date": "2026-06-16",
           "open": 106.05,
@@ -758,6 +750,14 @@
           "volume": 116952817.0
         },
         {
+          "date": "2026-10-27",
+          "open": 107.1,
+          "high": 107.55,
+          "low": 105.8,
+          "close": 106.6,
+          "volume": 140567068.0
+        },
+        {
           "date": "2026-10-28",
           "open": 108.35,
           "high": 108.65,
@@ -767,17 +767,17 @@
         }
       ],
       "indicators": {
-        "ma5": 107.82,
-        "ma20": 111.7275,
-        "ma60": 107.61917,
-        "atr14": 1.78562,
-        "rsi14": 45.29707,
-        "kd_k": 15.41216,
-        "kd_d": 17.6459,
-        "volume_ma20": 103533254.5
+        "ma5": 107.51,
+        "ma20": 111.435,
+        "ma60": 107.83417,
+        "atr14": 1.8045,
+        "rsi14": 45.97487,
+        "kd_k": 18.42889,
+        "kd_d": 16.64171,
+        "volume_ma20": 107791078.65
       },
       "recent_20d_high": 116.6,
-      "recent_20d_low": 106.75
+      "recent_20d_low": 105.8
     },
     "2881": {
       "code": "2881",
@@ -7453,16 +7453,8 @@
       "ticker": "006208.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
       "date": "2026-10-28",
-      "bar_count": 162,
+      "bar_count": 163,
       "ohlcv": [
-        {
-          "date": "2026-06-15",
-          "open": 243.7,
-          "high": 244.35001,
-          "low": 241.55,
-          "close": 244.10001,
-          "volume": 6291888.0
-        },
         {
           "date": "2026-06-16",
           "open": 245.0,
@@ -8168,6 +8160,14 @@
           "volume": 1926821.0
         },
         {
+          "date": "2026-10-27",
+          "open": 247.75,
+          "high": 247.75,
+          "low": 242.95,
+          "close": 244.60001,
+          "volume": 5119235.0
+        },
+        {
           "date": "2026-10-28",
           "open": 248.60001,
           "high": 249.05,
@@ -8177,33 +8177,25 @@
         }
       ],
       "indicators": {
-        "ma5": 246.94,
-        "ma20": 255.85,
-        "ma60": 246.41083,
-        "atr14": 3.98397,
-        "rsi14": 45.42681,
-        "kd_k": 14.69337,
-        "kd_d": 16.71781,
-        "volume_ma20": 2640600.65
+        "ma5": 246.28,
+        "ma20": 255.23,
+        "ma60": 246.92,
+        "atr14": 4.05705,
+        "rsi14": 46.00252,
+        "kd_k": 17.31366,
+        "kd_d": 15.58235,
+        "volume_ma20": 2842291.25
       },
       "recent_20d_high": 266.64999,
-      "recent_20d_low": 244.7
+      "recent_20d_low": 242.95
     },
     "0056": {
       "code": "0056",
       "ticker": "0056.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
       "date": "2026-10-28",
-      "bar_count": 162,
+      "bar_count": 163,
       "ohlcv": [
-        {
-          "date": "2026-06-15",
-          "open": 51.85,
-          "high": 52.0,
-          "low": 51.3,
-          "close": 51.5,
-          "volume": 32874211.0
-        },
         {
           "date": "2026-06-16",
           "open": 51.8,
@@ -8909,6 +8901,14 @@
           "volume": 111971672.0
         },
         {
+          "date": "2026-10-27",
+          "open": 56.85,
+          "high": 57.35,
+          "low": 56.05,
+          "close": 56.55,
+          "volume": 42883468.0
+        },
+        {
           "date": "2026-10-28",
           "open": 57.05,
           "high": 57.35,
@@ -8918,14 +8918,14 @@
         }
       ],
       "indicators": {
-        "ma5": 57.55,
-        "ma20": 57.7425,
-        "ma60": 54.817,
-        "atr14": 1.01441,
-        "rsi14": 50.56457,
-        "kd_k": 32.01049,
-        "kd_d": 43.55896,
-        "volume_ma20": 54491305.85
+        "ma5": 57.26,
+        "ma20": 57.74,
+        "ma60": 54.98067,
+        "atr14": 1.01567,
+        "rsi14": 50.83799,
+        "kd_k": 28.67671,
+        "kd_d": 37.3907,
+        "volume_ma20": 55397816.25
       },
       "recent_20d_high": 59.7,
       "recent_20d_low": 56.0
@@ -8935,16 +8935,8 @@
       "ticker": "00878.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
       "date": "2026-10-28",
-      "bar_count": 162,
+      "bar_count": 163,
       "ohlcv": [
-        {
-          "date": "2026-06-15",
-          "open": 32.76,
-          "high": 33.01,
-          "low": 32.56,
-          "close": 32.61,
-          "volume": 50653822.0
-        },
         {
           "date": "2026-06-16",
           "open": 32.78,
@@ -9650,6 +9642,14 @@
           "volume": 20068049.0
         },
         {
+          "date": "2026-10-27",
+          "open": 35.68,
+          "high": 35.75,
+          "low": 35.18,
+          "close": 35.4,
+          "volume": 29286869.0
+        },
+        {
           "date": "2026-10-28",
           "open": 35.66,
           "high": 35.75,
@@ -9659,14 +9659,14 @@
         }
       ],
       "indicators": {
-        "ma5": 35.268,
-        "ma20": 35.149,
-        "ma60": 33.95683,
-        "atr14": 0.41269,
-        "rsi14": 61.86456,
-        "kd_k": 70.82766,
-        "kd_d": 65.51802,
-        "volume_ma20": 28414157.35
+        "ma5": 35.318,
+        "ma20": 35.1645,
+        "ma60": 34.03167,
+        "atr14": 0.41418,
+        "rsi14": 62.08435,
+        "kd_k": 72.45199,
+        "kd_d": 66.31144,
+        "volume_ma20": 28628064.15
       },
       "recent_20d_high": 35.75,
       "recent_20d_low": 34.53
@@ -9676,16 +9676,8 @@
       "ticker": "00919.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
       "date": "2026-10-28",
-      "bar_count": 162,
+      "bar_count": 163,
       "ohlcv": [
-        {
-          "date": "2026-06-15",
-          "open": 30.81,
-          "high": 30.9,
-          "low": 30.56,
-          "close": 30.69,
-          "volume": 267336348.0
-        },
         {
           "date": "2026-06-16",
           "open": 29.94,
@@ -10391,6 +10383,14 @@
           "volume": 37404096.0
         },
         {
+          "date": "2026-10-27",
+          "open": 32.71,
+          "high": 32.82,
+          "low": 32.4,
+          "close": 32.75,
+          "volume": 54778464.0
+        },
+        {
           "date": "2026-10-28",
           "open": 32.86,
           "high": 33.1,
@@ -10400,14 +10400,14 @@
         }
       ],
       "indicators": {
-        "ma5": 32.478,
-        "ma20": 32.124,
-        "ma60": 31.46217,
-        "atr14": 0.42053,
-        "rsi14": 61.57807,
-        "kd_k": 65.72032,
-        "kd_d": 62.87713,
-        "volume_ma20": 69352252.55
+        "ma5": 32.538,
+        "ma20": 32.1585,
+        "ma60": 31.533,
+        "atr14": 0.39825,
+        "rsi14": 61.70485,
+        "kd_k": 68.47502,
+        "kd_d": 63.89118,
+        "volume_ma20": 69370884.15
       },
       "recent_20d_high": 33.07,
       "recent_20d_low": 31.41
@@ -18569,8 +18569,8 @@
     "2454",
     "3037",
     "1301",
-    "2882",
-    "0056"
+    "0056",
+    "2882"
   ],
   "latest_bar_date": "2026-10-28",
   "date_counts": {

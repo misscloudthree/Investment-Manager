@@ -1,15 +1,12 @@
 {
   "schema": "mode4-v41-research-v1",
-  "generated_at_taipei": "2026-10-28T16:37:58.644116+08:00",
+  "generated_at_taipei": "2026-10-28T23:59:02.764183+08:00",
   "latest_bar_date": "2026-10-28",
   "source_sha_note": "GitHub price snapshot; third-party Yahoo Finance; no broker validation",
   "coverage": {
     "target_count": 15,
-    "processable": 13,
-    "excluded": {
-      "0050": "missing Oct-27 bar",
-      "0056": "missing Oct-27 bar"
-    }
+    "processable": 15,
+    "excluded": {}
   },
   "strategy_candidates": [
     {
@@ -89,6 +86,22 @@
       "estimated_net_loss": -396.83,
       "estimated_net_win": 428.67,
       "net_rr": 1.08,
+      "status": "RESEARCH_PENDING",
+      "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively."
+    },
+    {
+      "plan_id": "2026-10-28-0050-MEAN_REVERSION",
+      "symbol": "0050",
+      "strategy": "MEAN_REVERSION",
+      "signal_date": "2026-10-28",
+      "entry_limit": 108.65,
+      "stop": 106.507,
+      "target": 111.435,
+      "max_hold_days": 3,
+      "shares": 150,
+      "estimated_net_loss": -399.54,
+      "estimated_net_win": 337.49,
+      "net_rr": 0.845,
       "status": "RESEARCH_PENDING",
       "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively."
     }
