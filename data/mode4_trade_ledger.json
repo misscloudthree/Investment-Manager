@@ -512,6 +512,57 @@
       "real_account_total_return": "N/A",
       "strategy_issue": "EOD data latency prevents 10/29 MA/ATR/RSI/KD/volume validation; 100-share fee drag and poor first-target net R/R; no validated positive expectancy",
       "next_action": "Before 2026-10-30 13:00 Asia/Taipei, prioritize exit under original v3 time-stop; verify live quote and broker order/odd-lot rules before placing any order; no order placed by assistant"
+    },
+    {
+      "review_id": "v411-postclose-data-quality-2026-10-29",
+      "market_date": "2026-10-29",
+      "review_type": "v411_ab_postclose_validation",
+      "source_completed_bar_date": "2026-10-28",
+      "data_quality": "DATA_BLOCKED_FOR_2026_10_29_EOD; GitHub snapshot remains 2026-10-28, no complete 10/29 candidate OHLCV",
+      "ab_validation": "NOT_YET_ACCEPTED; ab_comparison absent from v41 engine JSON, ab_shadow_accounts absent from v41 paper JSON",
+      "ab_shadow_trades_added": 0,
+      "legacy_paper": {
+        "as_of": "2026-10-28",
+        "cash": 100000,
+        "equity": 100000,
+        "positions": 0,
+        "modeled_buys": 0,
+        "modeled_sells": 0,
+        "realized_pnl": 0,
+        "unrealized_pnl": 0
+      },
+      "real": {
+        "trade_confirmation": "USER_CONFIRMED_NO_TRADES_2026_10_29",
+        "known_symbol": "2881",
+        "shares": 100,
+        "entry_price": 161,
+        "price_as_of": "2026-10-28",
+        "close_as_of": 161,
+        "realized_pnl": 0,
+        "account_return": "N/A",
+        "valuation_note": "10/29 third-party quotes differ; no verified 10/29 OHLCV in GitHub. Do not replace 10/28 mark."
+      },
+      "market_context": {
+        "index_close": 46368.33,
+        "index_change_points": -667.25,
+        "index_change_pct": -1.42,
+        "as_of": "2026-10-29",
+        "source": "https://www.ftvnews.com.tw/news/detail/2026A29W0388"
+      },
+      "risk_context": {
+        "stock_2308_close": 1480,
+        "stock_2308_low": 1430,
+        "stock_2308_earnings_date": "2026-10-29",
+        "source_2308": "https://tw.finance.yahoo.com/quote/2308",
+        "stock_2303_close": 115.5,
+        "stock_2303_change_pct": -9.77,
+        "source_2303": "https://hk.investing.com/equities/united-micro-historical-data",
+        "stock_2454_earnings_date": "2026-10-30",
+        "source_earnings": "https://baomazai.com/market/2026/10/26/mediatek-umc-delta-earnings-calls/"
+      },
+      "decision": "NO_NEW_EXECUTABLE_PAPER_PLAN; await 10/29 completed EOD snapshot and successful A/B Actions acceptance",
+      "trade_events_added": 0,
+      "notes": "No REAL changes, no PAPER model fills or backfilled A/B results. This is a postclose review of missing GitHub EOD data and market context only."
     }
   ],
   "v4_trade_events": []
