@@ -270,6 +270,100 @@
       },
       "actual_trades_today": "No additional trades confirmed for 2026-10-28 in preceding review; no new fill evidence.",
       "notes": "Market close and event checks partially verified; paper fills zero. Existing real position stop reference 157.5, targets 164.5/166, time exit Oct 30 13:00."
+    },
+    {
+      "review_id": "v41-morning-risk-2026-10-29",
+      "review_at_taipei": "2026-10-29T09:15:35+08:00",
+      "market_date": "2026-10-29",
+      "source_completed_bar_date": "2026-10-28",
+      "review_type": "v41_morning_open_risk",
+      "decision": "NO_TRADE_RESEARCH_ONLY",
+      "decision_reason": "v4.1 Actions successful but research candidates unvalidated; leading 2308 has 2026-10-29 15:00 Q3 earnings call; 2303 held earnings call 2026-10-28 17:00; 2454 scheduled 2026-10-30 15:00; tick-size and odd-lot execution constraints not implemented. Do not treat RESEARCH_PENDING as ready to trade.",
+      "data": {
+        "snapshot_generated_at_taipei": "2026-10-28T23:58:55.500043+08:00",
+        "engine_generated_at_taipei": "2026-10-28T23:59:02.764183+08:00",
+        "snapshot_sha": "ede8788607317e71320b664959c2a0ae6f1052c6",
+        "coverage": {
+          "A": 5,
+          "B": 5,
+          "C": 5,
+          "all_fetched": 25,
+          "all_with_90_ohlcv_bars": 25,
+          "date_counts": {
+            "2026-10-28": 25
+          }
+        },
+        "selected_C": [
+          "2454",
+          "3037",
+          "1301",
+          "0056",
+          "2882"
+        ],
+        "historical_0050_0056_data_issues": "2026-10-27 rows restored in latest snapshot but historical revision and exchange reconciliation not independently verified",
+        "exchange_validated": false
+      },
+      "strategies": {
+        "BREAKOUT": {
+          "count": 0,
+          "decision": "NO_SIGNAL"
+        },
+        "PULLBACK": {
+          "symbols": [
+            "1301",
+            "2891"
+          ],
+          "decision": "RESEARCH_PENDING"
+        },
+        "MEAN_REVERSION": {
+          "symbols": [
+            "2308",
+            "2303",
+            "2454",
+            "0050"
+          ],
+          "decision": "RESEARCH_PENDING"
+        }
+      },
+      "paper": {
+        "cash": 100000,
+        "open_positions": 0,
+        "modeled_fills": 0,
+        "realized_pnl": 0,
+        "unrealized_pnl": 0,
+        "equity": 100000,
+        "cumulative_return": 0,
+        "as_of": "2026-10-28"
+      },
+      "real": {
+        "known_position_id": "real-2881-2026-10-28-001",
+        "symbol": "2881",
+        "shares_last_reported": 100,
+        "entry_price": 161,
+        "reference_stop": 157.5,
+        "reference_targets": [
+          164.5,
+          166
+        ],
+        "time_exit_reference": "2026-10-30T13:00:00+08:00",
+        "last_valuation_date": "2026-10-28",
+        "last_close": 161,
+        "gross_unrealized_pnl": 0,
+        "estimated_liquidation_pnl_before_slippage": -94.185,
+        "realized_pnl_for_known_position": 0,
+        "account_total_return": "N/A",
+        "trades_on_2026_10_29": "AWAITING_USER_REPORT"
+      },
+      "verification": {
+        "actions_url": "https://github.com/misscloudthree/Investment-Manager/actions/runs/40721347964",
+        "actions_conclusion": "success",
+        "earnings_2308": "https://www.deltaww.com/zh-TW/investors/analyst-meeting",
+        "earnings_2303": "https://tw.stock.yahoo.com/quote/2303/announcement",
+        "earnings_2454": "https://irplatform.tdcc.com.tw/ir/event/list?max=20&offset=10",
+        "close_2881": "https://tw.finance.yahoo.com/quote/2881.TW"
+      },
+      "trades_added": 0,
+      "notes": "No new actual trade confirmation for Oct29; no PAPER model fills and no v4_trade_events appended. Historical backtesting and walk-forward out-of-sample not implemented."
     }
   ],
   "v4_trade_events": []
