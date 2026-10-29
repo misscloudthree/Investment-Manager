@@ -26,5 +26,44 @@
     "net_rr": 1.402,
     "status": "RESEARCH_PENDING",
     "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively."
-  }
+  },
+  "ab_shadow_accounts": {
+    "A": {
+      "cash": 100000.0,
+      "position": null,
+      "events": [],
+      "daily_equity": [
+        {
+          "date": "2026-10-28",
+          "cash": 100000.0,
+          "position_market_value": 0.0,
+          "equity": 100000.0,
+          "note": "Forward-only A/B baseline; not a historical execution"
+        }
+      ],
+      "pending": null,
+      "unfilled_count": 0,
+      "realized_pnl": 0.0
+    },
+    "B": {
+      "cash": 100000.0,
+      "position": null,
+      "events": [],
+      "daily_equity": [
+        {
+          "date": "2026-10-28",
+          "cash": 100000.0,
+          "position_market_value": 0.0,
+          "equity": 100000.0,
+          "note": "Forward-only A/B baseline; not a historical execution"
+        }
+      ],
+      "pending": null,
+      "unfilled_count": 0,
+      "realized_pnl": 0.0
+    }
+  },
+  "ab_waiting_confirmation": null,
+  "ab_started_after_date": "2026-10-28",
+  "ab_enabled": true
 }

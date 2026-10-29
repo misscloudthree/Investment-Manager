@@ -1,6 +1,6 @@
 {
   "schema": "mode4-v41-research-v1",
-  "generated_at_taipei": "2026-10-28T23:59:02.764183+08:00",
+  "generated_at_taipei": "2026-10-30T00:05:43.280650+08:00",
   "latest_bar_date": "2026-10-28",
   "source_sha_note": "GitHub price snapshot; third-party Yahoo Finance; no broker validation",
   "coverage": {
@@ -106,7 +106,97 @@
       "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively."
     }
   ],
-  "top_pending_plan": {
+  "top_pending_plan": null,
+  "paper": {
+    "cash": 100000.0,
+    "position": null,
+    "events_count": 0,
+    "last_equity": {
+      "date": "2026-10-28",
+      "cash": 100000.0,
+      "position_market_value": 0,
+      "equity": 100000.0
+    },
+    "legacy_only": true,
+    "as_of_note": "Legacy PAPER frozen at A/B start; use ab_comparison for ongoing PAPER results"
+  },
+  "validation": {
+    "backtest": "NOT_IMPLEMENTED; historical edge not established",
+    "execution": "OHLC modeled fills only; not broker-confirmed",
+    "issues": [
+      "daily OHLC cannot establish intraday order sequence",
+      "target touch is not assumed filled",
+      "historical C selection must be point-in-time for backtesting"
+    ]
+  },
+  "ab_comparison": {
+    "experiment": "A=early low entry, B=next-day close confirmed then subsequent open; independent, paired research accounts",
+    "anchor_date": "2026-10-28",
+    "candidate_pairs": 4,
+    "top_pair": {
+      "symbol": "2308",
+      "pair_id": "2026-10-28-2308-MEAN_REVERSION",
+      "signal_date": "2026-10-28",
+      "reversal_candle": true,
+      "close_location": 0.583,
+      "A_next_session_plan": {
+        "plan_id": "2026-10-28-2308-MEAN_REVERSION-A",
+        "pair_id": "2026-10-28-2308-MEAN_REVERSION",
+        "version": "A",
+        "symbol": "2308",
+        "strategy": "MEAN_REVERSION",
+        "signal_date": "2026-10-28",
+        "ready_date": "2026-10-28",
+        "entry_limit": 1550.0,
+        "stop": 1450.0,
+        "target": 1710.0,
+        "shares": 3,
+        "max_hold_days": 3,
+        "estimated_net_loss": -330.37,
+        "estimated_net_win": 445.79,
+        "net_rr": 1.349,
+        "status": "RESEARCH_BUY_CANDIDATE",
+        "source": "EOD completed OHLCV, unverified historical edge",
+        "execution_rule": "Fill modeled only at next eligible session OPEN <= limit and OPEN > stop. No OHLC high-touch assumed filled."
+      },
+      "B_status": "AWAIT_NEXT_SESSION_CLOSE_CONFIRMATION",
+      "B_confirmation": "Next day's CLOSE > signal-day HIGH and CLOSE > OPEN; if true, only subsequent session OPEN can model fill"
+    },
+    "account_A": {
+      "equity": 100000.0,
+      "cash": 100000.0,
+      "unrealized_or_open": false,
+      "net_pnl": 0.0,
+      "return_pct": 0.0,
+      "realized_pnl": 0.0,
+      "modeled_buys": 0,
+      "modeled_sells": 0,
+      "unfilled_attempts": 0,
+      "max_drawdown_pct_observed": 0.0,
+      "equity_as_of": "2026-10-28"
+    },
+    "account_B": {
+      "equity": 100000.0,
+      "cash": 100000.0,
+      "unrealized_or_open": false,
+      "net_pnl": 0.0,
+      "return_pct": 0.0,
+      "realized_pnl": 0.0,
+      "modeled_buys": 0,
+      "modeled_sells": 0,
+      "unfilled_attempts": 0,
+      "max_drawdown_pct_observed": 0.0,
+      "equity_as_of": "2026-10-28"
+    },
+    "pending_A": null,
+    "pending_B": null,
+    "waiting_B_pair_id": null,
+    "status_A": "A_NO_SETUP",
+    "status_B": "B_NO_SETUP",
+    "comparison_warning": "Research only, no historical OOS edge; two separate 100k shadow accounts, do not sum them or mix with REAL / legacy paper.",
+    "execution_assumptions": "Yahoo EOD open used to model fills; tick rounding approximate for ETFs; corporate actions, order book, odd lots and minimum brokerage fees not independently verified."
+  },
+  "legacy_top_pending_plan": {
     "plan_id": "2026-10-28-2308-MEAN_REVERSION",
     "symbol": "2308",
     "strategy": "MEAN_REVERSION",
@@ -121,25 +211,5 @@
     "net_rr": 1.402,
     "status": "RESEARCH_PENDING",
     "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively."
-  },
-  "paper": {
-    "cash": 100000.0,
-    "position": null,
-    "events_count": 0,
-    "last_equity": {
-      "date": "2026-10-28",
-      "cash": 100000.0,
-      "position_market_value": 0,
-      "equity": 100000.0
-    }
-  },
-  "validation": {
-    "backtest": "NOT_IMPLEMENTED; historical edge not established",
-    "execution": "OHLC modeled fills only; not broker-confirmed",
-    "issues": [
-      "daily OHLC cannot establish intraday order sequence",
-      "target touch is not assumed filled",
-      "historical C selection must be point-in-time for backtesting"
-    ]
   }
 }
