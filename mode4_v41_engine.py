@@ -135,7 +135,10 @@ def ab_close_position(account, date, px, reason, code):
     account["position"]=None
 
 def ab_progress(account, version, date, prices):
-    if date in {p["date"] for p in account["daily_equity"]}:return False
+    if date<=account["daily_equity"][-1]["date"]:return False
+    if account["position"] and account["position"]["symbol"] not in prices:
+        # Fail closed: do not value a missing stock at zero or invent an exit.
+        return False
     plan=account["pending"]
     # Only OPEN fills, and only strictly after plan was ready. No same-bar lookahead.
     if plan and date>plan["ready_date"] and not account["position"]:
@@ -228,7 +231,7 @@ def ab_research_and_simulate(snapshot, existing_state, existing_candidates):
     # Preserve comparability: same base signal, same stop/target, same risk budget.
     possible.sort(key=lambda p:(not p["reversal_candle"],-p["net_rr"],p["symbol"]))
     selected=possible[0] if possible else None
-    new_date=day not in {x["date"] for x in accounts["A"]["daily_equity"]}
+    new_date=day>accounts["A"]["daily_equity"][-1]["date"]
     if new_date:
         for version in ("A","B"):ab_progress(accounts[version],version,day,prices)
         prev=existing_state.get("ab_waiting_confirmation")
