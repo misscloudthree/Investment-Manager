@@ -19,9 +19,29 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install 'yfinance>=0.2.60,<2' 'pandas>=2.1,<3'
+      - name: Verify Python syntax before data refresh
+        run: python -m py_compile mode4_fetch.py mode4_v41_engine.py
       - run: python mode4_fetch.py
       - name: Run v4.1 deterministic research and paper simulation
         run: python mode4_v41_engine.py
+      - name: Verify A/B shadow state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          engine=json.loads(Path('data/mode4_v41_engine.json').read_text())
+          state=json.loads(Path('data/mode4_v41_paper.json').read_text())
+          assert 'ab_comparison' in engine, 'A/B comparison missing'
+          assert 'ab_shadow_accounts' in state, 'A/B accounts missing'
+          for version in ('A','B'):
+              account=state['ab_shadow_accounts'][version]
+              assert account['daily_equity'], version
+              dates=[x['date'] for x in account['daily_equity']]
+              assert len(dates)==len(set(dates)), f'duplicate valuation dates for {version}'
+              ids=[x['event_id'] for x in account['events']]
+              assert len(ids)==len(set(ids)), f'duplicate trade events for {version}'
+          print('Mode4 A/B shadow validation PASS')
+          PY
       - name: Commit latest snapshot
         run: |
           git config user.name 'github-actions[bot]'
