@@ -265,6 +265,11 @@ def ab_research_and_simulate(snapshot, existing_state, existing_candidates):
         } if selected else None),
       "account_A":ab_metrics(accounts["A"]),
       "account_B":ab_metrics(accounts["B"]),
+      "pending_A":accounts["A"]["pending"],
+      "pending_B":accounts["B"]["pending"],
+      "waiting_B_pair_id":(existing_state.get("ab_waiting_confirmation") or {}).get("plan_id"),
+      "status_A":"A_BUY_SETUP_RESEARCH" if accounts["A"]["pending"] else ("A_MODELED_POSITION" if accounts["A"]["position"] else "A_NO_SETUP"),
+      "status_B":"B_BUY_SETUP_AFTER_CONFIRMATION" if accounts["B"]["pending"] else ("B_MODELED_POSITION" if accounts["B"]["position"] else ("B_WAITING_CLOSE_CONFIRMATION" if existing_state.get("ab_waiting_confirmation") else "B_NO_SETUP")),
       "comparison_warning":"Research only, no historical OOS edge; two separate 100k shadow accounts, do not sum them or mix with REAL / legacy paper.",
       "execution_assumptions":"Yahoo EOD open used to model fills; tick rounding approximate for ETFs; corporate actions, order book, odd lots and minimum brokerage fees not independently verified."
     }
@@ -334,6 +339,8 @@ def main():
     OUT.parent.mkdir(parents=True,exist_ok=True)
     snapshot={"schema":"mode4-v41-research-v1","generated_at_taipei":datetime.now(ZoneInfo("Asia/Taipei")).isoformat(),"latest_bar_date":date,"source_sha_note":"GitHub price snapshot; third-party Yahoo Finance; no broker validation","coverage":{"target_count":len(names),"processable":len(set(names))-len(errors),"excluded":errors},"strategy_candidates":candidates[:12],"top_pending_plan":state.get("pending"),"paper":{"cash":round(state["cash"],2),"position":state["position"],"events_count":len(state["events"]),"last_equity":state["daily_equity"][-1] if state["daily_equity"] else None},"validation":{"backtest":"NOT_IMPLEMENTED; historical edge not established","execution":"OHLC modeled fills only; not broker-confirmed","issues":["daily OHLC cannot establish intraday order sequence","target touch is not assumed filled","historical C selection must be point-in-time for backtesting"]}}
     snapshot["ab_comparison"]=ab_result
+    snapshot["legacy_top_pending_plan"]=snapshot["top_pending_plan"]
+    snapshot["top_pending_plan"]=None  # Legacy pending was never approved for A/B trading
     snapshot["paper"]["legacy_only"]=True
     snapshot["paper"]["as_of_note"]="Legacy PAPER frozen at A/B start; use ab_comparison for ongoing PAPER results"
     OUT.write_text(json.dumps(snapshot,ensure_ascii=False,indent=2)+"\n")
