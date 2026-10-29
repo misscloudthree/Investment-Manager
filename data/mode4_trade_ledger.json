@@ -186,9 +186,9 @@
       2,
       5
     ],
-    "status": "tracking_active; 2026-10-28 user daily trade confirmation recorded; no v4 paper fills",
+    "status": "tracking_active; user confirmed no real trades on 2026-10-29; paper latest 2026-10-28 pending next snapshot",
     "accounting": "PAPER and user-reported REAL separated; real account total returns N/A absent equity baseline",
-    "last_confirmed_real_market_date": "2026-10-28"
+    "last_confirmed_real_market_date": "2026-10-29"
   },
   "v4_daily_reviews": [
     {
@@ -352,7 +352,7 @@
         "estimated_liquidation_pnl_before_slippage": -94.185,
         "realized_pnl_for_known_position": 0,
         "account_total_return": "N/A",
-        "trades_on_2026_10_29": "AWAITING_USER_REPORT"
+        "trades_on_2026_10_29": "CONFIRMED_NO_TRADES_BY_USER"
       },
       "verification": {
         "actions_url": "https://github.com/misscloudthree/Investment-Manager/actions/runs/40721347964",
@@ -364,6 +364,42 @@
       },
       "trades_added": 0,
       "notes": "No new actual trade confirmation for Oct29; no PAPER model fills and no v4_trade_events appended. Historical backtesting and walk-forward out-of-sample not implemented."
+    },
+    {
+      "review_id": "real-no-trades-2026-10-29",
+      "market_date": "2026-10-29",
+      "review_type": "user_daily_real_trade_confirmation",
+      "account": "REAL",
+      "confirmation": "USER_CONFIRMED_NO_TRADES",
+      "source": "user explicit confirmation",
+      "known_real_position_id": "real-2881-2026-10-28-001",
+      "trade_events_added": 0,
+      "price_date": "2026-10-28",
+      "valuation_status": "STALE_FOR_2026-10-29; closing 2026-10-29 OHLCV not yet in GitHub",
+      "real": {
+        "known_symbol": "2881",
+        "shares": 100,
+        "entry_price": 161,
+        "as_of_close": 161,
+        "gross_cost": 16100,
+        "market_value_as_of_price_date": 16100,
+        "unrealized_gross_pnl_as_of_price_date": 0,
+        "realized_pnl_on_2026_10_29": 0,
+        "estimated_liquidation_net_pnl_before_slippage": -94.185,
+        "account_total_return": "N/A"
+      },
+      "paper": {
+        "cash_as_of_price_date": 100000,
+        "equity_as_of_price_date": 100000,
+        "open_positions_as_of_price_date": 0,
+        "modeled_events_as_of_price_date": 0,
+        "realized_pnl": 0,
+        "unrealized_pnl": 0,
+        "cumulative_return_as_of_price_date": 0,
+        "as_of": "2026-10-28",
+        "current_2026_10_29_status": "AWAITING_NEXT_COMPLETE_DAILY_SNAPSHOT"
+      },
+      "notes": "No REAL BUY/SELL events on Oct 29 per user. Do not interpret this as confirmation of PAPER fills or Oct29 closing price."
     }
   ],
   "v4_trade_events": []
