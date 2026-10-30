@@ -723,6 +723,104 @@
       "paper_unchanged": true,
       "real_account_total_return": "N/A",
       "strategy_issue": "Original v3 time exit has elapsed; GitHub EOD missing Oct29 and Oct30; actual broker execution not observable; positive expectancy unvalidated."
+    },
+    {
+      "review_id": "v411-ab-postclose-2026-10-30",
+      "market_date": "2026-10-30",
+      "review_type": "v411_ab_postclose_research_data_quality",
+      "review_at_taipei": "2026-10-30T17:40:17+08:00",
+      "source_completed_bar_date": "2026-10-28",
+      "github_snapshot_generated_at_taipei": "2026-10-30T00:05:36.174446+08:00",
+      "github_engine_generated_at_taipei": "2026-10-30T00:05:43.280650+08:00",
+      "data_quality": "DATA_BLOCKED: GitHub daily OHLCV remains 2026-10-28 despite 2026-10-29 and 2026-10-30 being completed trading sessions; external quotes not substituted for deterministic model input",
+      "coverage_as_of_2026_10_28": {
+        "date_counts": {
+          "2026-10-28": 25
+        },
+        "A": 5,
+        "B": 5,
+        "C": 5,
+        "ohlcv_bars_each": 90,
+        "selected_C": [
+          "2454",
+          "3037",
+          "1301",
+          "0056",
+          "2882"
+        ],
+        "exchange_verified": false
+      },
+      "ab_validation": "FIELDS_PRESENT; FORWARD_PROGRESS_NOT_ACCEPTED; both A/B accounts only 2026-10-28 anchor equity and no 10-29/10-30 daily equity",
+      "ab_decision": {
+        "A": "NO_CURRENT_BUY_SETUP; 2026-10-28 2308 plan historical only; pending_A null",
+        "B": "NO_CURRENT_CONFIRMATION; pending_B null; 2026-10-29 external 2308 close 1480 < 2026-10-28 signal high 1575",
+        "new_executable_paper_plans": 0
+      },
+      "strategy_candidates_as_of_2026_10_28": {
+        "BREAKOUT": [],
+        "PULLBACK": [
+          "1301",
+          "2891"
+        ],
+        "MEAN_REVERSION": [
+          "2308",
+          "2303",
+          "2454",
+          "0050"
+        ]
+      },
+      "ab_paper": {
+        "A": {
+          "cash": 100000,
+          "equity": 100000,
+          "realized_pnl": 0,
+          "unrealized_pnl": 0,
+          "modeled_buys": 0,
+          "modeled_sells": 0,
+          "unfilled_attempts": 0,
+          "as_of": "2026-10-28",
+          "drawdown": "N/A: baseline only"
+        },
+        "B": {
+          "cash": 100000,
+          "equity": 100000,
+          "realized_pnl": 0,
+          "unrealized_pnl": 0,
+          "modeled_buys": 0,
+          "modeled_sells": 0,
+          "unfilled_attempts": 0,
+          "as_of": "2026-10-28",
+          "drawdown": "N/A: baseline only"
+        }
+      },
+      "external_market": {
+        "date": "2026-10-30",
+        "taiex_close": 45211.83,
+        "taiex_change_points": -1156.5,
+        "taiex_change_pct": -2.49,
+        "source": "https://udn.com/news/story/7251/9846996",
+        "stock_2308_close": 1335,
+        "source_2308": "https://hk.investing.com/equities/delta-electron-historical-data",
+        "stock_2454_close": 3915,
+        "earnings_event_2454": "2026-10-30 15:00"
+      },
+      "real": {
+        "last_user_confirmed_trade_date": "2026-10-29",
+        "trades_on_2026_10_30": "NOT_CONFIRMED",
+        "known_position_id": "real-2881-2026-10-28-001",
+        "shares_last_reported": 100,
+        "entry_price": 161,
+        "estimated_realized_pnl": 0,
+        "external_2026_10_30_close_provisional": 161.5,
+        "external_2026_10_30_close_conflict": "Some provider listing shows 160.5; external sources inconsistent, exchange not verified",
+        "external_2026_10_30_gross_unrealized_pnl_at_161_5": 50,
+        "estimated_liquidation_net_pnl_at_161_5_before_slippage": -44.41,
+        "account_total_return": "N/A",
+        "time_exit": "2026-10-30T13:00:00+08:00 expired; no confirmed sell",
+        "source": "https://hk.investing.com/equities/fubon-fin-hldg-historical-data"
+      },
+      "trade_events_added": 0,
+      "notes": "No REAL trades inferred; no A/B paper fills or backfill. 2026-10-30 new trade confirmation pending user report. Research only; historical backtest and OOS remain unimplemented."
     }
   ],
   "v4_trade_events": []
