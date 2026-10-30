@@ -151,12 +151,12 @@
       "shares": 100,
       "gross_entry_value": 16100,
       "position_context": "Real holding, separate from paper portfolio",
-      "exit_target_primary": 164,
-      "exit_target_secondary": 166,
+      "exit_target_primary": 161.5,
+      "exit_target_secondary": 162,
       "stop_reference": 158,
       "time_exit_reference": "2026-10-30T13:00:00+08:00",
       "strategy": "Mode4 v3 technical small-gains",
-      "analysis_bar_date": "2026-10-28",
+      "analysis_bar_date": "2026-10-30_EXTERNAL_PROVISIONAL",
       "cost_model": {
         "broker_fee_each_side": 0.001425,
         "sell_tax": 0.003,
@@ -164,13 +164,15 @@
         "slippage_not_included": true
       },
       "profit_net_estimates": {
-        "at_164": 204.49,
-        "at_166": 403.6,
-        "at_158": -392.86
+        "at_158": -392.86,
+        "at_161_5": -44.41,
+        "at_162": 5.37
       },
       "estimated_not_guaranteed": true,
       "realized_pnl": null,
-      "last_decision_review_id": "real-2881-v3-postclose-2026-10-29-1541"
+      "last_decision_review_id": "real-2881-v3-postclose-2026-10-30-1515",
+      "time_exit_status": "EXPIRED_NO_CONFIRMED_EXECUTION",
+      "next_exit_action": "NEXT_AVAILABLE_TRADING_SESSION_MARKETABLE_ODD_LOT_EXIT_IF_STILL_OPEN"
     }
   ],
   "v4": {
@@ -627,6 +629,100 @@
       "trade_events_added": 0,
       "paper_events_added": 0,
       "notes": "A/B independent baseline accounts are not proof of live or paper trades. No REAL or PAPER FILLED without evidence; no v4_trade_events update."
+    },
+    {
+      "review_id": "real-2881-v3-postclose-2026-10-30-1515",
+      "review_at_taipei": "2026-10-30T15:15:47+08:00",
+      "market_date": "2026-10-30",
+      "is_trading_day": true,
+      "account": "REAL",
+      "position_id": "real-2881-2026-10-28-001",
+      "source_github_latest_bar_date": "2026-10-28",
+      "github_snapshot_generated_at_taipei": "2026-10-30T00:05:36.174446+08:00",
+      "github_snapshot_sha": "55adc2a2c51e1952d25f7f11c0069f7bae06950d",
+      "data_quality": "GITHUB_STALE_TWO_SESSIONS; external Investing.com 2026-10-29 and 2026-10-30 OHLCV, not TWSE-verified; external provider volume differs from Github vintage",
+      "external_ohlcv": [
+        {
+          "date": "2026-10-29",
+          "open": 160.5,
+          "high": 163.5,
+          "low": 160.5,
+          "close": 162,
+          "volume_approx": 11230000
+        },
+        {
+          "date": "2026-10-30",
+          "open": 160,
+          "high": 161.5,
+          "low": 158,
+          "close": 161.5,
+          "volume_approx": 13050000
+        }
+      ],
+      "external_sources": [
+        "https://hk.investing.com/equities/fubon-fin-hldg-historical-data",
+        "https://tw.finance.yahoo.com/quote/2881.TW"
+      ],
+      "technical": {
+        "github_as_of_2026_10_28": {
+          "ma5": 158.7,
+          "ma20": 156.025,
+          "atr14": 4.32043,
+          "rsi14": 61.04544,
+          "kd_k": 62.36645,
+          "kd_d": 60.05982
+        },
+        "mixed_source_provisional_2026_10_30": {
+          "ma5": 161,
+          "ma20": 157.125,
+          "atr14_approx": 4.21,
+          "rsi14_approx": 61.19,
+          "kd_k_approx": 69.13,
+          "kd_d_approx": 64.7,
+          "volume_ratio_approx": 0.81
+        },
+        "resistance": [
+          161.5,
+          162,
+          163.5,
+          164.5
+        ],
+        "support": [
+          160,
+          158
+        ]
+      },
+      "decision": "TIME_EXIT_OVERDUE; EXIT_NEXT_TRADING_SESSION_IF_POSITION_STILL_OPEN",
+      "time_exit_original": "2026-10-30T13:00:00+08:00",
+      "time_exit_status": "EXPIRED_NO_CONFIRMED_EXECUTION",
+      "next_action": "At next available trading session 2026-11-02 (subject to exchange calendar), prioritize sale of last-reported 100 shares via broker executable odd-lot order; verify current bid/limit and execution; no further waiting for former 164/166 targets.",
+      "revised_reference_targets": {
+        "first": 161.5,
+        "second": 162,
+        "priority": "NOT_ACTIONABLE_AS_WAIT_TARGETS_AFTER_TIME_EXIT; time exit overrides"
+      },
+      "stop_reference": 158,
+      "stop_trigger_evidence": "10/30 external daily low 158 touched stop reference; cannot infer fill or stop order existed",
+      "shares_last_reported": 100,
+      "position_status_last_confirmed": "OPEN_USER_REPORTED",
+      "fill_evidence": "NO_CONFIRMED_SELL; do not book realized PnL",
+      "estimated_net_pnl_twd": {
+        "at_158": -392.86,
+        "at_160": -193.74,
+        "at_161_5": -44.41,
+        "at_162": 5.37,
+        "at_164": 204.49,
+        "at_166": 403.6
+      },
+      "cost_assumptions": {
+        "buy_sell_fee_each": 0.001425,
+        "sell_tax": 0.003,
+        "broker_minimum_unknown": true,
+        "slippage_excluded": true
+      },
+      "paper_unchanged": true,
+      "real_account_total_return": "N/A",
+      "strategy_issue": "Original v3 time exit has elapsed; GitHub EOD missing Oct29 and Oct30; actual broker execution not observable; positive expectancy unvalidated."
     }
   ],
   "v4_trade_events": []
