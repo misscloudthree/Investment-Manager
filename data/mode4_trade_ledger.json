@@ -563,6 +563,70 @@
       "decision": "NO_NEW_EXECUTABLE_PAPER_PLAN; await 10/29 completed EOD snapshot and successful A/B Actions acceptance",
       "trade_events_added": 0,
       "notes": "No REAL changes, no PAPER model fills or backfilled A/B results. This is a postclose review of missing GitHub EOD data and market context only."
+    },
+    {
+      "review_id": "v411-morning-risk-2026-10-30",
+      "review_at_taipei": "2026-10-30T09:19:47+08:00",
+      "market_date": "2026-10-30",
+      "review_type": "v411_ab_morning_risk_and_data_freshness",
+      "account": "RESEARCH_REVIEW_ONLY",
+      "source_completed_bar_date": "2026-10-28",
+      "snapshot_generated_at_taipei": "2026-10-30T00:05:36.174446+08:00",
+      "engine_generated_at_taipei": "2026-10-30T00:05:43.280650+08:00",
+      "snapshot_sha": "55adc2a2c51e1952d25f7f11c0069f7bae06950d",
+      "engine_sha": "c7c64af7cb4efb848a692e92f9361c919c75ec4d",
+      "paper_sha": "3956910ddd3050701e8302f31b5139f328e221d5",
+      "data_quality": "STALE_FOR_2026_10_30_MORNING: 2026-10-29 completed OHLCV exists in third-party sources but is absent from GitHub latest; 0050/0056 historical anomalies not exchange reconciled",
+      "ab_validation": "FIELDS_PRESENT_BUT_NO_FORWARD_DAILY_PROGRESS; shadow A/B both initial 2026-10-28 equity baseline only, no modeled buys/sells, no pending orders",
+      "ab_status": {
+        "A": "NO_CURRENT_BUY_SETUP; 2026-10-28 candidate expired; do not backfill",
+        "B": "NO_CURRENT_CONFIRMED_SETUP; external 2026-10-29 2308 close 1480 did not exceed 2026-10-28 high 1575"
+      },
+      "strategies": {
+        "BREAKOUT": 0,
+        "PULLBACK": 2,
+        "MEAN_REVERSION": 4,
+        "all_from": "2026-10-28; not current 2026-10-30 signals"
+      },
+      "external_market": {
+        "date": "2026-10-29",
+        "index_close": 46368.33,
+        "index_change_pct": -1.42,
+        "real_2881_close": 162,
+        "real_2881_ohlc": {
+          "open": 160.5,
+          "high": 163.5,
+          "low": 160.5,
+          "close": 162
+        },
+        "research_2308_close": 1480,
+        "research_2308_low": 1430,
+        "verified_exchange": false,
+        "sources": [
+          "https://tw.finance.yahoo.com/quote/2881.TW",
+          "https://tw.finance.yahoo.com/quote/2308.TW"
+        ]
+      },
+      "real": {
+        "position_id": "real-2881-2026-10-28-001",
+        "last_reported_shares": 100,
+        "entry_price": 161,
+        "status": "OPEN_USER_REPORTED; 2026-10-30 trades not yet reported",
+        "stop_reference": 158,
+        "target_1": 164,
+        "target_2": 166,
+        "time_exit_reference": "2026-10-30T13:00:00+08:00",
+        "external_mark_date": "2026-10-29",
+        "external_mark_close": 162,
+        "gross_unrealized_pnl": 100,
+        "estimated_net_liquidation_pnl_before_slippage": 5.37,
+        "real_total_return": "N/A",
+        "action": "PRIORITIZE_TIME_EXIT_REVIEW; verify current quote and broker execution before any order; no auto sell"
+      },
+      "decision": "NO_NEW_RESEARCH_ENTRY_WITH_STALE_DATA; REAL_2881_TIME_EXIT_TODAY_13:00",
+      "trade_events_added": 0,
+      "paper_events_added": 0,
+      "notes": "A/B independent baseline accounts are not proof of live or paper trades. No REAL or PAPER FILLED without evidence; no v4_trade_events update."
     }
   ],
   "v4_trade_events": []
