@@ -39,9 +39,35 @@
           "position_market_value": 0.0,
           "equity": 100000.0,
           "note": "Forward-only A/B baseline; not a historical execution"
+        },
+        {
+          "date": "2026-10-30",
+          "cash": 100000.0,
+          "position_market_value": 0.0,
+          "equity": 100000.0,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
-      "pending": null,
+      "pending": {
+        "plan_id": "2026-10-30-2454-MEAN_REVERSION-A",
+        "pair_id": "2026-10-30-2454-MEAN_REVERSION",
+        "version": "A",
+        "symbol": "2454",
+        "strategy": "MEAN_REVERSION",
+        "signal_date": "2026-10-30",
+        "ready_date": "2026-10-30",
+        "entry_limit": 3915.0,
+        "stop": 3675.0,
+        "target": 4305.0,
+        "shares": 1,
+        "max_hold_days": 3,
+        "estimated_net_loss": -265.63,
+        "estimated_net_win": 361.27,
+        "net_rr": 1.36,
+        "status": "RESEARCH_BUY_CANDIDATE",
+        "source": "EOD completed OHLCV, unverified historical edge",
+        "execution_rule": "Fill modeled only at next eligible session OPEN <= limit and OPEN > stop. No OHLC high-touch assumed filled."
+      },
       "unfilled_count": 0,
       "realized_pnl": 0.0
     },
@@ -56,6 +82,13 @@
           "position_market_value": 0.0,
           "equity": 100000.0,
           "note": "Forward-only A/B baseline; not a historical execution"
+        },
+        {
+          "date": "2026-10-30",
+          "cash": 100000.0,
+          "position_market_value": 0.0,
+          "equity": 100000.0,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
       "pending": null,
@@ -63,7 +96,27 @@
       "realized_pnl": 0.0
     }
   },
-  "ab_waiting_confirmation": null,
+  "ab_waiting_confirmation": {
+    "plan_id": "2026-10-30-2454-MEAN_REVERSION",
+    "symbol": "2454",
+    "strategy": "MEAN_REVERSION",
+    "signal_date": "2026-10-30",
+    "entry_limit": 3915.0,
+    "stop": 3678.429,
+    "target": 4309.286,
+    "max_hold_days": 3,
+    "shares": 1,
+    "estimated_net_loss": -262.22,
+    "estimated_net_win": 365.53,
+    "net_rr": 1.394,
+    "status": "RESEARCH_PENDING",
+    "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively.",
+    "reversal_candle": false,
+    "close_location": 0.595,
+    "signal_high": 3990.0,
+    "signal_low": 3805.0,
+    "user_label": "A 積極低接研究 / B 反彈確認研究"
+  },
   "ab_started_after_date": "2026-10-28",
   "ab_enabled": true
 }
