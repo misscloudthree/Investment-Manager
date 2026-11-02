@@ -884,6 +884,130 @@
       "trade_events_added": 0,
       "paper_events_added": 0,
       "notes": "Review only; do not infer paper/real fills, do not backfill A/B or convert modeled trade into REAL; backtest and OOS not implemented."
+    },
+    {
+      "review_id": "v411-ab-postclose-2026-11-02",
+      "market_date": "2026-11-02",
+      "review_type": "v411_ab_postclose_research_data_quality",
+      "review_at_taipei": "2026-11-02T17:40:38+08:00",
+      "account": "RESEARCH_REVIEW_ONLY",
+      "source_completed_bar_date": "2026-10-30",
+      "github_snapshot_generated_at_taipei": "2026-10-30T23:53:02.924181+08:00",
+      "github_engine_generated_at_taipei": "2026-10-30T23:53:11.870509+08:00",
+      "data_quality": "STALE_FOR_2026-11-02_POSTCLOSE; GitHub OHLCV remains Oct30, external Nov02 prices not imported to deterministic PAPER engine",
+      "coverage_as_of_2026_10_30": {
+        "date_counts": {
+          "2026-10-30": 25
+        },
+        "all_fetched": 25,
+        "ohlcv_bars_each": 90,
+        "groups": {
+          "A": 5,
+          "B": 5,
+          "C_selected": 5
+        },
+        "selected_C": [
+          "2454",
+          "3037",
+          "1301",
+          "0056",
+          "2882"
+        ],
+        "errors": [],
+        "historical_etf_0050_0056_rows_restored": true,
+        "exchange_validated": false
+      },
+      "ab_validation": "FIELDS_PRESENT; PAPER DAILY_EQUITY_THROUGH_2026-10-30; NO_2026-11-02_MODELED_SETTLEMENT",
+      "ab_decision": {
+        "pair_id": "2026-10-30-2454-MEAN_REVERSION",
+        "A": "HISTORICAL_BUY_SETUP_FOR_2026-11-02_ONLY; 2454 1 share limit3915 stop3675 target4305, model cannot record fill until refreshed",
+        "B": "WAIT_NOT_CONFIRMED; external Nov02 close 3970 < Oct30 signal high 3990, despite intraday high 4070; no B pending order",
+        "new_current_nov03_paper_plan": "NONE_UNTIL_GITHUB_NOV02_EOD_REFRESH"
+      },
+      "ab_paper": {
+        "A": {
+          "cash": 100000,
+          "position_market_value": 0,
+          "equity": 100000,
+          "realized_pnl": 0,
+          "unrealized_pnl": 0,
+          "modeled_buys": 0,
+          "modeled_sells": 0,
+          "unfilled_attempts": 0,
+          "max_drawdown_observed_pct": 0,
+          "as_of": "2026-10-30",
+          "current_day_result": "N/A"
+        },
+        "B": {
+          "cash": 100000,
+          "position_market_value": 0,
+          "equity": 100000,
+          "realized_pnl": 0,
+          "unrealized_pnl": 0,
+          "modeled_buys": 0,
+          "modeled_sells": 0,
+          "unfilled_attempts": 0,
+          "max_drawdown_observed_pct": 0,
+          "as_of": "2026-10-30",
+          "current_day_result": "N/A"
+        }
+      },
+      "strategies_as_of_2026_10_30": {
+        "BREAKOUT": [],
+        "PULLBACK": [
+          "2891",
+          "2882",
+          "2881"
+        ],
+        "MEAN_REVERSION": [
+          "2454"
+        ]
+      },
+      "external_market": {
+        "date": "2026-11-02",
+        "taiex_close": 44920.14,
+        "taiex_change": -291.69,
+        "taiex_pct": -0.65,
+        "taiex_source": "https://www.cna.com.tw/news/afe/202611020116.aspx",
+        "stock_2454": {
+          "open_approx": 3800,
+          "high": 4070,
+          "low_approx": 3790,
+          "close": 3970,
+          "source": "https://tw.stock.yahoo.com/quote/2454.TW/"
+        },
+        "stock_2881": {
+          "close_conflict_range": [
+            159,
+            160
+          ],
+          "source_a": "https://histock.tw/stock/tcharti.aspx?m=w&no=2881",
+          "source_b": "https://cn.investing.com/equities/fubon-fin-hldg-historical-data"
+        },
+        "event_2454": "2026-10-30 earnings and Nov02 rebound; event-driven gap risk"
+      },
+      "real": {
+        "last_confirmed_real_trade_date": "2026-10-29",
+        "nov02_user_trade_confirmation": "NOT_RECEIVED",
+        "oct30_user_trade_confirmation": "NOT_RECEIVED",
+        "known_position_id": "real-2881-2026-10-28-001",
+        "shares_last_reported": 100,
+        "entry_price": 161,
+        "status": "OPEN_USER_REPORTED_UNVERIFIED_AS_OF_NOV02",
+        "realized_pnl": "N/A_UNTIL_USER_TRADE_CONFIRMATION",
+        "external_nov02_gross_unrealized_if_still_held_range_twd": [
+          -200,
+          -100
+        ],
+        "account_cash": "N/A",
+        "account_equity": "N/A",
+        "account_total_return": "N/A",
+        "time_exit": "2026-10-30T13:00:00+08:00 EXPIRED; verify broker and prioritize review if still held"
+      },
+      "decision": "NO_CURRENT_NOV03_EXECUTABLE_PAPER_PLAN_UNTIL_REFRESH; HISTORICAL_A_BUY_SETUP_B_NOT_CONFIRMED; REAL_2881_STATUS_AWAITING_USER",
+      "paper_events_added": 0,
+      "real_trade_events_added": 0,
+      "notes": "Do not backfill A simulated Nov02 buy from external prices, or treat any historical/paper event as REAL. No user confirmation for Oct30/Nov02, no trades booked. OOS/backtest not implemented."
     }
   ],
   "v4_trade_events": []
