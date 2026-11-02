@@ -821,6 +821,69 @@
       },
       "trade_events_added": 0,
       "notes": "No REAL trades inferred; no A/B paper fills or backfill. 2026-10-30 new trade confirmation pending user report. Research only; historical backtest and OOS remain unimplemented."
+    },
+    {
+      "review_id": "v411-morning-risk-2026-11-02",
+      "review_at_taipei": "2026-11-02T09:14:29+08:00",
+      "market_date": "2026-11-02",
+      "review_type": "v411_ab_morning_risk_and_real_time_exit",
+      "account": "RESEARCH_REVIEW_ONLY",
+      "source_completed_bar_date": "2026-10-30",
+      "snapshot_generated_at_taipei": "2026-10-30T23:53:02.924181+08:00",
+      "data_quality": "2026-10-30 last completed trading session; Yahoo third-party OHLCV 25/25 each 90 bars; 0050/0056 historical anomalies not exchange-reconciled",
+      "ab_validation": "FIELDS_PRESENT; FORWARD_DAILY_EQUITY_THROUGH_2026_10_30; NO_MODELED_BUYS_OR_SELLS",
+      "ab_decision": {
+        "A": "A_BUY_SETUP_RESEARCH 2454, next session 2026-11-02 open <=3915 and >3675, 1 share, 3-session max hold, estimated net loss -265.63, estimated net win +361.27, not real trade advice",
+        "B": "B_WAIT 2454, 2026-11-02 close must exceed 2026-10-30 high 3990 and same-day open; earliest modeled 2026-11-03 open if confirmed"
+      },
+      "ab_paper": {
+        "A": {
+          "equity": 100000,
+          "realized_pnl": 0,
+          "unrealized_pnl": 0,
+          "modeled_buys": 0,
+          "modeled_sells": 0,
+          "unfilled_attempts": 0,
+          "max_drawdown_pct_observed": 0
+        },
+        "B": {
+          "equity": 100000,
+          "realized_pnl": 0,
+          "unrealized_pnl": 0,
+          "modeled_buys": 0,
+          "modeled_sells": 0,
+          "unfilled_attempts": 0,
+          "max_drawdown_pct_observed": 0
+        }
+      },
+      "strategies": {
+        "BREAKOUT": 0,
+        "PULLBACK": 3,
+        "MEAN_REVERSION": 1,
+        "all_from": "2026-10-30"
+      },
+      "market_event": {
+        "stock_2454": "2026-10-30 postclose earnings call; revised Q4 outlook; event gap risk",
+        "index_2026_10_30_close": 45211.83,
+        "index_2026_10_30_change_pct": -2.49,
+        "source": "https://money.udn.com/money/story/5612/9848045"
+      },
+      "real": {
+        "known_symbol": "2881",
+        "last_reported_shares": 100,
+        "entry_price": 161,
+        "source_price_date": "2026-10-30",
+        "source_close": 161.5,
+        "gross_unrealized_pnl_if_still_open": 50,
+        "estimated_liquidation_net_pnl_before_slippage": -44.41,
+        "realized_pnl": "UNKNOWN_UNTIL_USER_REPORT",
+        "total_account_return": "N/A",
+        "time_exit": "2026-10-30T13:00:00+08:00 expired; if still held, prioritize broker-executable odd-lot exit at next session, no auto order"
+      },
+      "decision": "A_BUY_SETUP_RESEARCH_B_WAIT; REAL_2881_TIME_EXIT_OVERDUE; USER_2026_11_02_REAL_TRADES_AWAITING_REPORT",
+      "trade_events_added": 0,
+      "paper_events_added": 0,
+      "notes": "Review only; do not infer paper/real fills, do not backfill A/B or convert modeled trade into REAL; backtest and OOS not implemented."
     }
   ],
   "v4_trade_events": []
