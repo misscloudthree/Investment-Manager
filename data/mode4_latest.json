@@ -1,6 +1,6 @@
 {
   "schema": "mode4-ohlcv-v1",
-  "generated_at_taipei": "2026-10-30T23:53:02.924181+08:00",
+  "generated_at_taipei": "2026-11-03T03:26:54.321592+08:00",
   "data_basis": "completed_daily_candles",
   "source_notice": "Yahoo Finance third-party EOD data; not live execution or a validated edge",
   "groups": {
@@ -42,17 +42,9 @@
       "code": "0050",
       "ticker": "0050.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
-      "date": "2026-10-30",
-      "bar_count": 165,
+      "date": "2026-11-02",
+      "bar_count": 166,
       "ohlcv": [
-        {
-          "date": "2026-06-18",
-          "open": 107.0,
-          "high": 107.45,
-          "low": 106.65,
-          "close": 107.3,
-          "volume": 74587200.0
-        },
         {
           "date": "2026-06-22",
           "open": 109.45,
@@ -763,21 +755,29 @@
           "high": 105.3,
           "low": 103.85,
           "close": 104.95,
-          "volume": 226322152.0
+          "volume": 193796708.0
+        },
+        {
+          "date": "2026-11-02",
+          "open": 103.4,
+          "high": 104.45,
+          "low": 103.05,
+          "close": 104.1,
+          "volume": 142806486.0
         }
       ],
       "indicators": {
-        "ma5": 106.87,
-        "ma20": 110.86,
-        "ma60": 108.09833,
-        "atr14": 1.93475,
-        "rsi14": 36.30896,
-        "kd_k": 21.86581,
-        "kd_d": 19.88426,
-        "volume_ma20": 114479424.95
+        "ma5": 106.31,
+        "ma20": 110.4625,
+        "ma60": 108.13333,
+        "atr14": 1.93227,
+        "rsi14": 34.46641,
+        "kd_k": 20.26825,
+        "kd_d": 20.01225,
+        "volume_ma20": 117087307.8
       },
       "recent_20d_high": 116.6,
-      "recent_20d_low": 105.8
+      "recent_20d_low": 103.85
     },
     "2881": {
       "code": "2881",
@@ -1504,7 +1504,7 @@
           "high": 161.5,
           "low": 158.0,
           "close": 161.5,
-          "volume": 13241491.0
+          "volume": 13074202.0
         }
       ],
       "indicators": {
@@ -1515,7 +1515,7 @@
         "rsi14": 61.24807,
         "kd_k": 69.13257,
         "kd_d": 64.70082,
-        "volume_ma20": 16088751.45
+        "volume_ma20": 16080387.0
       },
       "recent_20d_high": 164.5,
       "recent_20d_low": 147.5
@@ -2245,7 +2245,7 @@
           "high": 246.0,
           "low": 240.0,
           "close": 245.5,
-          "volume": 33541077.0
+          "volume": 32648508.0
         }
       ],
       "indicators": {
@@ -2256,7 +2256,7 @@
         "rsi14": 47.62876,
         "kd_k": 63.42265,
         "kd_d": 59.21607,
-        "volume_ma20": 39972672.05
+        "volume_ma20": 39928043.6
       },
       "recent_20d_high": 266.5,
       "recent_20d_low": 237.0
@@ -2986,7 +2986,7 @@
           "high": 318.0,
           "low": 308.0,
           "close": 318.0,
-          "volume": 13688103.0
+          "volume": 13400093.0
         }
       ],
       "indicators": {
@@ -2997,7 +2997,7 @@
         "rsi14": 42.61292,
         "kd_k": 44.16001,
         "kd_d": 48.38736,
-        "volume_ma20": 11399908.85
+        "volume_ma20": 11385508.35
       },
       "recent_20d_high": 342.0,
       "recent_20d_low": 311.0
@@ -3727,7 +3727,7 @@
           "high": 112.5,
           "low": 107.0,
           "close": 111.5,
-          "volume": 237596003.0
+          "volume": 233567367.0
         }
       ],
       "indicators": {
@@ -3738,7 +3738,7 @@
         "rsi14": 27.84668,
         "kd_k": 11.69727,
         "kd_d": 10.87026,
-        "volume_ma20": 149173793.0
+        "volume_ma20": 148972361.2
       },
       "recent_20d_high": 165.0,
       "recent_20d_low": 115.5
@@ -4468,7 +4468,7 @@
           "high": 2380.0,
           "low": 2360.0,
           "close": 2370.0,
-          "volume": 34795531.0
+          "volume": 29664858.0
         }
       ],
       "indicators": {
@@ -4479,7 +4479,7 @@
         "rsi14": 37.91451,
         "kd_k": 22.5766,
         "kd_d": 20.95137,
-        "volume_ma20": 24599040.15
+        "volume_ma20": 24342506.5
       },
       "recent_20d_high": 2590.0,
       "recent_20d_low": 2380.0
@@ -5209,7 +5209,7 @@
           "high": 1395.0,
           "low": 1335.0,
           "close": 1335.0,
-          "volume": 23031167.0
+          "volume": 18334879.0
         }
       ],
       "indicators": {
@@ -5220,7 +5220,7 @@
         "rsi14": 25.98752,
         "kd_k": 8.56012,
         "kd_d": 10.23798,
-        "volume_ma20": 10955535.3
+        "volume_ma20": 10720720.9
       },
       "recent_20d_high": 2115.0,
       "recent_20d_low": 1430.0
@@ -5950,7 +5950,7 @@
           "high": 75.8,
           "low": 74.0,
           "close": 75.8,
-          "volume": 50094971.0
+          "volume": 49930713.0
         }
       ],
       "indicators": {
@@ -5961,7 +5961,7 @@
         "rsi14": 67.67276,
         "kd_k": 75.39192,
         "kd_d": 75.07242,
-        "volume_ma20": 36196203.8
+        "volume_ma20": 36187990.9
       },
       "recent_20d_high": 76.9,
       "recent_20d_low": 67.1
@@ -6691,7 +6691,7 @@
           "high": 920.0,
           "low": 879.0,
           "close": 906.0,
-          "volume": 4375308.0
+          "volume": 4213626.0
         }
       ],
       "indicators": {
@@ -6702,7 +6702,7 @@
         "rsi14": 39.11551,
         "kd_k": 29.77201,
         "kd_d": 37.28877,
-        "volume_ma20": 2419762.5
+        "volume_ma20": 2411678.4
       },
       "recent_20d_high": 1010.0,
       "recent_20d_low": 946.0
@@ -7432,7 +7432,7 @@
           "high": 675.0,
           "low": 624.0,
           "close": 668.0,
-          "volume": 32319897.0
+          "volume": 31515304.0
         }
       ],
       "indicators": {
@@ -7443,7 +7443,7 @@
         "rsi14": 47.52796,
         "kd_k": 43.75166,
         "kd_d": 36.41334,
-        "volume_ma20": 16044209.55
+        "volume_ma20": 16003979.9
       },
       "recent_20d_high": 765.0,
       "recent_20d_low": 639.0
@@ -7452,17 +7452,9 @@
       "code": "006208",
       "ticker": "006208.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
-      "date": "2026-10-30",
-      "bar_count": 165,
+      "date": "2026-11-02",
+      "bar_count": 166,
       "ohlcv": [
-        {
-          "date": "2026-06-18",
-          "open": 247.95,
-          "high": 249.10001,
-          "low": 246.95,
-          "close": 249.10001,
-          "volume": 3689787.0
-        },
         {
           "date": "2026-06-22",
           "open": 253.0,
@@ -8173,21 +8165,29 @@
           "high": 241.7,
           "low": 238.25,
           "close": 240.75,
-          "volume": 8684972.0
+          "volume": 6341902.0
+        },
+        {
+          "date": "2026-11-02",
+          "open": 237.2,
+          "high": 239.5,
+          "low": 236.95,
+          "close": 238.64999,
+          "volume": 6038067.0
         }
       ],
       "indicators": {
-        "ma5": 245.0,
-        "ma20": 253.9525,
-        "ma60": 247.5325,
-        "atr14": 4.32904,
-        "rsi14": 36.0366,
-        "kd_k": 20.47512,
-        "kd_d": 18.51031,
-        "volume_ma20": 3278730.6
+        "ma5": 243.76,
+        "ma20": 253.07,
+        "ma60": 247.62833,
+        "atr14": 4.29125,
+        "rsi14": 33.97263,
+        "kd_k": 17.97577,
+        "kd_d": 18.33213,
+        "volume_ma20": 3369546.6
       },
       "recent_20d_high": 266.64999,
-      "recent_20d_low": 242.95
+      "recent_20d_low": 238.25
     },
     "0056": {
       "code": "0056",
@@ -8914,7 +8914,7 @@
           "high": 56.1,
           "low": 54.95,
           "close": 55.85,
-          "volume": 83802079.0
+          "volume": 78140648.0
         }
       ],
       "indicators": {
@@ -8925,7 +8925,7 @@
         "rsi14": 43.21497,
         "kd_k": 26.55562,
         "kd_d": 31.85271,
-        "volume_ma20": 57871644.25
+        "volume_ma20": 57588572.7
       },
       "recent_20d_high": 59.7,
       "recent_20d_low": 56.05
@@ -8934,17 +8934,9 @@
       "code": "00878",
       "ticker": "00878.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
-      "date": "2026-10-30",
-      "bar_count": 165,
+      "date": "2026-11-02",
+      "bar_count": 166,
       "ohlcv": [
-        {
-          "date": "2026-06-18",
-          "open": 33.45,
-          "high": 33.71,
-          "low": 33.45,
-          "close": 33.67,
-          "volume": 36465735.0
-        },
         {
           "date": "2026-06-22",
           "open": 33.98,
@@ -9655,37 +9647,37 @@
           "high": 34.96,
           "low": 34.4,
           "close": 34.81,
-          "volume": 98425944.0
+          "volume": 93690040.0
+        },
+        {
+          "date": "2026-11-02",
+          "open": 34.79,
+          "high": 34.97,
+          "low": 34.62,
+          "close": 34.8,
+          "volume": 51407359.0
         }
       ],
       "indicators": {
-        "ma5": 35.286,
-        "ma20": 35.1845,
-        "ma60": 34.14717,
-        "atr14": 0.4506,
-        "rsi14": 47.57153,
-        "kd_k": 53.90824,
-        "kd_d": 62.03609,
-        "volume_ma20": 32413368.9
+        "ma5": 35.192,
+        "ma20": 35.1795,
+        "ma60": 34.18433,
+        "atr14": 0.44341,
+        "rsi14": 47.42501,
+        "kd_k": 45.81532,
+        "kd_d": 56.62917,
+        "volume_ma20": 33593943.95
       },
       "recent_20d_high": 35.75,
-      "recent_20d_low": 34.53
+      "recent_20d_low": 34.4
     },
     "00919": {
       "code": "00919",
       "ticker": "00919.TW",
       "source": "Yahoo Finance via yfinance (unofficial; verify against exchange before real orders)",
-      "date": "2026-10-30",
-      "bar_count": 165,
+      "date": "2026-11-02",
+      "bar_count": 166,
       "ohlcv": [
-        {
-          "date": "2026-06-18",
-          "open": 30.52,
-          "high": 30.94,
-          "low": 30.51,
-          "close": 30.81,
-          "volume": 171829701.0
-        },
         {
           "date": "2026-06-22",
           "open": 30.89,
@@ -10396,18 +10388,26 @@
           "high": 32.67,
           "low": 32.16,
           "close": 32.59,
-          "volume": 76511612.0
+          "volume": 73887271.0
+        },
+        {
+          "date": "2026-11-02",
+          "open": 32.49,
+          "high": 32.65,
+          "low": 32.34,
+          "close": 32.48,
+          "volume": 55003695.0
         }
       ],
       "indicators": {
-        "ma5": 32.706,
-        "ma20": 32.246,
-        "ma60": 31.66033,
-        "atr14": 0.40803,
-        "rsi14": 55.5923,
-        "kd_k": 65.70354,
-        "kd_d": 66.28608,
-        "volume_ma20": 68161329.3
+        "ma5": 32.718,
+        "ma20": 32.276,
+        "ma60": 31.71083,
+        "atr14": 0.40103,
+        "rsi14": 53.55104,
+        "kd_k": 58.17548,
+        "kd_d": 63.58255,
+        "volume_ma20": 68087166.95
       },
       "recent_20d_high": 33.1,
       "recent_20d_low": 31.41
@@ -11137,7 +11137,7 @@
           "high": 271.5,
           "low": 259.0,
           "close": 271.5,
-          "volume": 23291706.0
+          "volume": 22660189.0
         }
       ],
       "indicators": {
@@ -11148,7 +11148,7 @@
         "rsi14": 68.19059,
         "kd_k": 70.56584,
         "kd_d": 65.8937,
-        "volume_ma20": 13854199.25
+        "volume_ma20": 13822623.4
       },
       "recent_20d_high": 270.5,
       "recent_20d_low": 231.0
@@ -11878,7 +11878,7 @@
           "high": 42.85,
           "low": 42.15,
           "close": 42.7,
-          "volume": 12682893.0
+          "volume": 12642875.0
         }
       ],
       "indicators": {
@@ -11889,7 +11889,7 @@
         "rsi14": 52.09495,
         "kd_k": 39.40932,
         "kd_d": 41.82248,
-        "volume_ma20": 15229881.95
+        "volume_ma20": 15227881.05
       },
       "recent_20d_high": 44.05,
       "recent_20d_low": 41.4
@@ -12619,7 +12619,7 @@
           "high": 3990.0,
           "low": 3805.0,
           "close": 3915.0,
-          "volume": 12814759.0
+          "volume": 11316412.0
         }
       ],
       "indicators": {
@@ -12630,7 +12630,7 @@
         "rsi14": 36.11281,
         "kd_k": 21.82619,
         "kd_d": 17.09042,
-        "volume_ma20": 7355798.85
+        "volume_ma20": 7280881.5
       },
       "recent_20d_high": 5195.0,
       "recent_20d_low": 3910.0
@@ -13360,7 +13360,7 @@
           "high": 1005.0,
           "low": 959.0,
           "close": 989.0,
-          "volume": 21025755.0
+          "volume": 19735662.0
         }
       ],
       "indicators": {
@@ -13371,7 +13371,7 @@
         "rsi14": 38.5426,
         "kd_k": 16.18162,
         "kd_d": 18.63898,
-        "volume_ma20": 16677670.95
+        "volume_ma20": 16613166.3
       },
       "recent_20d_high": 1420.0,
       "recent_20d_low": 1035.0
@@ -14101,7 +14101,7 @@
           "high": 337.5,
           "low": 328.5,
           "close": 336.0,
-          "volume": 6291912.0
+          "volume": 6186042.0
         }
       ],
       "indicators": {
@@ -14112,7 +14112,7 @@
         "rsi14": 39.31545,
         "kd_k": 32.15843,
         "kd_d": 36.90726,
-        "volume_ma20": 5714996.8
+        "volume_ma20": 5709703.3
       },
       "recent_20d_high": 396.5,
       "recent_20d_low": 341.0
@@ -14842,7 +14842,7 @@
           "high": 36.0,
           "low": 34.6,
           "close": 35.2,
-          "volume": 46929188.0
+          "volume": 46736465.0
         }
       ],
       "indicators": {
@@ -14853,7 +14853,7 @@
         "rsi14": 40.577,
         "kd_k": 40.85255,
         "kd_d": 52.7243,
-        "volume_ma20": 36458621.8
+        "volume_ma20": 36448985.65
       },
       "recent_20d_high": 38.75,
       "recent_20d_low": 35.4
@@ -15583,7 +15583,7 @@
           "high": 116.5,
           "low": 113.0,
           "close": 116.0,
-          "volume": 20374852.0
+          "volume": 20286275.0
         }
       ],
       "indicators": {
@@ -15594,7 +15594,7 @@
         "rsi14": 58.49817,
         "kd_k": 67.20622,
         "kd_d": 59.52311,
-        "volume_ma20": 20840177.9
+        "volume_ma20": 20835749.05
       },
       "recent_20d_high": 118.0,
       "recent_20d_low": 109.0
@@ -16324,7 +16324,7 @@
           "high": 54.9,
           "low": 53.9,
           "close": 54.8,
-          "volume": 13418804.0
+          "volume": 13324783.0
         }
       ],
       "indicators": {
@@ -16335,7 +16335,7 @@
         "rsi14": 66.1991,
         "kd_k": 75.20777,
         "kd_d": 79.7015,
-        "volume_ma20": 21591135.2
+        "volume_ma20": 21586434.15
       },
       "recent_20d_high": 56.0,
       "recent_20d_low": 48.35
@@ -17065,7 +17065,7 @@
           "high": 107.0,
           "low": 105.5,
           "close": 105.5,
-          "volume": 6690093.0
+          "volume": 6625361.0
         }
       ],
       "indicators": {
@@ -17076,7 +17076,7 @@
         "rsi14": 41.4053,
         "kd_k": 24.11742,
         "kd_d": 33.28647,
-        "volume_ma20": 6176251.15
+        "volume_ma20": 6173014.55
       },
       "recent_20d_high": 110.5,
       "recent_20d_low": 105.0
@@ -17806,7 +17806,7 @@
           "high": 72.8,
           "low": 70.3,
           "close": 72.5,
-          "volume": 25149389.0
+          "volume": 24951069.0
         }
       ],
       "indicators": {
@@ -17817,7 +17817,7 @@
         "rsi14": 49.01208,
         "kd_k": 13.83084,
         "kd_d": 22.13908,
-        "volume_ma20": 78406519.75
+        "volume_ma20": 78396603.75
       },
       "recent_20d_high": 89.4,
       "recent_20d_low": 64.6
@@ -18547,7 +18547,7 @@
           "high": 80.2,
           "low": 78.5,
           "close": 80.2,
-          "volume": 15305544.0
+          "volume": 15184894.0
         }
       ],
       "indicators": {
@@ -18558,7 +18558,7 @@
         "rsi14": 64.71092,
         "kd_k": 48.60956,
         "kd_d": 59.13966,
-        "volume_ma20": 13390577.95
+        "volume_ma20": 13384545.45
       },
       "recent_20d_high": 83.0,
       "recent_20d_low": 72.6
@@ -18572,9 +18572,10 @@
     "0056",
     "2882"
   ],
-  "latest_bar_date": "2026-10-30",
+  "latest_bar_date": "2026-11-02",
   "date_counts": {
-    "2026-10-30": 25
+    "2026-10-30": 21,
+    "2026-11-02": 4
   },
   "coverage": {
     "A": 5,
