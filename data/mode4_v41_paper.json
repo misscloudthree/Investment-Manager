@@ -123,6 +123,13 @@
           "position_market_value": 4526.4,
           "equity": 99590.83,
           "mark_basis": "estimated liquidation, incl. fees and slippage"
+        },
+        {
+          "date": "2026-11-09",
+          "cash": 95086.72,
+          "position_market_value": 0.0,
+          "equity": 95086.72,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
       "pending": null,
@@ -175,6 +182,13 @@
           "position_market_value": 0.0,
           "equity": 100000.0,
           "mark_basis": "estimated liquidation, incl. fees and slippage"
+        },
+        {
+          "date": "2026-11-09",
+          "cash": 100000.0,
+          "position_market_value": 0.0,
+          "equity": 100000.0,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
       "pending": null,
@@ -183,24 +197,24 @@
     }
   },
   "ab_waiting_confirmation": {
-    "plan_id": "2026-11-05-2454-MEAN_REVERSION",
-    "symbol": "2454",
+    "plan_id": "2026-11-09-0050-MEAN_REVERSION",
+    "symbol": "0050",
     "strategy": "MEAN_REVERSION",
-    "signal_date": "2026-11-05",
-    "entry_limit": 3460.0,
-    "stop": 3175.429,
-    "target": 3934.286,
+    "signal_date": "2026-11-09",
+    "entry_limit": 97.45,
+    "stop": 93.559,
+    "target": 103.936,
     "max_hold_days": 3,
-    "shares": 1,
-    "estimated_net_loss": -306.87,
-    "estimated_net_win": 448.26,
-    "net_rr": 1.461,
+    "shares": 91,
+    "estimated_net_loss": -396.05,
+    "estimated_net_win": 545.5,
+    "net_rr": 1.377,
     "status": "RESEARCH_PENDING",
     "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively.",
-    "reversal_candle": false,
-    "close_location": 0.038,
-    "signal_high": 3715.0,
-    "signal_low": 3450.0,
+    "reversal_candle": true,
+    "close_location": 0.656,
+    "signal_high": 99.0,
+    "signal_low": 94.5,
     "user_label": "A 積極低接研究 / B 反彈確認研究"
   },
   "ab_started_after_date": "2026-10-28",
