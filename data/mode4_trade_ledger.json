@@ -173,6 +173,23 @@
       "last_decision_review_id": "real-2881-v3-postclose-2026-10-30-1515",
       "time_exit_status": "EXPIRED_NO_CONFIRMED_EXECUTION",
       "next_exit_action": "NEXT_AVAILABLE_TRADING_SESSION_MARKETABLE_ODD_LOT_EXIT_IF_STILL_OPEN"
+    },
+    {
+      "position_id": "real-2454-2026-11-05-001",
+      "symbol": "2454",
+      "asset_type": "TW_stock",
+      "side": "long",
+      "status": "OPEN_USER_REPORTED",
+      "fill_source": "user explicit report; broker confirmation not supplied",
+      "reported_trade_date": "2026-11-05",
+      "exact_fill_time": null,
+      "entry_price": 3517,
+      "shares": 7,
+      "gross_entry_value": 24619,
+      "entry_fees": null,
+      "entry_fees_status": "unknown",
+      "position_context": "Real holding, separate from all PAPER and A/B shadow accounts",
+      "realized_pnl": null
     }
   ],
   "v4": {
@@ -1010,5 +1027,26 @@
       "notes": "Do not backfill A simulated Nov02 buy from external prices, or treat any historical/paper event as REAL. No user confirmation for Oct30/Nov02, no trades booked. OOS/backtest not implemented."
     }
   ],
-  "v4_trade_events": []
+  "v4_trade_events": [
+    {
+      "event_id": "real-2454-2026-11-05-buy-7-at-3517-user",
+      "market_date": "2026-11-05",
+      "source": "user_reported_real",
+      "account": "REAL",
+      "symbol": "2454",
+      "side": "BUY",
+      "shares": 7,
+      "fill_price": 3517,
+      "gross_value": 24619,
+      "fees": null,
+      "fees_status": "unknown_not_reported",
+      "tax": 0,
+      "slippage": null,
+      "filled_at": null,
+      "evidence": "User reported buying 7 shares of 2454 at TWD 3517, subsequently confirmed trade date 2026-11-05 in chat on 2026-11-11; no broker statement or exact time supplied",
+      "linked_plan_id": null,
+      "timestamp": "2026-11-11T10:32:00+08:00",
+      "status": "USER_REPORTED_REAL_FILL"
+    }
+  ]
 }
