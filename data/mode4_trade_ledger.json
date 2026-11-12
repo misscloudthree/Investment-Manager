@@ -201,6 +201,23 @@
       "exit_event_id": "real-2454-2026-11-12-sell-7-at-4075-user",
       "exit_fees": null,
       "exit_tax": null
+    },
+    {
+      "position_id": "real-2881-2026-11-12-002",
+      "symbol": "2881",
+      "asset_type": "TW_stock",
+      "side": "long",
+      "status": "OPEN_USER_REPORTED",
+      "fill_source": "user explicit report; no broker statement/time provided",
+      "reported_trade_date": "2026-11-12",
+      "exact_fill_time": null,
+      "entry_price": 156.5,
+      "shares": 50,
+      "gross_entry_value": 7825,
+      "entry_fees": null,
+      "entry_fees_status": "unknown",
+      "position_context": "Additional REAL lot; aggregate 2881 position 150 shares, total gross cost 23925, weighted average 159.5. Earlier lot exit references require reassessment.",
+      "realized_pnl": null
     }
   ],
   "v4": {
@@ -1079,6 +1096,26 @@
       "linked_plan_id": null,
       "linked_buy_event_id": "real-2454-2026-11-05-buy-7-at-3517-user",
       "timestamp": "2026-11-12T09:34:00+08:00",
+      "status": "USER_REPORTED_REAL_FILL"
+    },
+    {
+      "event_id": "real-2881-2026-11-12-buy-50-at-156.5-user",
+      "market_date": "2026-11-12",
+      "source": "user_reported_real",
+      "account": "REAL",
+      "symbol": "2881",
+      "side": "BUY",
+      "shares": 50,
+      "fill_price": 156.5,
+      "gross_value": 7825,
+      "fees": null,
+      "fees_status": "unknown_not_reported",
+      "tax": 0,
+      "slippage": null,
+      "filled_at": null,
+      "evidence": "User reported 2881 additional purchase of 50 shares at TWD 156.5 on 2026-11-12; exact time and brokerage fees not supplied",
+      "linked_plan_id": null,
+      "timestamp": null,
       "status": "USER_REPORTED_REAL_FILL"
     }
   ]
