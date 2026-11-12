@@ -179,7 +179,7 @@
       "symbol": "2454",
       "asset_type": "TW_stock",
       "side": "long",
-      "status": "OPEN_USER_REPORTED",
+      "status": "CLOSED_USER_REPORTED",
       "fill_source": "user explicit report; broker confirmation not supplied",
       "reported_trade_date": "2026-11-05",
       "exact_fill_time": null,
@@ -189,7 +189,18 @@
       "entry_fees": null,
       "entry_fees_status": "unknown",
       "position_context": "Real holding, separate from all PAPER and A/B shadow accounts",
-      "realized_pnl": null
+      "realized_pnl": null,
+      "exit_trade_date": "2026-11-12",
+      "exit_price": 4075,
+      "exit_shares": 7,
+      "gross_exit_value": 28525,
+      "realized_gross_pnl": 3906,
+      "realized_gross_return_pct": 15.8666,
+      "realized_net_pnl": null,
+      "realized_net_pnl_status": "PENDING_ACTUAL_FEES_AND_TAX",
+      "exit_event_id": "real-2454-2026-11-12-sell-7-at-4075-user",
+      "exit_fees": null,
+      "exit_tax": null
     }
   ],
   "v4": {
@@ -1046,6 +1057,28 @@
       "evidence": "User reported buying 7 shares of 2454 at TWD 3517, subsequently confirmed trade date 2026-11-05 in chat on 2026-11-11; no broker statement or exact time supplied",
       "linked_plan_id": null,
       "timestamp": "2026-11-11T10:32:00+08:00",
+      "status": "USER_REPORTED_REAL_FILL"
+    },
+    {
+      "event_id": "real-2454-2026-11-12-sell-7-at-4075-user",
+      "market_date": "2026-11-12",
+      "source": "user_reported_real",
+      "account": "REAL",
+      "symbol": "2454",
+      "side": "SELL",
+      "shares": 7,
+      "fill_price": 4075,
+      "gross_value": 28525,
+      "fees": null,
+      "fees_status": "unknown_not_reported",
+      "tax": null,
+      "tax_status": "actual_not_reported",
+      "slippage": null,
+      "filled_at": null,
+      "evidence": "User explicitly reported selling all 7 shares of 2454 at TWD 4075 and confirmed sale date as today 2026-11-12; actual fees/tax and execution time not supplied",
+      "linked_plan_id": null,
+      "linked_buy_event_id": "real-2454-2026-11-05-buy-7-at-3517-user",
+      "timestamp": "2026-11-12T09:34:00+08:00",
       "status": "USER_REPORTED_REAL_FILL"
     }
   ]
