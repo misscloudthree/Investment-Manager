@@ -39,7 +39,7 @@
         "entry_date": "2026-11-17",
         "entry_price": 94.5973,
         "entry_debit": 7199.6377848825,
-        "days_held": 0,
+        "days_held": 1,
         "stop": 91.68,
         "target": 103.06,
         "max_hold_days": 3
@@ -189,6 +189,13 @@
           "position_market_value": 7144.0,
           "equity": 99633.32,
           "mark_basis": "estimated liquidation, incl. fees and slippage"
+        },
+        {
+          "date": "2026-11-18",
+          "cash": 92510.21,
+          "position_market_value": 7151.6,
+          "equity": 99640.9,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
       "pending": null,
@@ -283,6 +290,13 @@
           "position_market_value": 0.0,
           "equity": 100000.0,
           "mark_basis": "estimated liquidation, incl. fees and slippage"
+        },
+        {
+          "date": "2026-11-18",
+          "cash": 100000.0,
+          "position_market_value": 0.0,
+          "equity": 100000.0,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
       "pending": null,
@@ -291,24 +305,24 @@
     }
   },
   "ab_waiting_confirmation": {
-    "plan_id": "2026-11-17-2308-MEAN_REVERSION",
-    "symbol": "2308",
+    "plan_id": "2026-11-18-3037-MEAN_REVERSION",
+    "symbol": "3037",
     "strategy": "MEAN_REVERSION",
-    "signal_date": "2026-11-17",
-    "entry_limit": 1055.0,
-    "stop": 925.571,
-    "target": 1270.714,
+    "signal_date": "2026-11-18",
+    "entry_limit": 662.0,
+    "stop": 565.486,
+    "target": 822.857,
     "max_hold_days": 3,
-    "shares": 2,
-    "estimated_net_loss": -272.03,
-    "estimated_net_win": 414.85,
-    "net_rr": 1.525,
+    "shares": 3,
+    "estimated_net_loss": -301.72,
+    "estimated_net_win": 466.59,
+    "net_rr": 1.546,
     "status": "RESEARCH_PENDING",
     "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively.",
-    "reversal_candle": false,
-    "close_location": 0.375,
-    "signal_high": 1105.0,
-    "signal_low": 1025.0,
+    "reversal_candle": true,
+    "close_location": 0.655,
+    "signal_high": 691.0,
+    "signal_low": 607.0,
     "user_label": "A 積極低接研究 / B 反彈確認研究"
   },
   "ab_started_after_date": "2026-10-28",
