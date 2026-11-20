@@ -29,21 +29,8 @@
   },
   "ab_shadow_accounts": {
     "A": {
-      "cash": 92510.2084140594,
-      "position": {
-        "version": "A",
-        "symbol": "0050",
-        "pair_id": "2026-11-16-0050-MEAN_REVERSION",
-        "plan_id": "2026-11-16-0050-MEAN_REVERSION-A",
-        "shares": 76,
-        "entry_date": "2026-11-17",
-        "entry_price": 94.5973,
-        "entry_debit": 7199.6377848825,
-        "days_held": 1,
-        "stop": 91.68,
-        "target": 103.06,
-        "max_hold_days": 3
-      },
+      "cash": 99457.5163983714,
+      "position": null,
       "events": [
         {
           "event_id": "2026-11-02-0050-MEAN_REVERSION-A-2026-11-03-MODELED_BUY",
@@ -103,6 +90,19 @@
           "shares": 76,
           "price": 94.5973,
           "evidence": "Modeled next-session OPEN fill with slippage; not brokerage"
+        },
+        {
+          "event_id": "2026-11-16-0050-MEAN_REVERSION-A-2026-11-19-MODELED_SELL",
+          "date": "2026-11-19",
+          "type": "MODELED_SELL",
+          "account": "PAPER_SHADOW_A",
+          "symbol": "0050",
+          "pair_id": "2026-11-16-0050-MEAN_REVERSION",
+          "shares": 76,
+          "price": 91.6342,
+          "reason": "STOP_OR_ENTRY_DAY_STOP",
+          "pnl": -252.33,
+          "evidence": "Conservative daily-OHLC modeled exit; not brokerage"
         }
       ],
       "daily_equity": [
@@ -196,11 +196,37 @@
           "position_market_value": 7151.6,
           "equity": 99640.9,
           "mark_basis": "estimated liquidation, incl. fees and slippage"
+        },
+        {
+          "date": "2026-11-19",
+          "cash": 99457.52,
+          "position_market_value": 0.0,
+          "equity": 99457.52,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
-      "pending": null,
+      "pending": {
+        "plan_id": "2026-11-19-2382-MEAN_REVERSION-A",
+        "pair_id": "2026-11-19-2382-MEAN_REVERSION",
+        "version": "A",
+        "symbol": "2382",
+        "strategy": "MEAN_REVERSION",
+        "signal_date": "2026-11-19",
+        "ready_date": "2026-11-19",
+        "entry_limit": 262.5,
+        "stop": 246.5,
+        "target": 288.0,
+        "shares": 22,
+        "max_hold_days": 3,
+        "estimated_net_loss": -389.82,
+        "estimated_net_win": 518.69,
+        "net_rr": 1.331,
+        "status": "RESEARCH_BUY_CANDIDATE",
+        "source": "EOD completed OHLCV, unverified historical edge",
+        "execution_rule": "Fill modeled only at next eligible session OPEN <= limit and OPEN > stop. No OHLC high-touch assumed filled."
+      },
       "unfilled_count": 3,
-      "realized_pnl": -290.15
+      "realized_pnl": -542.48
     },
     "B": {
       "cash": 100000.0,
@@ -297,6 +323,13 @@
           "position_market_value": 0.0,
           "equity": 100000.0,
           "mark_basis": "estimated liquidation, incl. fees and slippage"
+        },
+        {
+          "date": "2026-11-19",
+          "cash": 100000.0,
+          "position_market_value": 0.0,
+          "equity": 100000.0,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
       "pending": null,
@@ -305,24 +338,24 @@
     }
   },
   "ab_waiting_confirmation": {
-    "plan_id": "2026-11-18-3037-MEAN_REVERSION",
-    "symbol": "3037",
+    "plan_id": "2026-11-19-2382-MEAN_REVERSION",
+    "symbol": "2382",
     "strategy": "MEAN_REVERSION",
-    "signal_date": "2026-11-18",
-    "entry_limit": 662.0,
-    "stop": 565.486,
-    "target": 822.857,
+    "signal_date": "2026-11-19",
+    "entry_limit": 262.5,
+    "stop": 246.986,
+    "target": 288.357,
     "max_hold_days": 3,
-    "shares": 3,
-    "estimated_net_loss": -301.72,
-    "estimated_net_win": 466.59,
-    "net_rr": 1.546,
+    "shares": 23,
+    "estimated_net_loss": -396.41,
+    "estimated_net_win": 550.44,
+    "net_rr": 1.389,
     "status": "RESEARCH_PENDING",
     "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively.",
     "reversal_candle": true,
-    "close_location": 0.655,
-    "signal_high": 691.0,
-    "signal_low": 607.0,
+    "close_location": 0.556,
+    "signal_high": 266.5,
+    "signal_low": 257.5,
     "user_label": "A 積極低接研究 / B 反彈確認研究"
   },
   "ab_started_after_date": "2026-10-28",
