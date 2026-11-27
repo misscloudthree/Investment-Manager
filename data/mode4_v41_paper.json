@@ -39,7 +39,7 @@
         "entry_date": "2026-11-25",
         "entry_price": 570.285,
         "entry_debit": 2284.3906245,
-        "days_held": 0,
+        "days_held": 1,
         "stop": 524.0,
         "target": 760.0,
         "max_hold_days": 3
@@ -248,6 +248,13 @@
           "position_market_value": 2340.0,
           "equity": 99501.61,
           "mark_basis": "estimated liquidation, incl. fees and slippage"
+        },
+        {
+          "date": "2026-11-26",
+          "cash": 97173.13,
+          "position_market_value": 2572.0,
+          "equity": 99732.46,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
       "pending": null,
@@ -377,34 +384,40 @@
           "position_market_value": 0.0,
           "equity": 100000.0,
           "mark_basis": "estimated liquidation, incl. fees and slippage"
+        },
+        {
+          "date": "2026-11-26",
+          "cash": 100000.0,
+          "position_market_value": 0.0,
+          "equity": 100000.0,
+          "mark_basis": "estimated liquidation, incl. fees and slippage"
         }
       ],
-      "pending": null,
+      "pending": {
+        "plan_id": "2026-11-25-3037-MEAN_REVERSION-B",
+        "pair_id": "2026-11-25-3037-MEAN_REVERSION",
+        "version": "B",
+        "symbol": "3037",
+        "strategy": "MEAN_REVERSION",
+        "signal_date": "2026-11-25",
+        "ready_date": "2026-11-26",
+        "entry_limit": 643.0,
+        "stop": 496.5,
+        "target": 732.0,
+        "shares": 2,
+        "max_hold_days": 3,
+        "estimated_net_loss": -300.36,
+        "estimated_net_win": 168.32,
+        "net_rr": 0.56,
+        "status": "CONFIRMED_RESEARCH_CANDIDATE",
+        "source": "EOD completed OHLCV, unverified historical edge",
+        "execution_rule": "Fill modeled only at next eligible session OPEN <= limit and OPEN > stop. No OHLC high-touch assumed filled."
+      },
       "unfilled_count": 1,
       "realized_pnl": 0.0
     }
   },
-  "ab_waiting_confirmation": {
-    "plan_id": "2026-11-25-3037-MEAN_REVERSION",
-    "symbol": "3037",
-    "strategy": "MEAN_REVERSION",
-    "signal_date": "2026-11-25",
-    "entry_limit": 585.0,
-    "stop": 496.757,
-    "target": 732.071,
-    "max_hold_days": 3,
-    "shares": 4,
-    "estimated_net_loss": -367.26,
-    "estimated_net_win": 569.36,
-    "net_rr": 1.55,
-    "status": "RESEARCH_PENDING",
-    "execution_rule": "Next session open <= limit AND open > stop; fill at min(open, limit) with adverse slippage; otherwise unfilled; ambiguous daily bar treated conservatively.",
-    "reversal_candle": false,
-    "close_location": 0.353,
-    "signal_high": 640.0,
-    "signal_low": 555.0,
-    "user_label": "A 積極低接研究 / B 反彈確認研究"
-  },
+  "ab_waiting_confirmation": null,
   "ab_started_after_date": "2026-10-28",
   "ab_enabled": true
 }
